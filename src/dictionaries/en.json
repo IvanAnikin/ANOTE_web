@@ -16,7 +16,10 @@
     "contact": "Contact",
     "tryDemo": "Try Demo",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "reportTypes": "Report Types",
+    "demo": "Demo",
+    "faq": "FAQ"
   },
   "hero": {
     "headingLine1": "Medical reports",
@@ -251,7 +254,41 @@
     "successTitle": "Thank you!",
     "successMessage": "We'll get back to you within 24 hours.",
     "altContact": "Or contact us directly:",
-    "phone": "+420 XXX XXX XXX"
+    "phone": "+420 XXX XXX XXX",
+    "ctaOnlyHeading": "Ready to streamline your documentation?",
+    "ctaOnlySubheading": "Join doctors saving hours every day.",
+    "ctaOnlyButton": "Contact Us"
+  },
+  "trustStrip": {
+    "heading": "Security First",
+    "points": [
+      "End-to-end encryption",
+      "On-device transcription",
+      "EU data residency",
+      "Zero retention"
+    ],
+    "link": "More about security"
+  },
+  "pricingPage": {
+    "title": "Pricing — ANOTE",
+    "description": "Transparent pricing with no subscriptions. You only pay for what you use.",
+    "subtitle": "Transparent pricing with no hidden fees"
+  },
+  "reportTypesPage": {
+    "title": "Report Types — ANOTE",
+    "description": "See what structured medical reports ANOTE generates from voice recordings.",
+    "subtitle": "See what ANOTE can create from a conversation"
+  },
+  "faqPage": {
+    "title": "FAQ — ANOTE",
+    "description": "Frequently asked questions about the ANOTE medical documentation app."
+  },
+  "demoPage": {
+    "title": "Demo — ANOTE",
+    "description": "Try ANOTE — AI assistant for medical documentation.",
+    "comingSoon": "Coming Soon",
+    "descriptionText": "We're building an interactive demo where you can try how ANOTE transcribes a conversation and generates a medical report — right in your browser.",
+    "cta": "I want early access"
   },
   "footer": {
     "tagline": "Medical reports from voice. In seconds.",
@@ -260,12 +297,13 @@
     "legal": "Legal",
     "productLinks": {
       "howItWorks": "How It Works",
-      "features": "Features",
-      "pricing": "Pricing"
+      "reportTypes": "Report Types",
+      "pricing": "Pricing",
+      "demo": "Demo"
     },
     "supportLinks": {
-      "contact": "Contact",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "contact": "Contact"
     },
     "legalLinks": {
       "terms": "Terms of Service",

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -16,11 +18,30 @@ export function Navbar({
   dict: Dictionary;
 }) {
   const t = dict.nav;
+  const prefix = lang === "cs" ? "" : "/en";
+  const pathname = usePathname();
+
+  // Localized slugs for EN
+  const reportTypesHref =
+    lang === "cs" ? `${prefix}/typy-zprav` : "/en/report-types";
+  const pricingHref = lang === "cs" ? `${prefix}/cenik` : "/en/pricing";
+  const kontaktHref = lang === "cs" ? `${prefix}/kontakt` : "/en/contact";
+  const demoHref = `${prefix}/demo`;
+  const faqHref = `${prefix}/faq`;
+
+  // "Jak to funguje" — anchor on homepage, navigate+hash on other pages
+  const isHomepage = pathname === "/" || pathname === "/en" || pathname === "/cs";
+  const howItWorksHref = isHomepage
+    ? "#how-it-works"
+    : `${prefix || "/"}#how-it-works`;
+
   const navLinks = [
-    { label: t.howItWorks, href: "#how-it-works" },
-    { label: t.features, href: "#features" },
-    { label: t.pricing, href: "#pricing" },
-    { label: t.contact, href: "#cta-bottom" },
+    { label: t.howItWorks, href: howItWorksHref },
+    { label: t.reportTypes, href: reportTypesHref },
+    { label: t.pricing, href: pricingHref },
+    { label: t.demo, href: demoHref },
+    { label: t.faq, href: faqHref },
+    { label: t.contact, href: kontaktHref },
   ];
 
   const [scrolled, setScrolled] = useState(false);
@@ -54,43 +75,58 @@ export function Navbar({
     >
       <nav className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href={lang === "cs" ? "/" : "/en"} className="text-2xl font-extrabold text-text-primary tracking-tight">
+        <Link href={lang === "cs" ? "/" : "/en"} className="text-2xl font-extrabold text-text-primary tracking-tight">
           AN<span className="text-primary">O</span>TE
-        </a>
+        </Link>
 
         {/* Desktop nav links */}
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isAnchor = link.href.startsWith("#");
+            if (isAnchor) {
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
+                  >
+                    {link.label}
+                    <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                  </a>
+                </li>
+              );
+            }
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Desktop CTA + Language toggle */}
         <div className="hidden md:flex items-center gap-3">
-          <a
+          <Link
             href={localePrefix}
             onClick={() => trackEvent("language_toggle", { to: otherLocale })}
             className="text-xs font-semibold px-2.5 py-1 rounded-full border border-border text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors"
           >
             {otherLocale.toUpperCase()}
-          </a>
-          <Button
-            size="default"
-            onClick={() => {
-              trackEvent("cta_click_nav");
-              document.getElementById("cta-bottom")?.scrollIntoView({ behavior: "smooth" });
-            }}
-          >
-            {t.tryDemo}
-          </Button>
+          </Link>
+          <Link href={demoHref}>
+            <Button
+              size="default"
+              onClick={() => trackEvent("cta_click_nav")}
+            >
+              {t.tryDemo}
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -111,37 +147,51 @@ export function Navbar({
         )}
       >
         <ul className="flex flex-col items-center gap-6 pt-12">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-lg font-semibold text-text-primary"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const isAnchor = link.href.startsWith("#");
+            if (isAnchor) {
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-lg font-semibold text-text-primary"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            }
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-lg font-semibold text-text-primary"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
           <li>
-            <a
+            <Link
               href={localePrefix}
               onClick={() => trackEvent("language_toggle", { to: otherLocale })}
               className="text-sm font-semibold px-3 py-1.5 rounded-full border border-border text-text-secondary"
             >
               {otherLocale.toUpperCase()}
-            </a>
+            </Link>
           </li>
           <li className="pt-4">
-            <Button
-              size="lg"
-              onClick={() => {
-                trackEvent("cta_click_nav");
-                setMobileOpen(false);
-                document.getElementById("cta-bottom")?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              {t.tryDemo}
-            </Button>
+            <Link href={demoHref} onClick={() => setMobileOpen(false)}>
+              <Button
+                size="lg"
+                onClick={() => trackEvent("cta_click_nav")}
+              >
+                {t.tryDemo}
+              </Button>
+            </Link>
           </li>
         </ul>
       </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Mail, Globe } from "lucide-react";
 import type { Dictionary } from "@/lib/dictionary-types";
 import type { Locale } from "@/lib/i18n";
@@ -11,23 +12,37 @@ export function Footer({
 }) {
   const t = dict.footer;
   const prefix = lang === "cs" ? "" : "/en";
+  const homeHref = lang === "cs" ? "/" : "/en";
+
+  // Localized slugs
+  const reportTypesHref =
+    lang === "cs" ? `${prefix}/typy-zprav` : "/en/report-types";
+  const pricingHref = lang === "cs" ? `${prefix}/cenik` : "/en/pricing";
+  const kontaktHref = lang === "cs" ? `${prefix}/kontakt` : "/en/contact";
+  const demoHref = `${prefix}/demo`;
+  const faqHref = `${prefix}/faq`;
+  const termsHref = lang === "cs" ? `${prefix}/podminky` : "/en/terms";
+  const privacyHref =
+    lang === "cs" ? `${prefix}/ochrana-soukromi` : "/en/privacy";
+  const impressumHref = `${prefix}/impressum`;
 
   const productLinks = [
-    { label: t.productLinks.howItWorks, href: "#how-it-works" },
-    { label: t.productLinks.features, href: "#features" },
-    { label: t.productLinks.pricing, href: "#pricing" },
+    { label: t.productLinks.howItWorks, href: `${homeHref}#how-it-works` },
+    { label: t.productLinks.reportTypes, href: reportTypesHref },
+    { label: t.productLinks.pricing, href: pricingHref },
+    { label: t.productLinks.demo, href: demoHref },
   ];
 
   const supportLinks = [
-    { label: t.supportLinks.contact, href: "#cta-bottom" },
-    { label: t.supportLinks.faq, href: "#faq" },
+    { label: t.supportLinks.faq, href: faqHref },
+    { label: t.supportLinks.contact, href: kontaktHref },
     { label: "info@anote.cz", href: "mailto:info@anote.cz" },
   ];
 
   const legalLinks = [
-    { label: t.legalLinks.terms, href: `${prefix}/podminky` },
-    { label: t.legalLinks.privacy, href: `${prefix}/ochrana-soukromi` },
-    { label: t.legalLinks.impressum, href: `${prefix}/impressum` },
+    { label: t.legalLinks.terms, href: termsHref },
+    { label: t.legalLinks.privacy, href: privacyHref },
+    { label: t.legalLinks.impressum, href: impressumHref },
   ];
 
   return (
@@ -36,9 +51,9 @@ export function Footer({
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <a href={lang === "cs" ? "/" : "/en"} className="text-2xl font-extrabold text-white tracking-tight">
+            <Link href={lang === "cs" ? "/" : "/en"} className="text-2xl font-extrabold text-white tracking-tight">
               AN<span className="text-primary">O</span>TE
-            </a>
+            </Link>
             <p className="mt-3 text-sm leading-relaxed text-white/60">
               {t.tagline}
             </p>
@@ -68,9 +83,9 @@ export function Footer({
             <ul className="mt-4 flex flex-col gap-3">
               {productLinks.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                  <Link href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -82,13 +97,21 @@ export function Footer({
               {t.support}
             </h4>
             <ul className="mt-4 flex flex-col gap-3">
-              {supportLinks.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
+              {supportLinks.map((l) =>
+                l.href.startsWith("mailto:") ? (
+                  <li key={l.href}>
+                    <a href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                      {l.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={l.href}>
+                    <Link href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                      {l.label}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
@@ -100,9 +123,9 @@ export function Footer({
             <ul className="mt-4 flex flex-col gap-3">
               {legalLinks.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                  <Link href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

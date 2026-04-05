@@ -253,9 +253,9 @@ Update `sitemap.ts` to include all new routes with dual-locale alternates.
 
 ### Step 1: Route Infrastructure
 
-- [ ] Extend `proxy.ts` to handle EN slug → CS slug mapping for new pages
-- [ ] Update `src/lib/i18n.ts` with route slug mappings if needed
-- [ ] Create page directories under `src/app/[lang]/`:
+- [x] Extend `proxy.ts` to handle EN slug → CS slug mapping for new pages
+- [x] Update `src/lib/i18n.ts` with route slug mappings if needed
+- [x] Create page directories under `src/app/[lang]/`:
   - `cenik/page.tsx`
   - `typy-zprav/page.tsx`
   - `faq/page.tsx`
@@ -263,45 +263,45 @@ Update `sitemap.ts` to include all new routes with dual-locale alternates.
 
 ### Step 2: New Shared Components
 
-- [ ] Create `src/components/layout/PageHeader.tsx`
-- [ ] Create `src/components/sections/TrustStrip.tsx` (compact privacy strip)
+- [x] Create `src/components/layout/PageHeader.tsx`
+- [x] Create `src/components/sections/TrustStrip.tsx` (compact privacy strip)
 
 ### Step 3: Dictionary Updates
 
-- [ ] Add new keys to `src/dictionaries/cs.json`
-- [ ] Add new keys to `src/dictionaries/en.json`
-- [ ] Update `src/lib/dictionary-types.ts` if needed (auto-inferred from JSON)
-- [ ] Update existing nav/footer/hero/bottomCta keys
+- [x] Add new keys to `src/dictionaries/cs.json`
+- [x] Add new keys to `src/dictionaries/en.json`
+- [x] Update `src/lib/dictionary-types.ts` if needed (auto-inferred from JSON)
+- [x] Update existing nav/footer/hero/bottomCta keys
 
 ### Step 4: Build New Pages
 
-- [ ] `/cenik` — Pricing page with `PageHeader` + `Pricing` + pricing FAQ + CTA
-- [ ] `/typy-zprav` — Report Types page with `PageHeader` + `ReportShowcase` + `VisitTypes` + `Privacy` + CTA
-- [ ] `/faq` — FAQ page with `PageHeader` + `FAQ` + CTA
-- [ ] `/demo` — Placeholder page with `PageHeader` + coming soon content + CTA
+- [x] `/cenik` — Pricing page with `PageHeader` + `Pricing` + pricing FAQ + CTA
+- [x] `/typy-zprav` — Report Types page with `PageHeader` + `ReportShowcase` + `VisitTypes` + `Privacy` + CTA
+- [x] `/faq` — FAQ page with `PageHeader` + `FAQ` + CTA
+- [x] `/demo` — Placeholder page with `PageHeader` + coming soon content + CTA
 
 ### Step 5: Update Homepage
 
-- [ ] Remove sections moved to other pages (ReportShowcase, VisitTypes, Privacy, Pricing, FAQ)
-- [ ] Add `TrustStrip` section
-- [ ] Simplify `BottomCTA` — heading + CTA button only (no inline form)
-- [ ] Update Hero CTA targets (secondary → `/demo`)
+- [x] Remove sections moved to other pages (ReportShowcase, VisitTypes, Privacy, Pricing, FAQ)
+- [x] Add `TrustStrip` section
+- [x] Simplify `BottomCTA` — heading + CTA button only (no inline form)
+- [x] Update Hero CTA targets (secondary → `/demo`)
 
 ### Step 6: Update Navigation
 
-- [ ] Rewrite `Navbar.tsx` — replace anchor links with page links, update mobile drawer
-- [ ] Update `Footer.tsx` — replace anchor links with page links
-- [ ] Handle "Jak to funguje" anchor: scroll on homepage, navigate+hash on other pages
+- [x] Rewrite `Navbar.tsx` — replace anchor links with page links, update mobile drawer
+- [x] Update `Footer.tsx` — replace anchor links with page links
+- [x] Handle "Jak to funguje" anchor: scroll on homepage, navigate+hash on other pages
 
 ### Step 7: Update Existing Pages
 
-- [ ] Extend EN slug support for existing pages (`/en/contact`, `/en/terms`, `/en/privacy`)
-- [ ] Update `sitemap.ts` with all new routes + alternates
-- [ ] Update `generateMetadata` on all new pages
+- [x] Extend EN slug support for existing pages (`/en/contact`, `/en/terms`, `/en/privacy`)
+- [x] Update `sitemap.ts` with all new routes + alternates
+- [x] Update `generateMetadata` on all new pages
 
 ### Step 8: Verify & Ship
 
-- [ ] Run `npm run build` — all routes generate successfully
+- [x] Run `npm run build` — all routes generate successfully
 - [ ] Test navigation between all pages in both locales
 - [ ] Test anchor scrolling ("Jak to funguje") from homepage and other pages
 - [ ] Verify analytics events still fire correctly

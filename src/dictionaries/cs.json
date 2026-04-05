@@ -16,7 +16,10 @@
     "contact": "Kontakt",
     "tryDemo": "Vyzkoušet demo",
     "openMenu": "Otevřít menu",
-    "closeMenu": "Zavřít menu"
+    "closeMenu": "Zavřít menu",
+    "reportTypes": "Typy zpráv",
+    "demo": "Demo",
+    "faq": "FAQ"
   },
   "hero": {
     "headingLine1": "Lékařské zprávy",
@@ -251,7 +254,41 @@
     "successTitle": "Děkujeme!",
     "successMessage": "Ozveme se vám do 24 hodin.",
     "altContact": "Nebo nás kontaktujte přímo:",
-    "phone": "+420 XXX XXX XXX"
+    "phone": "+420 XXX XXX XXX",
+    "ctaOnlyHeading": "Připraveni zefektivnit dokumentaci?",
+    "ctaOnlySubheading": "Přidejte se k lékařům, kteří šetří hodiny denně.",
+    "ctaOnlyButton": "Kontaktujte nás"
+  },
+  "trustStrip": {
+    "heading": "Bezpečnost na prvním místě",
+    "points": [
+      "Šifrování end-to-end",
+      "On-device přepis",
+      "Data v EU",
+      "Zero retention"
+    ],
+    "link": "Více o bezpečnosti"
+  },
+  "pricingPage": {
+    "title": "Ceník — ANOTE",
+    "description": "Transparentní ceník bez předplatného. Platíte jen za to, co používáte.",
+    "subtitle": "Transparentní ceny bez skrytých poplatků"
+  },
+  "reportTypesPage": {
+    "title": "Typy zpráv — ANOTE",
+    "description": "Podívejte se, jaké strukturované lékařské zprávy ANOTE generuje z hlasového záznamu.",
+    "subtitle": "Podívejte se, co ANOTE dokáže vytvořit z konverzace"
+  },
+  "faqPage": {
+    "title": "FAQ — ANOTE",
+    "description": "Často kladené otázky o aplikaci ANOTE pro lékařskou dokumentaci."
+  },
+  "demoPage": {
+    "title": "Demo — ANOTE",
+    "description": "Vyzkoušejte ANOTE — AI asistenta pro lékařskou dokumentaci.",
+    "comingSoon": "Připravujeme",
+    "descriptionText": "Pracujeme na interaktivním demu, kde si budete moci vyzkoušet, jak ANOTE přepisuje konverzaci a generuje lékařskou zprávu — přímo v prohlížeči.",
+    "cta": "Chci early access"
   },
   "footer": {
     "tagline": "Lékařské zprávy z hlasu. Za sekundy.",
@@ -260,12 +297,13 @@
     "legal": "Právní",
     "productLinks": {
       "howItWorks": "Jak to funguje",
-      "features": "Funkce",
-      "pricing": "Ceník"
+      "reportTypes": "Typy zpráv",
+      "pricing": "Ceník",
+      "demo": "Demo"
     },
     "supportLinks": {
-      "contact": "Kontakt",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "contact": "Kontakt"
     },
     "legalLinks": {
       "terms": "Podmínky služby",

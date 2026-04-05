@@ -4,6 +4,15 @@ import type { NextRequest } from "next/server";
 const locales = ["cs", "en"];
 const defaultLocale = "cs";
 
+// EN slug → CS slug mapping for localized routes
+const enSlugMap: Record<string, string> = {
+  pricing: "cenik",
+  "report-types": "typy-zprav",
+  contact: "kontakt",
+  terms: "podminky",
+  privacy: "ochrana-soukromi",
+};
+
 function getLocale(request: NextRequest): string {
   const acceptLanguage = request.headers.get("accept-language") ?? "";
   // Simple matching: check if English is preferred
@@ -32,6 +41,18 @@ export function proxy(request: NextRequest) {
     (locale) =>
       pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
+
+  // Map EN slugs to CS slugs (filesystem uses CS slugs)
+  if (pathname.startsWith("/en/")) {
+    const rest = pathname.slice(4); // remove "/en/"
+    const segments = rest.split("/");
+    const firstSegment = segments[0];
+    if (firstSegment && enSlugMap[firstSegment]) {
+      segments[0] = enSlugMap[firstSegment];
+      request.nextUrl.pathname = `/en/${segments.join("/")}`;
+      return NextResponse.rewrite(request.nextUrl);
+    }
+  }
 
   if (pathnameHasLocale) return;
 

@@ -10,8 +10,56 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
+import type { Locale } from "@/lib/i18n";
 
-export function BottomCTA({ dict }: { dict: Dictionary }) {
+export function BottomCTA({
+  dict,
+  compact,
+  lang,
+}: {
+  dict: Dictionary;
+  compact?: boolean;
+  lang?: Locale;
+}) {
+  if (compact) {
+    return <CompactCTA dict={dict} lang={lang} />;
+  }
+  return <FullCTA dict={dict} />;
+}
+
+function CompactCTA({ dict, lang }: { dict: Dictionary; lang?: Locale }) {
+  const t = dict.bottomCta;
+  const prefix = lang === "cs" ? "" : "/en";
+  const kontaktSlug = lang === "cs" ? "kontakt" : "contact";
+
+  return (
+    <section className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary-dark relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white/[0.04] rounded-full -translate-y-1/2 translate-x-1/2" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <FadeInOnScroll>
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+              {t.ctaOnlyHeading}
+            </h2>
+            <p className="mt-4 text-lg text-white/70">
+              {t.ctaOnlySubheading}
+            </p>
+            <div className="mt-8">
+              <a
+                href={`${prefix}/${kontaktSlug}`}
+                className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-primary shadow-lg hover:bg-white/90 transition-colors"
+              >
+                {t.ctaOnlyButton}
+              </a>
+            </div>
+          </div>
+        </FadeInOnScroll>
+      </div>
+    </section>
+  );
+}
+
+function FullCTA({ dict }: { dict: Dictionary }) {
   const t = dict.bottomCta;
 
   const contactSchema = z.object({

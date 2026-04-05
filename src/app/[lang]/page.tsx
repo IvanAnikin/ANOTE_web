@@ -16,23 +16,11 @@ const Features = dynamic(() =>
 const DemoVideo = dynamic(() =>
   import("@/components/sections/DemoVideo").then((m) => m.DemoVideo)
 );
-const ReportShowcase = dynamic(() =>
-  import("@/components/sections/ReportShowcase").then((m) => m.ReportShowcase)
-);
-const VisitTypes = dynamic(() =>
-  import("@/components/sections/VisitTypes").then((m) => m.VisitTypes)
-);
-const Privacy = dynamic(() =>
-  import("@/components/sections/Privacy").then((m) => m.Privacy)
-);
-const Pricing = dynamic(() =>
-  import("@/components/sections/Pricing").then((m) => m.Pricing)
-);
 const Testimonials = dynamic(() =>
   import("@/components/sections/Testimonials").then((m) => m.Testimonials)
 );
-const FAQ = dynamic(() =>
-  import("@/components/sections/FAQ").then((m) => m.FAQ)
+const TrustStrip = dynamic(() =>
+  import("@/components/sections/TrustStrip").then((m) => m.TrustStrip)
 );
 const BottomCTA = dynamic(() =>
   import("@/components/sections/BottomCTA").then((m) => m.BottomCTA)
@@ -54,13 +42,9 @@ export default async function Home({
       <HowItWorks dict={dict} />
       <Features dict={dict} />
       <DemoVideo dict={dict} />
-      <ReportShowcase dict={dict} />
-      <VisitTypes dict={dict} />
-      <Privacy dict={dict} />
-      <Pricing dict={dict} />
       <Testimonials dict={dict} />
-      <FAQ dict={dict} />
-      <BottomCTA dict={dict} />
+      <TrustStrip lang={lang as Locale} dict={dict} />
+      <BottomCTA dict={dict} compact lang={lang as Locale} />
     </main>
   );
 }
