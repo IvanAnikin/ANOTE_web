@@ -1,0 +1,341 @@
+{
+  "meta": {
+    "title": "ANOTE — Medical Reports from Voice in Seconds",
+    "titleTemplate": "%s | ANOTE",
+    "description": "Transcribe patient conversations and generate structured medical reports with AI. On-device transcription, GDPR compliant, Czech medical terminology.",
+    "ogTitle": "ANOTE — Medical Reports from Voice",
+    "ogDescription": "AI assistant for medical documentation. On-device transcription, reports in seconds.",
+    "ogImageAlt": "ANOTE — Medical Reports from Voice in Seconds",
+    "twitterDescription": "AI assistant for medical documentation.",
+    "keywords": "medical documentation,dictation,speech recognition,AI reports,GDPR,Czech medicine,medical reports,Whisper,on-device"
+  },
+  "nav": {
+    "howItWorks": "How It Works",
+    "features": "Features",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "tryDemo": "Try Demo",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "headingLine1": "Medical reports",
+    "headingLine2": "from voice in seconds.",
+    "description": "Record. ANOTE transcribes and creates a structured medical report — right on your phone.",
+    "ctaPrimary": "Try for free",
+    "ctaSecondary": "See how it works",
+    "badges": ["GDPR", "EU Data", "iOS & Android", "Works Offline"]
+  },
+  "logoBar": {
+    "label": "Used by doctors across the Czech Republic",
+    "logos": ["FN Motol", "IKEM", "VFN Praha", "FN Olomouc", "Your clinic?"]
+  },
+  "howItWorks": {
+    "heading": "How It Works",
+    "subheading": "Three steps from recording to report",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Record",
+        "description": "Start recording during the examination. ANOTE captures the conversation right on your phone."
+      },
+      {
+        "number": "02",
+        "title": "Transcribe",
+        "description": "Whisper AI transcribes speech to text directly on device — no audio leaves your phone. Transcription updates live."
+      },
+      {
+        "number": "03",
+        "title": "Generate Report",
+        "description": "AI creates a structured medical report with 13 sections following Czech standards. Done in seconds."
+      }
+    ]
+  },
+  "features": {
+    "heading": "Features That Transform Your Practice",
+    "items": [
+      {
+        "title": "Live Real-Time Transcription",
+        "body": "Transcription appears right before you during the examination. Text updates every 5–10 seconds. See what the AI hears — before the patient leaves the office.",
+        "badge": "⚡ Updates every 5s"
+      },
+      {
+        "title": "13 Sections. Czech Terminology. Automatic.",
+        "body": "ANOTE doesn't just transcribe — it creates a complete medical report with history, findings, diagnosis, and therapy. Format follows Czech documentation standards.",
+        "badge": "📋 6 exam types"
+      },
+      {
+        "title": "Patient Voice Never Leaves the Phone",
+        "body": "Whisper AI runs directly on your device. No audio is sent to a server. Only anonymized text is sent for report generation — exclusively within the EU.",
+        "badge": "🔒 GDPR · 🇪🇺 Azure West Europe"
+      },
+      {
+        "title": "Works Without Internet",
+        "body": "Speech-to-text runs locally. In the field, in an office without WiFi, in a hospital with weak signal — ANOTE transcribes always. Mobile data is enough for report generation.",
+        "badge": "📡 3 modes: offline / cloud / hybrid"
+      },
+      {
+        "title": "Right Template for Every Examination",
+        "body": "Outpatient exam, follow-up, gastroscopy, colonoscopy, ultrasound — each exam type has its own report structure. Or let AI detect the type automatically.",
+        "badge": "🤖 Automatic type detection"
+      },
+      {
+        "title": "One Tap. No Retyping.",
+        "body": "Tap record, talk to the patient, tap stop. Copy the report to clipboard or send via email — directly to your EHR system.",
+        "badge": "📧 Email · 📋 Copy to clipboard"
+      }
+    ]
+  },
+  "demoVideo": {
+    "heading": "See How ANOTE Works",
+    "subheading": "2 minutes that save hours of work",
+    "playLabel": "Play video",
+    "placeholder": "Video coming soon",
+    "screenshots": [
+      "Recording conversation",
+      "Live transcription",
+      "Generating report",
+      "Selecting exam type",
+      "Sending via email"
+    ],
+    "cta": "I want to try ANOTE"
+  },
+  "reportShowcase": {
+    "heading": "From Conversation to Report",
+    "transcriptLabel": "Transcript",
+    "speakers": { "doctor": "Doctor", "patient": "Patient" },
+    "dialogue": [
+      { "speaker": "doctor", "text": "Hello, what brings you in today?" },
+      { "speaker": "patient", "text": "Hello, doctor. I've been coughing for about five days, it's getting worse. I also get short of breath walking up stairs." },
+      { "speaker": "doctor", "text": "Do you have a fever?" },
+      { "speaker": "patient", "text": "Yes, 38.2 last night. This morning I measured 37.8." },
+      { "speaker": "doctor", "text": "Do you take any regular medications?" },
+      { "speaker": "patient", "text": "Yes, Prestarium for blood pressure and Metformin for diabetes. Both for about three years." },
+      { "speaker": "doctor", "text": "Are you allergic to anything?" },
+      { "speaker": "patient", "text": "To penicillin — I get a rash." }
+    ],
+    "reportSections": [
+      { "title": "CC — Chief Complaint", "content": "Patient reports 5 days of progressive productive cough. Dyspnea on exertion (walking up stairs). Febrile — 38.2 °C yesterday, 37.8 °C today. No hemoptysis, no chest pain." },
+      { "title": "FH — Family History", "content": "Not stated." },
+      { "title": "PMH — Past Medical History", "content": "Arterial hypertension (3 years). Type 2 diabetes mellitus (3 years)." },
+      { "title": "Medications", "content": "Prestarium (perindopril) — antihypertensive. Metformin — oral antidiabetic. Both for approximately 3 years." },
+      { "title": "Allergies", "content": "Penicillin — skin exanthema (rash)." },
+      { "title": "GYN/URO History", "content": "Not stated." },
+      { "title": "Social History", "content": "Not stated." },
+      { "title": "Adherence", "content": "Patient cooperative, communicates clearly, answers questions." },
+      { "title": "Physical Examination", "content": "Examination performed. Details in clinical record." },
+      { "title": "Assessment", "content": "Suspected acute bronchitis, likely infectious etiology. Differential: community-acquired pneumonia." },
+      { "title": "Proposed Investigations", "content": "Chest X-ray PA. CBC + differential, CRP. O₂ saturation." },
+      { "title": "Proposed Therapy & Instructions", "content": "Amoxicillin + clavulanic acid (consider alternative — clarithromycin given penicillin allergy). Antipyretics as needed. Follow-up in 5 days or sooner if worsening." }
+    ],
+    "timer": "seconds",
+    "arrowLabel": "AI processing"
+  },
+  "visitTypes": {
+    "heading": "Exam Types",
+    "subheading": "Each exam type has its own report structure",
+    "types": [
+      { "name": "Outpatient Exam", "sections": ["CC, FH, PMH, Meds, Allergies", "GYN/URO, Social, Adherence", "Physical Exam", "Assessment, Therapy"] },
+      { "name": "Follow-up", "sections": ["Subjective", "Treatment Changes", "Compliance", "Assessment, Plan"] },
+      { "name": "Gastroscopy", "sections": ["Indication, Premedication", "Instrument, Findings", "Conclusion", "Follow-ups"] },
+      { "name": "Colonoscopy", "sections": ["Reach, Polyps", "Diverticula", "Biopsy", "Follow-ups"] },
+      { "name": "Ultrasound", "sections": ["Liver, Gallbladder", "Pancreas", "Kidneys", "Spleen"] },
+      { "name": "Auto Mode", "sections": ["AI detects type", "from transcript and", "selects the right", "template automatically"] }
+    ]
+  },
+  "privacy": {
+    "heading": "Security First",
+    "subheading": "Designed for European Healthcare",
+    "features": [
+      { "title": "Encryption", "detail": "End-to-end encryption in transit and at rest" },
+      { "title": "On-device AI", "detail": "Transcription runs locally, no audio leaves the device" },
+      { "title": "EU Data Residency", "detail": "Azure West Europe — data stays in the EU" },
+      { "title": "Zero Retention", "detail": "No data retention on Azure OpenAI servers" },
+      { "title": "Token Auth", "detail": "Every API request authenticated with bearer token" },
+      { "title": "Self-host Option", "detail": "Backend can be deployed on your own infrastructure" }
+    ]
+  },
+  "pricing": {
+    "heading": "Transparent Pricing",
+    "subheading": "No subscription. You only pay for what you use.",
+    "cardLabel": "ANOTE Pro",
+    "price": "~$0.001",
+    "perUnit": "per report (~0.03 CZK)",
+    "features": [
+      "Unlimited recording",
+      "Free on-device transcription",
+      "13-section structured reports",
+      "6 exam types",
+      "iOS + Android",
+      "GDPR compliant",
+      "Email sending",
+      "Recording history"
+    ],
+    "cta": "Try for free",
+    "comparisonHeading": "Comparison with Alternatives",
+    "comparisonHeaders": ["ANOTE", "Manual typing", "Other solutions*"],
+    "comparisonRows": [
+      { "label": "Time per report", "values": ["~15 seconds", "15–30 minutes", "2–5 minutes"] },
+      { "label": "Cost per report", "values": ["~$0.001", "~$6", "$0.40–2"] },
+      { "label": "Data in EU", "values": ["✅", "N/A", "❌ Often US"] },
+      { "label": "Audio on server", "values": ["❌ Never", "N/A", "✅ Often yes"] },
+      { "label": "Works offline", "values": ["✅", "✅", "❌ Usually not"] },
+      { "label": "Czech terminology", "values": ["✅", "Depends on doctor", "❌ Generic"] }
+    ]
+  },
+  "testimonials": {
+    "heading": "What Doctors Say",
+    "items": [
+      {
+        "quote": "Finally, I don't have to sit at the computer for an hour after clinic. ANOTE saves me at least 2 hours a day.",
+        "name": "MUDr. [Name]",
+        "role": "General Practitioner, Prague"
+      },
+      {
+        "quote": "I was surprised how accurately the AI understands Czech medical terminology. I barely need to edit the reports.",
+        "name": "MUDr. [Name]",
+        "role": "Internist, Brno"
+      },
+      {
+        "quote": "GDPR compliance was key for us. No audio leaves the phone — we couldn't find that anywhere else.",
+        "name": "MUDr. [Name]",
+        "role": "Head Physician, [City]"
+      }
+    ],
+    "prev": "Previous",
+    "next": "Next",
+    "earlyAccessLabel": "Be one of the first users",
+    "earlyAccessCta": "I want early access"
+  },
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "items": [
+      { "q": "Is the patient recording sent anywhere?", "a": "No. Speech-to-text (Whisper AI) runs exclusively on your device. Only anonymized text is sent to generate the report — within Azure's EU infrastructure." },
+      { "q": "How accurate is Czech transcription?", "a": "For medical dictation (single speaker, quiet room), accuracy is high. Transcription uses a Whisper model optimized for Czech with silence filtering (VAD). The AI report generator can also interpret minor transcription errors." },
+      { "q": "Can I edit the report before sending?", "a": "Yes. The generated report is fully editable within the app. You can edit it, copy to clipboard, or send via email." },
+      { "q": "What exam types does the app support?", "a": "Outpatient exam, follow-up, gastroscopy, colonoscopy, and ultrasound. You can also let AI automatically detect the exam type from the transcript." },
+      { "q": "Does the app work without internet?", "a": "Speech transcription works fully offline (models run on device). Generating a structured report requires an internet connection (mobile data is sufficient)." },
+      { "q": "How much does it cost?", "a": "Transcription is free (on-device). Report generation costs approximately $0.001 per report. No monthly subscription." },
+      { "q": "Which devices does ANOTE run on?", "a": "iOS (iPhone) and Android. The app is optimized for modern smartphones with at least 2 GB RAM." },
+      { "q": "Does ANOTE meet GDPR requirements?", "a": "Yes. Audio stays on device. Text data is processed exclusively in Azure West Europe. No data is stored on servers or used to train models." },
+      { "q": "Can I connect ANOTE to my hospital system?", "a": "In the current version, you can copy reports to clipboard or send via email. API integration with EHR/HIS systems is planned." },
+      { "q": "How long does report generation take?", "a": "Usually 5–15 seconds after recording ends. During recording, a live report preview updates every 15 seconds." }
+    ]
+  },
+  "bottomCta": {
+    "heading": "Try ANOTE Today",
+    "subheading": "Leave us your contact and we'll set up your access.",
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "practiceType": "Practice Type",
+      "message": "Message",
+      "gdpr": "I agree to the processing of personal data according to the privacy policy"
+    },
+    "placeholders": {
+      "name": "Dr. John Smith",
+      "email": "john.smith@clinic.com",
+      "phone": "+420 ...",
+      "practiceType": "Select...",
+      "message": "I'd like to learn more about..."
+    },
+    "practiceTypes": ["General Practitioner", "Specialist", "Clinic", "Hospital"],
+    "errors": {
+      "nameRequired": "Name is required",
+      "emailInvalid": "Enter a valid email",
+      "gdprRequired": "Consent is required"
+    },
+    "serverError": "Submission failed. Please try again.",
+    "submit": "Request a demo",
+    "successTitle": "Thank you!",
+    "successMessage": "We'll get back to you within 24 hours.",
+    "altContact": "Or contact us directly:",
+    "phone": "+420 XXX XXX XXX"
+  },
+  "footer": {
+    "tagline": "Medical reports from voice. In seconds.",
+    "product": "Product",
+    "support": "Support",
+    "legal": "Legal",
+    "productLinks": {
+      "howItWorks": "How It Works",
+      "features": "Features",
+      "pricing": "Pricing"
+    },
+    "supportLinks": {
+      "contact": "Contact",
+      "faq": "FAQ"
+    },
+    "legalLinks": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "impressum": "Legal Imprint"
+    },
+    "copyright": "© {year} ANOTE. All rights reserved.",
+    "disclaimer": "ANOTE is not a certified medical device. It serves exclusively as a tool to support medical documentation."
+  },
+  "kontakt": {
+    "title": "Contact — ANOTE",
+    "description": "Contact us for more information about ANOTE. Leave us a message or reach out directly.",
+    "heading": "Contact Us",
+    "subheading": "Have questions about ANOTE? We're happy to help.",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone"
+  },
+  "podminky": {
+    "title": "Terms of Service — ANOTE",
+    "description": "Terms of service for the ANOTE application.",
+    "heading": "Terms of Service",
+    "lastUpdated": "Last updated: April 4, 2026",
+    "sections": [
+      { "heading": "1. Introduction", "content": "These terms of service (\"Terms\") govern the use of the ANOTE application and related services. By using the application, you agree to these Terms." },
+      { "heading": "2. Service Description", "content": "ANOTE is an application for transcribing medical conversations and generating structured medical reports using artificial intelligence. The application is intended exclusively as a tool to support medical documentation." },
+      { "heading": "3. Limitation of Liability", "content": "ANOTE is not a certified medical device. All generated report content must be reviewed by a qualified physician before any clinical use. The operator is not liable for any inaccuracies in generated reports." },
+      { "heading": "4. Personal Data Protection", "content": "Processing of personal data is governed by our Privacy Policy. Audio recordings are processed exclusively on the user's device and are never sent to a server." },
+      { "heading": "5. Payment Terms", "content": "Speech-to-text transcription is free (runs on device). Report generation is charged according to the current price list. Payments are billed based on actual usage with no monthly subscription." },
+      { "heading": "6. Service Termination", "content": "Users may stop using the service at any time. The operator reserves the right to limit or terminate access to the service in case of violation of these Terms." },
+      { "heading": "7. Governing Law", "content": "These Terms are governed by the laws of the Czech Republic. Czech courts have jurisdiction for dispute resolution." }
+    ],
+    "note": "Full terms text will be added after legal review."
+  },
+  "ochranaSoukromi": {
+    "title": "Privacy Policy — ANOTE",
+    "description": "Privacy policy and personal data processing in the ANOTE application.",
+    "heading": "Privacy Policy",
+    "lastUpdated": "Last updated: April 4, 2026",
+    "sections": [
+      { "heading": "1. Data Controller", "content": "The data controller is the operator of the ANOTE application (contact: info@anote.cz)." },
+      { "heading": "2. What Data We Process", "subsections": [
+        { "heading": "2.1 Contact Form", "content": "Name, email address, optionally phone number and practice type — for the purpose of handling your inquiry and providing access to the service." },
+        { "heading": "2.2 Audio Recordings", "content": "Audio recordings never leave your device. Speech-to-text transcription runs exclusively locally on your phone using the Whisper AI model. No audio data is sent to servers." },
+        { "heading": "2.3 Text Transcripts", "content": "Anonymized text transcript is sent to Azure OpenAI server (West Europe region, EU) exclusively for generating a structured medical report. Data is not stored on servers and is not used for model training." }
+      ]},
+      { "heading": "3. Legal Basis", "content": "We process personal data based on your consent (Art. 6(1)(a) GDPR) and legitimate interest in providing the service (Art. 6(1)(f) GDPR)." },
+      { "heading": "4. Data Transfers", "content": "Text data for report generation is processed exclusively within the EU (Azure West Europe). Data is not transferred to third countries outside the EU/EEA." },
+      { "heading": "5. Retention Period", "content": "Contact data from the form is retained for the period necessary to process your request, maximum 12 months. Text transcripts are not retained on servers (zero retention policy)." },
+      { "heading": "6. Your Rights", "content": "You have the right to access, rectification, erasure, restriction of processing, data portability, and the right to lodge a complaint with the Office for Personal Data Protection (ÚOOÚ)." },
+      { "heading": "7. Cookies", "content": "The ANOTE website does not use tracking cookies. Analytics are handled using a privacy-friendly solution without cookies." },
+      { "heading": "8. Contact", "content": "For privacy-related questions, contact us at info@anote.cz." }
+    ],
+    "note": "Full privacy policy text will be added after legal review."
+  },
+  "impressum": {
+    "title": "Legal Imprint — ANOTE",
+    "description": "Legal information about the ANOTE application operator.",
+    "heading": "Legal Imprint",
+    "operator": "Operator",
+    "operatorValue": "[Company Name]\n[Street Address]\n[Postal Code City]\nCzech Republic",
+    "identification": "Identification",
+    "ico": "Company ID (IČO)",
+    "icoValue": "[To be added]",
+    "dic": "Tax ID (DIČ)",
+    "dicValue": "[To be added]",
+    "registration": "Registration",
+    "registrationValue": "Registered in the commercial register maintained by [the relevant court], section [X], file [XXXX]",
+    "contactHeading": "Contact",
+    "responsiblePerson": "Responsible Person",
+    "responsiblePersonValue": "[Name of responsible person — to be added]",
+    "note": "Details will be added after establishing the legal entity."
+  }
+}

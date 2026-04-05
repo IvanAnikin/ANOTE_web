@@ -1,0 +1,341 @@
+{
+  "meta": {
+    "title": "ANOTE — Lékařské zprávy z hlasu za sekundy",
+    "titleTemplate": "%s | ANOTE",
+    "description": "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. On-device přepis, GDPR compliant, česká terminologie.",
+    "ogTitle": "ANOTE — Lékařské zprávy z hlasu",
+    "ogDescription": "AI asistent pro lékařskou dokumentaci. Přepis na zařízení, zprávy za sekundy.",
+    "ogImageAlt": "ANOTE — Lékařské zprávy z hlasu za sekundy",
+    "twitterDescription": "AI asistent pro lékařskou dokumentaci.",
+    "keywords": "lékařská dokumentace,diktování,přepis řeči,AI zprávy,GDPR,česká medicína,lékařské zprávy,Whisper,on-device"
+  },
+  "nav": {
+    "howItWorks": "Jak to funguje",
+    "features": "Funkce",
+    "pricing": "Cena",
+    "contact": "Kontakt",
+    "tryDemo": "Vyzkoušet demo",
+    "openMenu": "Otevřít menu",
+    "closeMenu": "Zavřít menu"
+  },
+  "hero": {
+    "headingLine1": "Lékařské zprávy",
+    "headingLine2": "z hlasu za sekundy.",
+    "description": "Nahrávejte. ANOTE přepíše a vytvoří strukturovanou lékařskou zprávu — přímo na vašem telefonu.",
+    "ctaPrimary": "Vyzkoušet zdarma",
+    "ctaSecondary": "Podívejte se, jak to funguje",
+    "badges": ["GDPR", "Data v EU", "iOS & Android", "Funguje i offline"]
+  },
+  "logoBar": {
+    "label": "Používají lékaři v České republice",
+    "logos": ["FN Motol", "IKEM", "VFN Praha", "FN Olomouc", "Vaše klinika?"]
+  },
+  "howItWorks": {
+    "heading": "Jak to funguje",
+    "subheading": "Tři kroky od nahrávky ke zprávě",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Nahrávejte",
+        "description": "Zapněte nahrávání během vyšetření. ANOTE zachytí konverzaci přímo na vašem telefonu."
+      },
+      {
+        "number": "02",
+        "title": "Přepisujte",
+        "description": "Whisper AI přepisuje řeč na text přímo na zařízení — žádný zvuk neopouští telefon. Přepis se aktualizuje živě."
+      },
+      {
+        "number": "03",
+        "title": "Generujte zprávu",
+        "description": "AI vytvoří strukturovanou lékařskou zprávu s 13 sekcemi dle českých standardů. Hotovo za sekundy."
+      }
+    ]
+  },
+  "features": {
+    "heading": "Funkce, která změní vaši praxi",
+    "items": [
+      {
+        "title": "Živý přepis v reálném čase",
+        "body": "Přepis se zobrazuje přímo před vámi během vyšetření. Každých 5–10 sekund se text aktualizuje. Vidíte, co AI slyší — ještě než pacient odejde z ordinace.",
+        "badge": "⚡ Aktualizace každých 5 s"
+      },
+      {
+        "title": "13 sekcí. Česká terminologie. Automaticky.",
+        "body": "ANOTE negeneruje jen přepis — vytvoří kompletní lékařskou zprávu s anamnézou, nálezem, diagnózou a terapií. Formát odpovídá českým standardům dokumentace.",
+        "badge": "📋 6 typů vyšetření"
+      },
+      {
+        "title": "Hlas pacienta nikdy neopustí telefon",
+        "body": "Whisper AI běží přímo na vašem zařízení. Žádný zvuk se neodesílá na server. Na server odchází pouze anonymizovaný text pro vygenerování zprávy — a to výhradně v rámci EU.",
+        "badge": "🔒 GDPR · 🇪🇺 Azure West Europe"
+      },
+      {
+        "title": "Funguje i bez internetu",
+        "body": "Přepis řeči na text probíhá lokálně. V terénu, v ambulanci bez WiFi, v nemocnici se slabým signálem — ANOTE přepisuje vždy. Pro generování zprávy stačí mobilní data.",
+        "badge": "📡 3 režimy: offline / cloud / hybridní"
+      },
+      {
+        "title": "Správná šablona pro každé vyšetření",
+        "body": "Ambulantní vyšetření, kontrola, gastroskopie, kolonoskopie, ultrazvuk — každý typ vyšetření má vlastní strukturu zprávy. Nebo nechte AI typ rozpoznat automaticky.",
+        "badge": "🤖 Automatická detekce typu"
+      },
+      {
+        "title": "Jedno klepnutí. Žádné přepisování.",
+        "body": "Klepněte na nahrát, mluvte s pacientem, klepněte na stop. Zprávu zkopírujte do schránky nebo odešlete emailem — přímo do vašeho EHR systému.",
+        "badge": "📧 Email · 📋 Kopírovat do schránky"
+      }
+    ]
+  },
+  "demoVideo": {
+    "heading": "Podívejte se, jak ANOTE funguje",
+    "subheading": "2 minuty, které ušetří hodiny práce",
+    "playLabel": "Přehrát video",
+    "placeholder": "Video bude brzy k dispozici",
+    "screenshots": [
+      "Nahrávání konverzace",
+      "Živý přepis",
+      "Generování zprávy",
+      "Výběr typu vyšetření",
+      "Odeslání emailem"
+    ],
+    "cta": "Chci vyzkoušet ANOTE"
+  },
+  "reportShowcase": {
+    "heading": "Z konverzace ke zprávě",
+    "transcriptLabel": "Přepis",
+    "speakers": { "doctor": "Lékař", "patient": "Pacient" },
+    "dialogue": [
+      { "speaker": "doctor", "text": "Dobrý den, co vás trápí?" },
+      { "speaker": "patient", "text": "Dobrý den, pane doktore. Asi pět dní kašlu, je to čím dál horší. Mám i dušnost při chůzi do schodů." },
+      { "speaker": "doctor", "text": "Máte teploty?" },
+      { "speaker": "patient", "text": "Ano, včera večer 38,2. Dnes ráno jsem měřil 37,8." },
+      { "speaker": "doctor", "text": "Berete nějaké léky pravidelně?" },
+      { "speaker": "patient", "text": "Ano, Prestarium na tlak a Metformin na cukrovku. Obojí už asi tři roky." },
+      { "speaker": "doctor", "text": "Máte na něco alergii?" },
+      { "speaker": "patient", "text": "Na penicilin — dostanu vyrážku." }
+    ],
+    "reportSections": [
+      { "title": "NO — Nynější onemocnění", "content": "Pacient udává 5 dní trvající produktivní kašel s progresí. Dušnost při námaze (chůze do schodů). Febrilie — včera 38,2 °C, dnes 37,8 °C. Bez hemoptýzy, bez bolestí na hrudi." },
+      { "title": "RA — Rodinná anamnéza", "content": "Neuvedeno." },
+      { "title": "OA — Osobní anamnéza", "content": "Arteriální hypertenze (3 roky). Diabetes mellitus 2. typu (3 roky)." },
+      { "title": "FA — Farmakologická anamnéza", "content": "Prestarium (perindopril) — antihypertenzivum. Metformin — perorální antidiabetikum. Obojí užívá cca 3 roky." },
+      { "title": "AA — Alergologická anamnéza", "content": "Penicilin — kožní exantém (vyrážka)." },
+      { "title": "GA — Gynekologická/Urologická anamnéza", "content": "Neuvedeno." },
+      { "title": "SA — Sociální anamnéza", "content": "Neuvedeno." },
+      { "title": "Adherence", "content": "Pacient spolupracuje, komunikuje jasně, odpovídá na dotazy." },
+      { "title": "Objektivní nález", "content": "Vyšetření provedeno. Podrobnosti viz klinický záznam." },
+      { "title": "Hodnocení", "content": "Suspektní akutní bronchitida, v.s. infekční etiologie. Diferenciálně komunitní pneumonie." },
+      { "title": "Návrh vyšetření", "content": "RTG hrudníku PA. KO + diferenciál, CRP. Saturace O₂." },
+      { "title": "Návrh terapie & pokyny", "content": "Amoxicilin + kys. klavulanová (s ohledem na alergii na penicilin zvážit alternativu — klarithromycin). Antipyretika dle potřeby. Kontrola za 5 dní nebo dříve při zhoršení." }
+    ],
+    "timer": "sekund",
+    "arrowLabel": "AI zpracovává"
+  },
+  "visitTypes": {
+    "heading": "Typy vyšetření",
+    "subheading": "Každý typ vyšetření má vlastní strukturu zprávy",
+    "types": [
+      { "name": "Ambulantní vyšetření", "sections": ["NO, RA, OA, FA, AA", "GA, SA, Adherence", "Objektivní nález", "Hodnocení, Terapie"] },
+      { "name": "Kontrolní vyšetření", "sections": ["Subjektivně", "Změny v léčbě", "Compliance", "Hodnocení, Plán"] },
+      { "name": "Gastroskopie", "sections": ["Indikace, Premedikace", "Přístroj, Nález", "Závěr", "Kontroly"] },
+      { "name": "Kolonoskopie", "sections": ["Dosah, Polypy", "Divertikly", "Biopsie", "Kontroly"] },
+      { "name": "Ultrazvuk", "sections": ["Játra, Žlučník", "Pankreas", "Ledviny", "Slezina"] },
+      { "name": "Automatický režim", "sections": ["AI rozpozná typ", "z přepisu a zvolí", "správnou šablonu", "automaticky"] }
+    ]
+  },
+  "privacy": {
+    "heading": "Bezpečnost na prvním místě",
+    "subheading": "Navrženo pro evropské zdravotnictví",
+    "features": [
+      { "title": "Šifrování", "detail": "End-to-end šifrování při přenosu i v klidu" },
+      { "title": "On-device AI", "detail": "Přepis probíhá lokálně, žádný zvuk neopouští zařízení" },
+      { "title": "EU data residency", "detail": "Azure West Europe — data zůstávají v EU" },
+      { "title": "Zero retention", "detail": "Žádné uchovávání dat na serverech Azure OpenAI" },
+      { "title": "Token auth", "detail": "Každý API požadavek autentizován bearer tokenem" },
+      { "title": "Self-host option", "detail": "Backend lze nasadit na vlastní infrastrukturu" }
+    ]
+  },
+  "pricing": {
+    "heading": "Transparentní ceník",
+    "subheading": "Žádné předplatné. Platíte jen za to, co používáte.",
+    "cardLabel": "ANOTE Pro",
+    "price": "~0,03 Kč",
+    "perUnit": "za zprávu (~$0.001 USD)",
+    "features": [
+      "Neomezené nahrávání",
+      "On-device přepis zdarma",
+      "13-sekční strukturované zprávy",
+      "6 typů vyšetření",
+      "iOS + Android",
+      "GDPR compliant",
+      "Email odesílání",
+      "Historie nahrávek"
+    ],
+    "cta": "Vyzkoušet zdarma",
+    "comparisonHeading": "Srovnání s alternativami",
+    "comparisonHeaders": ["ANOTE", "Ruční přepis", "Jiná řešení*"],
+    "comparisonRows": [
+      { "label": "Čas na zprávu", "values": ["~15 sekund", "15–30 minut", "2–5 minut"] },
+      { "label": "Náklad na zprávu", "values": ["~0,03 Kč", "~150 Kč", "10–50 Kč"] },
+      { "label": "Data v EU", "values": ["✅", "N/A", "❌ Často US"] },
+      { "label": "Audio na serveru", "values": ["❌ Nikdy", "N/A", "✅ Často ano"] },
+      { "label": "Funguje offline", "values": ["✅", "✅", "❌ Většinou ne"] },
+      { "label": "Česká terminologie", "values": ["✅", "Závisí na lékaři", "❌ Obecná"] }
+    ]
+  },
+  "testimonials": {
+    "heading": "Co říkají lékaři",
+    "items": [
+      {
+        "quote": "Konečně nemusím po ordinaci sedět hodinu nad počítačem. ANOTE mi ušetří minimálně 2 hodiny denně.",
+        "name": "MUDr. [Jméno]",
+        "role": "Praktický lékař, Praha"
+      },
+      {
+        "quote": "Překvapilo mě, jak přesně AI rozumí české lékařské terminologii. Zprávy skoro nemusím upravovat.",
+        "name": "MUDr. [Jméno]",
+        "role": "Internista, Brno"
+      },
+      {
+        "quote": "Klíčové pro nás byla GDPR compliance. Žádný zvuk neopouští telefon — to jsme jinde nenašli.",
+        "name": "MUDr. [Jméno]",
+        "role": "Vedoucí lékař, [Město]"
+      }
+    ],
+    "prev": "Předchozí",
+    "next": "Další",
+    "earlyAccessLabel": "Staňte se jedním z prvních uživatelů",
+    "earlyAccessCta": "Chci early access"
+  },
+  "faq": {
+    "heading": "Často kladené otázky",
+    "items": [
+      { "q": "Je nahrávka pacienta někam odesílána?", "a": "Ne. Přepis řeči na text (Whisper AI) probíhá výhradně na vašem zařízení. Na server se odesílá pouze anonymizovaný text přepisu pro vygenerování zprávy — v rámci EU infrastruktury Azure." },
+      { "q": "Jak přesný je přepis v češtině?", "a": "Pro lékařskou diktaci (jeden mluvčí, tichá místnost) je přesnost vysoká. Přepis využívá model Whisper optimalizovaný pro češtinu s filtrací ticha (VAD). AI generátor zpráv navíc dokáže interpretovat i drobné chyby přepisu." },
+      { "q": "Mohu zprávu upravit před odesláním?", "a": "Ano. Vygenerovaná zpráva je plně editovatelná přímo v aplikaci. Můžete ji upravit, zkopírovat do schránky nebo odeslat emailem." },
+      { "q": "Jaké typy vyšetření aplikace podporuje?", "a": "Ambulantní vyšetření, kontrolní vyšetření, gastroskopii, kolonoskopii a ultrazvuk. Můžete také nechat AI automaticky rozpoznat typ vyšetření z přepisu." },
+      { "q": "Funguje aplikace bez internetu?", "a": "Přepis řeči funguje plně offline (modely běží na zařízení). Pro vygenerování strukturované zprávy je potřeba připojení k internetu (mobilní data stačí)." },
+      { "q": "Kolik to stojí?", "a": "Přepis je zdarma (on-device). Generování zprávy stojí přibližně 0,03 Kč za zprávu. Žádné měsíční předplatné." },
+      { "q": "Na jakých zařízeních ANOTE běží?", "a": "iOS (iPhone) a Android. Aplikace je optimalizována pro moderní smartphony s alespoň 2 GB RAM." },
+      { "q": "Splňuje ANOTE požadavky GDPR?", "a": "Ano. Audio zůstává na zařízení. Textová data jsou zpracovávána výhradně v Azure West Europe. Žádná data se neukládají na serverech a nepoužívají se k trénování modelů." },
+      { "q": "Mohu ANOTE napojit na svůj nemocniční systém?", "a": "V současné verzi můžete zprávu zkopírovat do schránky nebo odeslat emailem. API integrace s EHR/NIS systémy je v plánu." },
+      { "q": "Jak dlouho trvá vygenerování zprávy?", "a": "Většinou 5–15 sekund po ukončení nahrávání. Během nahrávání se zobrazuje živý náhled zprávy aktualizovaný každých 15 sekund." }
+    ]
+  },
+  "bottomCta": {
+    "heading": "Vyzkoušejte ANOTE ještě dnes",
+    "subheading": "Zanechte nám kontakt a my vám zařídíme přístup.",
+    "labels": {
+      "name": "Jméno",
+      "email": "Email",
+      "phone": "Telefon",
+      "practiceType": "Typ praxe",
+      "message": "Zpráva",
+      "gdpr": "Souhlasím se zpracováním osobních údajů dle zásad ochrany soukromí"
+    },
+    "placeholders": {
+      "name": "MUDr. Jan Novák",
+      "email": "jan.novak@klinika.cz",
+      "phone": "+420 ...",
+      "practiceType": "Vyberte...",
+      "message": "Chci se dozvědět více o..."
+    },
+    "practiceTypes": ["Praktický lékař", "Specialista", "Klinika", "Nemocnice"],
+    "errors": {
+      "nameRequired": "Jméno je povinné",
+      "emailInvalid": "Zadejte platný email",
+      "gdprRequired": "Souhlas je povinný"
+    },
+    "serverError": "Odeslání selhalo. Zkuste to znovu.",
+    "submit": "Požádat o demo",
+    "successTitle": "Děkujeme!",
+    "successMessage": "Ozveme se vám do 24 hodin.",
+    "altContact": "Nebo nás kontaktujte přímo:",
+    "phone": "+420 XXX XXX XXX"
+  },
+  "footer": {
+    "tagline": "Lékařské zprávy z hlasu. Za sekundy.",
+    "product": "Produkt",
+    "support": "Podpora",
+    "legal": "Právní",
+    "productLinks": {
+      "howItWorks": "Jak to funguje",
+      "features": "Funkce",
+      "pricing": "Ceník"
+    },
+    "supportLinks": {
+      "contact": "Kontakt",
+      "faq": "FAQ"
+    },
+    "legalLinks": {
+      "terms": "Podmínky služby",
+      "privacy": "Ochrana soukromí",
+      "impressum": "Impressum"
+    },
+    "copyright": "© {year} ANOTE. Všechna práva vyhrazena.",
+    "disclaimer": "ANOTE není certifikovaný zdravotnický prostředek. Slouží výhradně jako nástroj pro podporu lékařské dokumentace."
+  },
+  "kontakt": {
+    "title": "Kontakt — ANOTE",
+    "description": "Kontaktujte nás pro více informací o ANOTE. Zanechte nám zprávu nebo nás kontaktujte přímo.",
+    "heading": "Kontaktujte nás",
+    "subheading": "Máte otázky ohledně ANOTE? Rádi vám pomůžeme.",
+    "emailLabel": "Email",
+    "phoneLabel": "Telefon"
+  },
+  "podminky": {
+    "title": "Podmínky služby — ANOTE",
+    "description": "Podmínky služby pro aplikaci ANOTE.",
+    "heading": "Podmínky služby",
+    "lastUpdated": "Poslední aktualizace: 4. dubna 2026",
+    "sections": [
+      { "heading": "1. Úvodní ustanovení", "content": "Tyto podmínky služby (dále jen \"Podmínky\") upravují používání aplikace ANOTE a souvisejících služeb. Používáním aplikace souhlasíte s těmito Podmínkami." },
+      { "heading": "2. Popis služby", "content": "ANOTE je aplikace pro přepis lékařských konverzací a generování strukturovaných lékařských zpráv pomocí umělé inteligence. Aplikace je určena výhradně jako nástroj pro podporu lékařské dokumentace." },
+      { "heading": "3. Omezení odpovědnosti", "content": "ANOTE není certifikovaný zdravotnický prostředek. Veškerý obsah generovaných zpráv musí být zkontrolován kvalifikovaným lékařem před jakýmkoliv klinickým použitím. Provozovatel nenese odpovědnost za případné nepřesnosti v generovaných zprávách." },
+      { "heading": "4. Ochrana osobních údajů", "content": "Zpracování osobních údajů se řídí naší Zásadami ochrany soukromí. Zvukové nahrávky jsou zpracovávány výhradně na zařízení uživatele a nikdy nejsou odesílány na server." },
+      { "heading": "5. Platební podmínky", "content": "Přepis řeči na text je zdarma (probíhá na zařízení). Generování zpráv je zpoplatněno dle aktuálního ceníku. Platby jsou účtovány dle skutečného použití bez měsíčního předplatného." },
+      { "heading": "6. Ukončení služby", "content": "Uživatel může přestat službu používat kdykoliv. Provozovatel si vyhrazuje právo omezit nebo ukončit přístup ke službě při porušení těchto Podmínek." },
+      { "heading": "7. Rozhodné právo", "content": "Tyto Podmínky se řídí právním řádem České republiky. Pro řešení sporů jsou příslušné soudy České republiky." }
+    ],
+    "note": "Plný text podmínek bude doplněn po právní revizi."
+  },
+  "ochranaSoukromi": {
+    "title": "Ochrana soukromí — ANOTE",
+    "description": "Zásady ochrany soukromí a zpracování osobních údajů v aplikaci ANOTE.",
+    "heading": "Ochrana soukromí",
+    "lastUpdated": "Poslední aktualizace: 4. dubna 2026",
+    "sections": [
+      { "heading": "1. Správce údajů", "content": "Správcem osobních údajů je provozovatel aplikace ANOTE (kontakt: info@anote.cz)." },
+      { "heading": "2. Jaké údaje zpracováváme", "subsections": [
+        { "heading": "2.1 Kontaktní formulář", "content": "Jméno, emailová adresa, případně telefonní číslo a typ praxe — za účelem vyřízení vašeho dotazu a poskytnutí přístupu ke službě." },
+        { "heading": "2.2 Zvukové nahrávky", "content": "Zvukové nahrávky nikdy neopouštějí vaše zařízení. Přepis řeči na text probíhá výhradně lokálně na vašem telefonu pomocí modelu Whisper AI. Žádná zvuková data se neodesílají na servery." },
+        { "heading": "2.3 Textové přepisy", "content": "Anonymizovaný textový přepis je odeslán na server Azure OpenAI (oblast West Europe, EU) výhradně za účelem vygenerování strukturované lékařské zprávy. Data nejsou uchovávána na serverech a nejsou používána k trénování modelů." }
+      ]},
+      { "heading": "3. Právní základ", "content": "Osobní údaje zpracováváme na základě vašeho souhlasu (čl. 6 odst. 1 písm. a) GDPR) a oprávněného zájmu v rámci plnění služby (čl. 6 odst. 1 písm. f) GDPR)." },
+      { "heading": "4. Předávání údajů", "content": "Textová data pro generování zpráv jsou zpracovávána výhradně v rámci EU (Azure West Europe). Údaje nejsou předávány do třetích zemí mimo EU/EHP." },
+      { "heading": "5. Doba uchovávání", "content": "Kontaktní údaje z formuláře uchováváme po dobu nezbytnou pro vyřízení vašeho požadavku, maximálně 12 měsíců. Textové přepisy nejsou na serverech uchovávány (zero retention policy)." },
+      { "heading": "6. Vaše práva", "content": "Máte právo na přístup k údajům, opravu, výmaz, omezení zpracování, přenositelnost a právo podat stížnost u Úřadu pro ochranu osobních údajů (ÚOOÚ)." },
+      { "heading": "7. Cookies", "content": "Webové stránky ANOTE nepoužívají sledovací cookies. Analytika je řešena pomocí privacy-friendly řešení bez cookies." },
+      { "heading": "8. Kontakt", "content": "V případě dotazů ohledně ochrany soukromí nás kontaktujte na info@anote.cz." }
+    ],
+    "note": "Plný text zásad ochrany soukromí bude doplněn po právní revizi."
+  },
+  "impressum": {
+    "title": "Impressum — ANOTE",
+    "description": "Právní informace o provozovateli aplikace ANOTE.",
+    "heading": "Impressum",
+    "operator": "Provozovatel",
+    "operatorValue": "[Název společnosti]\n[Ulice a číslo popisné]\n[PSČ Město]\nČeská republika",
+    "identification": "Identifikační údaje",
+    "ico": "IČO",
+    "icoValue": "[Bude doplněno]",
+    "dic": "DIČ",
+    "dicValue": "[Bude doplněno]",
+    "registration": "Zápis",
+    "registrationValue": "Zapsáno v obchodním rejstříku vedeném [příslušným soudem], oddíl [X], vložka [XXXX]",
+    "contactHeading": "Kontakt",
+    "responsiblePerson": "Odpovědná osoba",
+    "responsiblePersonValue": "[Jméno odpovědné osoby — bude doplněno]",
+    "note": "Údaje budou doplněny po založení právní entity."
+  }
+}
