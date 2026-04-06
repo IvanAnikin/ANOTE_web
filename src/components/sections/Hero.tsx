@@ -20,7 +20,8 @@ const badgeIcons = ["🔒", "🇪🇺", "📱", "⚡"];
 export function Hero({ dict }: { dict: Dictionary }) {
   const t = dict.hero;
   const pathname = usePathname();
-  const lang = pathname.split("/")[1] || "cs";
+  const firstSegment = pathname.split("/")[1];
+  const lang = (firstSegment === "cs" || firstSegment === "en") ? firstSegment : "cs";
   return (
     <section
       id="hero"

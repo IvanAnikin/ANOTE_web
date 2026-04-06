@@ -14,7 +14,8 @@ import type { Dictionary } from "@/lib/dictionary-types";
 export function ReportShowcase({ dict }: { dict: Dictionary }) {
   const t = dict.reportShowcase;
   const pathname = usePathname();
-  const lang = pathname.split("/")[1] || "cs";
+  const firstSegment = pathname.split("/")[1];
+  const lang = (firstSegment === "cs" || firstSegment === "en") ? firstSegment : "cs";
   const speakerNames = t.speakers;
   const accordionItems = t.reportSections.map((s, i) => ({
     id: String(i),

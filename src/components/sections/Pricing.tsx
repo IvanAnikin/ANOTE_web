@@ -11,7 +11,8 @@ import type { Dictionary } from "@/lib/dictionary-types";
 export function Pricing({ dict }: { dict: Dictionary }) {
   const t = dict.pricing;
   const pathname = usePathname();
-  const lang = pathname.split("/")[1] || "cs";
+  const firstSegment = pathname.split("/")[1];
+  const lang = (firstSegment === "cs" || firstSegment === "en") ? firstSegment : "cs";
   return (
     <section id="pricing" className="py-24 sm:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
