@@ -6,11 +6,15 @@ import { Accordion } from "@/components/ui/Accordion";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { CountUp } from "@/components/animations/CountUp";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 export function ReportShowcase({ dict }: { dict: Dictionary }) {
   const t = dict.reportShowcase;
+  const pathname = usePathname();
+  const lang = pathname.split("/")[1] || "cs";
   const speakerNames = t.speakers;
   const accordionItems = t.reportSections.map((s, i) => ({
     id: String(i),
@@ -133,16 +137,11 @@ export function ReportShowcase({ dict }: { dict: Dictionary }) {
         {/* CTA */}
         <FadeInOnScroll>
           <div className="text-center mt-14">
-            <Button
-              size="lg"
-              onClick={() =>
-                document
-                  .getElementById("cta-bottom")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              {dict.demoVideo.cta}
-            </Button>
+            <Link href={`/${lang}/demo`}>
+              <Button size="lg">
+                {dict.demoVideo.cta}
+              </Button>
+            </Link>
           </div>
         </FadeInOnScroll>
       </div>

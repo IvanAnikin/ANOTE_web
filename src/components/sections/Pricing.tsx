@@ -4,10 +4,14 @@ import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Check } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 export function Pricing({ dict }: { dict: Dictionary }) {
   const t = dict.pricing;
+  const pathname = usePathname();
+  const lang = pathname.split("/")[1] || "cs";
   return (
     <section id="pricing" className="py-24 sm:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -45,15 +49,14 @@ export function Pricing({ dict }: { dict: Dictionary }) {
                 ))}
               </ul>
 
-              <Button
-                size="lg"
-                className="w-full"
-                onClick={() =>
-                  document.getElementById("cta-bottom")?.scrollIntoView({ behavior: "smooth" })
-                }
-              >
-                {t.cta}
-              </Button>
+              <Link href={`/${lang}/demo`} className="w-full">
+                <Button
+                  size="lg"
+                  className="w-full"
+                >
+                  {t.cta}
+                </Button>
+              </Link>
             </Card>
           </div>
         </FadeInOnScroll>

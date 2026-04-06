@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ParallaxFloat } from "@/components/animations/ParallaxFloat";
@@ -17,6 +19,8 @@ const badgeIcons = ["🔒", "🇪🇺", "📱", "⚡"];
 
 export function Hero({ dict }: { dict: Dictionary }) {
   const t = dict.hero;
+  const pathname = usePathname();
+  const lang = pathname.split("/")[1] || "cs";
   return (
     <section
       id="hero"
@@ -53,9 +57,13 @@ export function Hero({ dict }: { dict: Dictionary }) {
               className="mt-8 flex flex-wrap gap-4"
               {...fadeUp(0.3)}
             >
-              <Button size="lg" onClick={() => { trackEvent("cta_click_hero"); document.getElementById("cta-bottom")?.scrollIntoView({ behavior: "smooth" }); }}>
+              <Link
+                href={`/${lang}/demo`}
+                onClick={() => trackEvent("cta_click_hero")}
+                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 bg-primary text-white hover:bg-primary-dark hover:shadow-[var(--shadow-glow)] hover:scale-[1.03] active:scale-[0.97] px-8 py-3.5 text-lg"
+              >
                 {t.ctaPrimary}
-              </Button>
+              </Link>
               <Button
                 variant="secondary"
                 size="lg"

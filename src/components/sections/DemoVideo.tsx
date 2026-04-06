@@ -4,6 +4,8 @@ import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { Button } from "@/components/ui/Button";
 import { motion, type Variants } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 
@@ -20,6 +22,8 @@ const screenshotIcons = ["🎙️", "📝", "📋", "🏥", "📧"];
 
 export function DemoVideo({ dict }: { dict: Dictionary }) {
   const t = dict.demoVideo;
+  const pathname = usePathname();
+  const lang = pathname.split("/")[1] || "cs";
   return (
     <section
       id="demo-video"
@@ -95,16 +99,11 @@ export function DemoVideo({ dict }: { dict: Dictionary }) {
         {/* CTA */}
         <FadeInOnScroll>
           <div className="text-center mt-12">
-            <Button
-              size="lg"
-              onClick={() =>
-                document
-                  .getElementById("cta-bottom")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              {t.cta}
-            </Button>
+            <Link href={`/${lang}/demo`}>
+              <Button size="lg">
+                {t.cta}
+              </Button>
+            </Link>
           </div>
         </FadeInOnScroll>
       </div>
