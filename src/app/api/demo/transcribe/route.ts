@@ -60,7 +60,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (file.type && !ALLOWED_TYPES.has(file.type)) {
+  // Only reject if type is explicitly non-audio (e.g. application/pdf)
+  // Browser MediaRecorder blobs may have types like "audio/webm;codecs=opus"
+  const mimeBase = file.type?.split(";")[0]?.trim() ?? "";
+  if (mimeBase && !ALLOWED_TYPES.has(mimeBase) && !mimeBase.startsWith("audio/") && !mimeBase.startsWith("video/")) {
     return Response.json({ error: "Invalid audio format" }, { status: 400 });
   }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface UseMediaRecorderOptions {
   /** Called every `timeslice` ms with all accumulated chunks so far */
@@ -26,6 +26,16 @@ export function useMediaRecorder({
 }: UseMediaRecorderOptions = {}): UseMediaRecorderReturn {
   const [isRecording, setIsRecording] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  // Default to true to avoid hydration mismatch; update client-side in effect
+  const [isSupported, setIsSupported] = useState(true);
+
+  useEffect(() => {
+    setIsSupported(
+      typeof navigator !== "undefined" &&
+      !!navigator.mediaDevices?.getUserMedia &&
+      typeof MediaRecorder !== "undefined",
+    );
+  }, []);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -37,12 +47,6 @@ export function useMediaRecorder({
   onChunkRef.current = onChunk;
   const onStopRef = useRef(onStop);
   onStopRef.current = onStop;
-
-  const isSupported =
-    typeof window !== "undefined" &&
-    typeof navigator !== "undefined" &&
-    !!navigator.mediaDevices?.getUserMedia &&
-    typeof MediaRecorder !== "undefined";
 
   const cleanup = useCallback(() => {
     if (timerRef.current) {
