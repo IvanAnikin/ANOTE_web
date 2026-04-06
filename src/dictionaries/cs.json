@@ -285,10 +285,58 @@
   },
   "demoPage": {
     "title": "Demo — ANOTE",
-    "description": "Vyzkoušejte ANOTE — AI asistenta pro lékařskou dokumentaci.",
-    "comingSoon": "Připravujeme",
-    "descriptionText": "Pracujeme na interaktivním demu, kde si budete moci vyzkoušet, jak ANOTE přepisuje konverzaci a generuje lékařskou zprávu — přímo v prohlížeči.",
-    "cta": "Chci early access"
+    "description": "Vyzkoušejte ANOTE přímo v prohlížeči. Nahrajte konverzaci s pacientem a sledujte, jak AI vytvoří strukturovanou lékařskou zprávu za sekundy.",
+    "heading": "Vyzkoušejte ANOTE",
+    "subtitle": "Nahrajte konverzaci nebo nahrajte audio soubor — ANOTE přepíše a vytvoří strukturovanou lékařskou zprávu.",
+
+    "recordButton": "Nahrávat",
+    "stopButton": "Zastavit",
+    "uploadButton": "Nahrát soubor",
+    "newRecordingButton": "Nové nahrávání",
+    "generateReport": "Generovat zprávu",
+
+    "visitTypeLabel": "Typ vyšetření",
+    "visitTypes": {
+      "default": "Automatická detekce",
+      "initial": "Vstupní vyšetření",
+      "followup": "Kontrolní návštěva",
+      "gastroscopy": "Gastroskopie",
+      "colonoscopy": "Koloskopie",
+      "ultrasound": "Ultrazvuk"
+    },
+
+    "transcriptLabel": "Přepis",
+    "reportLabel": "Zpráva",
+    "transcriptPlaceholder": "Přepis se zobrazí po zahájení nahrávání...",
+    "reportPlaceholder": "Zpráva se zobrazí po zpracování přepisu...",
+
+    "transcribing": "Přepisujeme...",
+    "generating": "Generujeme zprávu...",
+    "processing": "Zpracováváme nahrávku...",
+    "complete": "Hotovo",
+
+    "copyButton": "Kopírovat",
+    "downloadButton": "Stáhnout",
+    "copied": "Zkopírováno!",
+
+    "timerLabel": "Čas nahrávání",
+    "maxDuration": "Max. 10 minut",
+
+    "micPermissionTitle": "Přístup k mikrofonu",
+    "micPermissionDesc": "Pro nahrávání potřebujeme přístup k vašemu mikrofonu.",
+    "micDenied": "Přístup k mikrofonu byl zamítnut. Povolte ho v nastavení prohlížeče.",
+
+    "errorTranscription": "Přepis se nezdařil. Zkuste to znovu.",
+    "errorReport": "Generování zprávy selhalo. Zkuste to znovu.",
+    "errorFileTooLarge": "Soubor je příliš velký (max 25 MB).",
+    "errorInvalidFormat": "Nepodporovaný formát souboru.",
+    "errorRateLimit": "Příliš mnoho požadavků. Zkuste to za chvíli.",
+
+    "disclaimer": "ANOTE není certifikovaný zdravotnický prostředek. Demo slouží pouze pro demonstrační účely. Nepoužívejte pro skutečnou klinickou dokumentaci.",
+
+    "uploadHint": "MP3, WAV, M4A, WebM — max 25 MB",
+    "dragDropHint": "Přetáhněte soubor sem nebo klikněte pro výběr",
+    "ctaHeading": "Vyzkoušejte si to sami"
   },
   "footer": {
     "tagline": "Lékařské zprávy z hlasu. Za sekundy.",

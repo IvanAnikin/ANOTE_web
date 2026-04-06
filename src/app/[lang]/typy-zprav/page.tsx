@@ -71,7 +71,7 @@ export default async function TypyZpravPage({
       <section className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary-dark text-center">
         <div className="mx-auto max-w-2xl px-6">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
-            {dict.demoPage.cta}
+            {dict.demoPage.ctaHeading}
           </h2>
           <Link
             href={`${prefix}/${demoSlug}`}

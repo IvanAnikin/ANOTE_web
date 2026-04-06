@@ -285,10 +285,58 @@
   },
   "demoPage": {
     "title": "Demo — ANOTE",
-    "description": "Try ANOTE — AI assistant for medical documentation.",
-    "comingSoon": "Coming Soon",
-    "descriptionText": "We're building an interactive demo where you can try how ANOTE transcribes a conversation and generates a medical report — right in your browser.",
-    "cta": "I want early access"
+    "description": "Try ANOTE right in your browser. Record a patient conversation and watch AI create a structured medical report in seconds.",
+    "heading": "Try ANOTE",
+    "subtitle": "Record a conversation or upload an audio file — ANOTE will transcribe it and create a structured medical report.",
+
+    "recordButton": "Record",
+    "stopButton": "Stop",
+    "uploadButton": "Upload file",
+    "newRecordingButton": "New recording",
+    "generateReport": "Generate report",
+
+    "visitTypeLabel": "Visit type",
+    "visitTypes": {
+      "default": "Auto-detect",
+      "initial": "Initial examination",
+      "followup": "Follow-up visit",
+      "gastroscopy": "Gastroscopy",
+      "colonoscopy": "Colonoscopy",
+      "ultrasound": "Ultrasound"
+    },
+
+    "transcriptLabel": "Transcript",
+    "reportLabel": "Report",
+    "transcriptPlaceholder": "Transcript will appear after you start recording...",
+    "reportPlaceholder": "Report will appear after the transcript is processed...",
+
+    "transcribing": "Transcribing...",
+    "generating": "Generating report...",
+    "processing": "Processing recording...",
+    "complete": "Done",
+
+    "copyButton": "Copy",
+    "downloadButton": "Download",
+    "copied": "Copied!",
+
+    "timerLabel": "Recording time",
+    "maxDuration": "Max. 10 minutes",
+
+    "micPermissionTitle": "Microphone access",
+    "micPermissionDesc": "We need access to your microphone to record.",
+    "micDenied": "Microphone access denied. Please enable it in your browser settings.",
+
+    "errorTranscription": "Transcription failed. Please try again.",
+    "errorReport": "Report generation failed. Please try again.",
+    "errorFileTooLarge": "File is too large (max 25 MB).",
+    "errorInvalidFormat": "Unsupported file format.",
+    "errorRateLimit": "Too many requests. Please try again in a moment.",
+
+    "disclaimer": "ANOTE is not a certified medical device. This demo is for demonstration purposes only. Do not use for actual clinical documentation.",
+
+    "uploadHint": "MP3, WAV, M4A, WebM — max 25 MB",
+    "dragDropHint": "Drag and drop a file here or click to browse",
+    "ctaHeading": "Try it yourself"
   },
   "footer": {
     "tagline": "Medical reports from voice. In seconds.",
