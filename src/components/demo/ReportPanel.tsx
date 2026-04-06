@@ -54,7 +54,7 @@ export function ReportPanel({
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-semibold text-text-primary uppercase tracking-wide">
+          <h3 className="text-sm font-semibold text-text-primary uppercase tracking-wide" id="report-heading">
             {dict.reportLabel}
           </h3>
           {visitType !== "default" && report && (
@@ -64,11 +64,12 @@ export function ReportPanel({
           )}
         </div>
         {isGenerating && (
-          <span className="inline-flex items-center gap-1.5 text-xs text-primary font-medium">
+          <span className="inline-flex items-center gap-1.5 text-xs text-primary font-medium" role="status">
             <svg
               className="animate-spin h-3.5 w-3.5"
               fill="none"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <circle
                 className="opacity-25"
@@ -88,8 +89,8 @@ export function ReportPanel({
           </span>
         )}
         {isComplete && report && (
-          <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium" role="status">
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
             {dict.complete}
@@ -99,13 +100,14 @@ export function ReportPanel({
 
       <div
         className="flex-1 min-h-[200px] md:min-h-[300px] rounded-xl border border-border bg-white p-4 overflow-y-auto text-sm leading-relaxed text-text-primary"
-        role="status"
+        role="region"
+        aria-labelledby="report-heading"
         aria-live="polite"
+        aria-atomic="false"
       >
         {report ? (
-          <div className="whitespace-pre-wrap">
+          <div className="whitespace-pre-wrap animate-fade-in">
             {report.split("\n").map((line, i) => {
-              // Bold section headers (lines that look like headers)
               if (
                 line.trim() &&
                 !line.startsWith(" ") &&
@@ -124,6 +126,16 @@ export function ReportPanel({
               return <p key={i}>{line}</p>;
             })}
           </div>
+        ) : isGenerating ? (
+          <div className="space-y-3" aria-hidden="true">
+            <div className="skeleton h-5 w-48" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-5/6" />
+            <div className="skeleton h-4 w-full" />
+            <div className="mt-4 skeleton h-5 w-40" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-3/4" />
+          </div>
         ) : (
           <p className="text-text-secondary italic">
             {dict.reportPlaceholder}
@@ -136,6 +148,7 @@ export function ReportPanel({
           <button
             onClick={handleCopy}
             className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-black/5 transition-colors"
+            aria-label={copied ? dict.copied : dict.copyButton}
           >
             {copied ? (
               <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -151,8 +164,9 @@ export function ReportPanel({
           <button
             onClick={handleDownload}
             className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-black/5 transition-colors"
+            aria-label={dict.downloadButton}
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
             </svg>
             {dict.downloadButton}

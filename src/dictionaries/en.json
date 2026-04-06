@@ -336,6 +336,7 @@
 
     "uploadHint": "MP3, WAV, M4A, WebM — max 25 MB",
     "dragDropHint": "Drag and drop a file here or click to browse",
+    "unsupportedBrowser": "Your browser doesn't support live recording. You can still upload an audio file.",
     "ctaHeading": "Try it yourself"
   },
   "footer": {

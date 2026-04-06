@@ -336,6 +336,7 @@
 
     "uploadHint": "MP3, WAV, M4A, WebM — max 25 MB",
     "dragDropHint": "Přetáhněte soubor sem nebo klikněte pro výběr",
+    "unsupportedBrowser": "Váš prohlížeč nepodporuje nahrávání zvuku. Můžete ale nahrát audio soubor.",
     "ctaHeading": "Vyzkoušejte si to sami"
   },
   "footer": {

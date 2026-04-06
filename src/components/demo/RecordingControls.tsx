@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import type { DemoStatus } from "@/hooks/useDemoSession";
 import { trackEvent } from "@/lib/analytics";
@@ -23,6 +23,8 @@ interface RecordingControlsProps {
     uploadHint: string;
     dragDropHint: string;
     micDenied: string;
+    micPermissionTitle: string;
+    unsupportedBrowser: string;
   };
 }
 
@@ -34,6 +36,15 @@ function formatTime(seconds: number): string {
 
 const MAX_DURATION_DISPLAY = "10:00";
 const ACCEPTED_AUDIO = ".mp3,.wav,.m4a,.webm,.ogg";
+const ACCEPTED_MIME_TYPES = [
+  "audio/mpeg",
+  "audio/wav",
+  "audio/x-wav",
+  "audio/mp4",
+  "audio/x-m4a",
+  "audio/webm",
+  "audio/ogg",
+];
 
 export function RecordingControls({
   status,
@@ -46,6 +57,7 @@ export function RecordingControls({
   dict,
 }: RecordingControlsProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const isIdle = status === "idle";
   const isRecording = status === "recording";
@@ -72,6 +84,37 @@ export function RecordingControls({
     [onUpload],
   );
 
+  const handleDrop = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      setIsDragOver(false);
+      if (isBusy || isRecording) return;
+
+      const file = e.dataTransfer.files?.[0];
+      if (file && (file.type.startsWith("audio/") || ACCEPTED_MIME_TYPES.includes(file.type))) {
+        trackEvent("demo_upload_file", {
+          fileType: file.type,
+          fileSizeMB: (file.size / (1024 * 1024)).toFixed(1),
+        });
+        onUpload(file);
+      }
+    },
+    [isBusy, isRecording, onUpload],
+  );
+
+  const handleDragOver = useCallback(
+    (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      if (!isBusy && !isRecording) setIsDragOver(true);
+    },
+    [isBusy, isRecording],
+  );
+
+  const handleDragLeave = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  }, []);
+
   return (
     <div className="space-y-5">
       {/* Record / Stop button */}
@@ -80,15 +123,16 @@ export function RecordingControls({
           variant="primary"
           className="w-full bg-red-600 hover:bg-red-700"
           onClick={onStopRecording}
+          aria-label={dict.stopButton}
         >
-          <span className="relative flex h-3 w-3">
+          <span className="relative flex h-3 w-3" aria-hidden="true">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-white" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-white animate-pulse-dot" />
           </span>
           {dict.stopButton}
         </Button>
       ) : isComplete || isError ? (
-        <Button variant="primary" className="w-full" onClick={onReset}>
+        <Button variant="primary" className="w-full" onClick={onReset} aria-label={dict.newRecordingButton}>
           {dict.newRecordingButton}
         </Button>
       ) : (
@@ -98,6 +142,7 @@ export function RecordingControls({
           onClick={onStartRecording}
           disabled={!isSupported || isBusy}
           loading={isBusy}
+          aria-label={dict.recordButton}
         >
           <svg
             className="w-5 h-5"
@@ -105,6 +150,7 @@ export function RecordingControls({
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -118,23 +164,33 @@ export function RecordingControls({
 
       {/* Timer */}
       {isRecording && (
-        <div className="text-center" aria-live="polite">
-          <p className="text-2xl font-mono font-bold text-text-primary" aria-label={dict.timerLabel}>
+        <div className="text-center" role="timer" aria-live="polite" aria-atomic="true">
+          <p className="text-2xl font-mono font-bold text-text-primary" aria-label={`${dict.timerLabel}: ${formatTime(elapsedSeconds)}`}>
             {formatTime(elapsedSeconds)} <span className="text-sm text-text-secondary font-normal">/ {MAX_DURATION_DISPLAY}</span>
           </p>
           <p className="text-xs text-text-secondary mt-1">{dict.maxDuration}</p>
         </div>
       )}
 
-      {/* Upload button */}
+      {/* Upload with drag-and-drop */}
       {!isRecording && (
-        <div>
+        <div
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          className={`rounded-xl border-2 border-dashed p-4 transition-colors ${
+            isDragOver
+              ? "border-primary bg-primary/5"
+              : "border-border bg-transparent"
+          } ${isBusy ? "opacity-50 cursor-not-allowed" : ""}`}
+        >
           <input
             ref={fileInputRef}
             type="file"
             accept={ACCEPTED_AUDIO}
             onChange={handleFileChange}
             className="hidden"
+            id="audio-upload"
             aria-label={dict.uploadButton}
           />
           <Button
@@ -143,6 +199,7 @@ export function RecordingControls({
             onClick={() => fileInputRef.current?.click()}
             disabled={isBusy || isRecording}
             loading={status === "uploading"}
+            aria-label={dict.uploadButton}
           >
             <svg
               className="w-5 h-5"
@@ -150,6 +207,7 @@ export function RecordingControls({
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -159,7 +217,10 @@ export function RecordingControls({
             </svg>
             {dict.uploadButton}
           </Button>
-          <p className="text-xs text-text-secondary mt-1.5 text-center">
+          <p className="text-xs text-text-secondary mt-2 text-center">
+            {dict.dragDropHint}
+          </p>
+          <p className="text-xs text-text-secondary mt-0.5 text-center">
             {dict.uploadHint}
           </p>
         </div>
@@ -167,9 +228,10 @@ export function RecordingControls({
 
       {/* Unsupported browser message */}
       {!isSupported && (
-        <p className="text-sm text-amber-600 bg-amber-50 rounded-lg p-3 text-center">
-          {dict.micDenied}
-        </p>
+        <div className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg p-3" role="alert">
+          <p className="font-medium mb-1">{dict.micPermissionTitle}</p>
+          <p>{dict.unsupportedBrowser}</p>
+        </div>
       )}
     </div>
   );

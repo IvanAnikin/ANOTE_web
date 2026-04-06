@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 
 interface TranscriptPanelProps {
@@ -21,6 +21,13 @@ export function TranscriptPanel({
   dict,
 }: TranscriptPanelProps) {
   const [copied, setCopied] = useState(false);
+  const prevTranscriptRef = useRef("");
+
+  // Track if transcript changed for fade-in effect
+  const transcriptChanged = transcript !== prevTranscriptRef.current;
+  if (transcriptChanged) {
+    prevTranscriptRef.current = transcript;
+  }
 
   const handleCopy = useCallback(async () => {
     if (!transcript) return;
@@ -33,15 +40,16 @@ export function TranscriptPanel({
   return (
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-text-primary uppercase tracking-wide">
+        <h3 className="text-sm font-semibold text-text-primary uppercase tracking-wide" id="transcript-heading">
           {dict.transcriptLabel}
         </h3>
         {isTranscribing && (
-          <span className="inline-flex items-center gap-1.5 text-xs text-primary font-medium">
+          <span className="inline-flex items-center gap-1.5 text-xs text-primary font-medium" role="status">
             <svg
               className="animate-spin h-3.5 w-3.5"
               fill="none"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <circle
                 className="opacity-25"
@@ -64,11 +72,21 @@ export function TranscriptPanel({
 
       <div
         className="flex-1 min-h-[200px] md:min-h-[300px] rounded-xl border border-border bg-white p-4 overflow-y-auto text-sm leading-relaxed text-text-primary"
-        role="status"
+        role="region"
+        aria-labelledby="transcript-heading"
         aria-live="polite"
+        aria-atomic="false"
       >
         {transcript ? (
-          <p className="whitespace-pre-wrap">{transcript}</p>
+          <p className="whitespace-pre-wrap animate-fade-in">{transcript}</p>
+        ) : isTranscribing ? (
+          <div className="space-y-3" aria-hidden="true">
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-5/6" />
+            <div className="skeleton h-4 w-4/6" />
+            <div className="skeleton h-4 w-full" />
+            <div className="skeleton h-4 w-3/4" />
+          </div>
         ) : (
           <p className="text-text-secondary italic">
             {dict.transcriptPlaceholder}
@@ -81,6 +99,7 @@ export function TranscriptPanel({
           <button
             onClick={handleCopy}
             className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium text-text-secondary hover:text-text-primary hover:bg-black/5 transition-colors"
+            aria-label={copied ? dict.copied : dict.copyButton}
           >
             {copied ? (
               <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
