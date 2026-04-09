@@ -51,6 +51,9 @@ export function useMediaRecorder({
   const onStopRef = useRef(onStop);
   onStopRef.current = onStop;
 
+  // Minimum segment size to be considered valid audio (skip empty/tiny segments)
+  const MIN_SEGMENT_BYTES = 1000;
+
   const cleanup = useCallback(() => {
     if (elapsedTimerRef.current) {
       clearInterval(elapsedTimerRef.current);
@@ -85,13 +88,15 @@ export function useMediaRecorder({
     recorder.onstop = () => {
       const segmentBlob = new Blob(currentChunksRef.current, { type: mimeType });
       if (stoppingRef.current) {
-        // User requested final stop
+        // User requested final stop — always signal (consumer filters tiny blobs)
         onStopRef.current?.(segmentBlob);
         cleanup();
         setIsRecording(false);
       } else {
-        // Periodic segment rotation — deliver segment, start next
-        onChunkRef.current?.(segmentBlob);
+        // Periodic segment rotation — skip tiny/empty segments
+        if (segmentBlob.size >= MIN_SEGMENT_BYTES) {
+          onChunkRef.current?.(segmentBlob);
+        }
         startSegment();
       }
     };

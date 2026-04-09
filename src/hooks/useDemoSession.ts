@@ -176,6 +176,7 @@ async function streamReport(
 // ── Hook ────────────────────────────────────────────────────────────────────
 
 const MAX_DURATION_SECONDS = 10 * 60; // 10 minutes
+const MIN_SEGMENT_BYTES = 1000; // Skip segments too small to be valid audio
 
 export function useDemoSession() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -216,19 +217,24 @@ export function useDemoSession() {
       abortRef.current = controller;
 
       try {
-        // Collect any queued segments + current one
-        const toProcess = [...pendingSegmentsRef.current, segmentBlob];
+        // Collect any queued segments + current one, filtering tiny/empty blobs
+        const toProcess = [...pendingSegmentsRef.current, segmentBlob]
+          .filter((seg) => seg.size >= MIN_SEGMENT_BYTES);
         pendingSegmentsRef.current = [];
 
+        if (toProcess.length === 0) return;
+
         dispatch({ type: "SET_TRANSCRIBING", value: true });
-        const results = await Promise.all(
+        const settled = await Promise.allSettled(
           toProcess.map((seg) => transcribeAudio(seg, controller.signal)),
         );
-        for (const text of results) {
-          const trimmed = text.trim();
-          if (trimmed) {
-            fullTranscriptRef.current +=
-              (fullTranscriptRef.current ? " " : "") + trimmed;
+        for (const result of settled) {
+          if (result.status === "fulfilled") {
+            const trimmed = result.value.trim();
+            if (trimmed) {
+              fullTranscriptRef.current +=
+                (fullTranscriptRef.current ? " " : "") + trimmed;
+            }
           }
         }
         dispatch({ type: "SET_TRANSCRIPT", transcript: fullTranscriptRef.current });
@@ -266,8 +272,9 @@ export function useDemoSession() {
       abortRef.current?.abort();
       pendingRef.current = true;
 
-      // Collect any queued segments + the last one
-      const toProcess = [...pendingSegmentsRef.current, lastSegmentBlob];
+      // Collect any queued segments + the last one, filtering tiny/empty blobs
+      const toProcess = [...pendingSegmentsRef.current, lastSegmentBlob]
+        .filter((seg) => seg.size >= MIN_SEGMENT_BYTES);
       pendingSegmentsRef.current = [];
 
       dispatch({ type: "STOP_RECORDING" });
@@ -277,14 +284,16 @@ export function useDemoSession() {
 
       try {
         dispatch({ type: "SET_TRANSCRIBING", value: true });
-        const results = await Promise.all(
+        const settled = await Promise.allSettled(
           toProcess.map((seg) => transcribeAudio(seg, controller.signal)),
         );
-        for (const text of results) {
-          const trimmed = text.trim();
-          if (trimmed) {
-            fullTranscriptRef.current +=
-              (fullTranscriptRef.current ? " " : "") + trimmed;
+        for (const result of settled) {
+          if (result.status === "fulfilled") {
+            const trimmed = result.value.trim();
+            if (trimmed) {
+              fullTranscriptRef.current +=
+                (fullTranscriptRef.current ? " " : "") + trimmed;
+            }
           }
         }
         dispatch({ type: "SET_TRANSCRIPT", transcript: fullTranscriptRef.current });
