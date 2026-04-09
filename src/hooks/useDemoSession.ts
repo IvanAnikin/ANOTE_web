@@ -128,7 +128,18 @@ async function generateReport(
     throw new Error(data.error ?? "Report generation failed");
   }
 
-  const data = await res.json();
+  // The API streams ndjson (heartbeat newlines + final JSON line).
+  // Read the full body text, then parse the last non-empty line.
+  const text = await res.text();
+  const lines = text.split("\n").filter((l) => l.trim().length > 0);
+  const last = lines[lines.length - 1];
+  if (!last) {
+    throw new Error("Empty response from report service");
+  }
+  const data = JSON.parse(last);
+  if (data.error) {
+    throw new Error(data.error);
+  }
   return data.report as string;
 }
 

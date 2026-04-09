@@ -10,6 +10,10 @@ function getClientIp(request: NextRequest): string {
   );
 }
 
+// Azure SWA kills idle connections at ~45s. We stream newline-delimited JSON
+// (ndjson) with periodic heartbeat lines to keep the connection alive while
+// the ANOTE backend generates the report via OpenAI.
+
 export async function POST(request: NextRequest) {
   const ip = getClientIp(request);
 
@@ -41,37 +45,63 @@ export async function POST(request: NextRequest) {
 
   const visitType = body.visit_type ?? "default";
 
-  try {
-    const response = await fetch(`${ANOTE_BACKEND_URL}/report`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${ANOTE_API_TOKEN}`,
-      },
-      body: JSON.stringify({
-        transcript,
-        language: "cs",
-        visit_type: visitType,
-      }),
-      signal: AbortSignal.timeout(55_000),
-    });
+  const stream = new ReadableStream({
+    async start(controller) {
+      const encoder = new TextEncoder();
 
-    if (!response.ok) {
-      const text = await response.text().catch(() => "");
-      console.error("ANOTE backend error:", response.status, text);
-      return Response.json(
-        { error: "Report generation failed" },
-        { status: 502 },
-      );
-    }
+      // Send heartbeat every 10s to prevent SWA 45s idle timeout
+      const heartbeat = setInterval(() => {
+        try {
+          controller.enqueue(encoder.encode("\n"));
+        } catch {
+          clearInterval(heartbeat);
+        }
+      }, 10_000);
 
-    const data = await response.json();
-    return Response.json({ report: data.report ?? "" });
-  } catch (err) {
-    console.error("ANOTE backend request failed:", err);
-    return Response.json(
-      { error: "Report generation failed" },
-      { status: 502 },
-    );
-  }
+      try {
+        const response = await fetch(`${ANOTE_BACKEND_URL}/report`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${ANOTE_API_TOKEN}`,
+          },
+          body: JSON.stringify({
+            transcript,
+            language: "cs",
+            visit_type: visitType,
+          }),
+          signal: AbortSignal.timeout(120_000),
+        });
+
+        if (!response.ok) {
+          const text = await response.text().catch(() => "");
+          console.error("ANOTE backend error:", response.status, text);
+          controller.enqueue(
+            encoder.encode(JSON.stringify({ error: "Report generation failed" }) + "\n"),
+          );
+        } else {
+          const data = await response.json();
+          controller.enqueue(
+            encoder.encode(JSON.stringify({ report: data.report ?? "" }) + "\n"),
+          );
+        }
+      } catch (err) {
+        console.error("ANOTE backend request failed:", err);
+        controller.enqueue(
+          encoder.encode(JSON.stringify({ error: "Report generation failed" }) + "\n"),
+        );
+      } finally {
+        clearInterval(heartbeat);
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "application/x-ndjson",
+      "Cache-Control": "no-cache",
+      "Transfer-Encoding": "chunked",
+    },
+  });
 }
