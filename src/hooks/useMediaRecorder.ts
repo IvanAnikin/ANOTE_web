@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface UseMediaRecorderOptions {
-  /** Called every `timeslice` ms with all accumulated chunks so far */
-  onChunk?: (blob: Blob) => void;
-  /** Called when recording stops with the final complete blob */
-  onStop?: (blob: Blob) => void;
-  /** Interval in ms between ondataavailable events (default 20000) */
+  /** Called every `timeslice` ms with a standalone audio segment */
+  onChunk?: (segmentBlob: Blob) => void;
+  /** Called when recording stops with the final segment */
+  onStop?: (lastSegmentBlob: Blob) => void;
+  /** Interval in ms between segments (default 20000) */
   timeslice?: number;
 }
 
@@ -39,8 +39,11 @@ export function useMediaRecorder({
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const currentChunksRef = useRef<Blob[]>([]);
+  const elapsedTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const segmentTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const mimeTypeRef = useRef("audio/webm");
+  const stoppingRef = useRef(false);
 
   // Keep latest callbacks in refs to avoid stale closures
   const onChunkRef = useRef(onChunk);
@@ -49,55 +52,91 @@ export function useMediaRecorder({
   onStopRef.current = onStop;
 
   const cleanup = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
+    if (elapsedTimerRef.current) {
+      clearInterval(elapsedTimerRef.current);
+      elapsedTimerRef.current = null;
+    }
+    if (segmentTimerRef.current) {
+      clearInterval(segmentTimerRef.current);
+      segmentTimerRef.current = null;
     }
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
     mediaRecorderRef.current = null;
   }, []);
 
-  const start = useCallback(async () => {
-    if (mediaRecorderRef.current) return;
+  // Start a new recording segment on the existing stream.
+  // Each segment produces a standalone, valid audio file.
+  const startSegment = useCallback(() => {
+    const stream = streamRef.current;
+    if (!stream || stoppingRef.current) return;
 
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    streamRef.current = stream;
-    chunksRef.current = [];
-    setElapsedSeconds(0);
-
-    const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-      ? "audio/webm;codecs=opus"
-      : "audio/webm";
-
+    currentChunksRef.current = [];
+    const mimeType = mimeTypeRef.current;
     const recorder = new MediaRecorder(stream, { mimeType });
     mediaRecorderRef.current = recorder;
 
     recorder.ondataavailable = (e) => {
       if (e.data.size > 0) {
-        chunksRef.current.push(e.data);
-        const accumulated = new Blob(chunksRef.current, { type: mimeType });
-        onChunkRef.current?.(accumulated);
+        currentChunksRef.current.push(e.data);
       }
     };
 
     recorder.onstop = () => {
-      const finalBlob = new Blob(chunksRef.current, { type: mimeType });
-      onStopRef.current?.(finalBlob);
-      cleanup();
-      setIsRecording(false);
+      const segmentBlob = new Blob(currentChunksRef.current, { type: mimeType });
+      if (stoppingRef.current) {
+        // User requested final stop
+        onStopRef.current?.(segmentBlob);
+        cleanup();
+        setIsRecording(false);
+      } else {
+        // Periodic segment rotation — deliver segment, start next
+        onChunkRef.current?.(segmentBlob);
+        startSegment();
+      }
     };
 
-    recorder.start(timeslice);
+    recorder.start();
+  }, [cleanup]);
+
+  const start = useCallback(async () => {
+    if (mediaRecorderRef.current) return;
+    stoppingRef.current = false;
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    streamRef.current = stream;
+    setElapsedSeconds(0);
+
+    const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+      ? "audio/webm;codecs=opus"
+      : "audio/webm";
+    mimeTypeRef.current = mimeType;
+
+    startSegment();
     setIsRecording(true);
 
     // Elapsed timer
-    timerRef.current = setInterval(() => {
+    elapsedTimerRef.current = setInterval(() => {
       setElapsedSeconds((s) => s + 1);
     }, 1000);
-  }, [timeslice, cleanup]);
+
+    // Segment rotation: stop the current recorder every `timeslice` ms.
+    // The onstop handler will deliver the segment via onChunk and start a new one.
+    segmentTimerRef.current = setInterval(() => {
+      const recorder = mediaRecorderRef.current;
+      if (recorder && recorder.state !== "inactive" && !stoppingRef.current) {
+        recorder.stop();
+      }
+    }, timeslice);
+  }, [timeslice, cleanup, startSegment]);
 
   const stop = useCallback(() => {
+    // Clear segment rotation first to prevent races
+    if (segmentTimerRef.current) {
+      clearInterval(segmentTimerRef.current);
+      segmentTimerRef.current = null;
+    }
+    stoppingRef.current = true;
     const recorder = mediaRecorderRef.current;
     if (recorder && recorder.state !== "inactive") {
       recorder.stop();

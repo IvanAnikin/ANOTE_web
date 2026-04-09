@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useReducer, useRef } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import { useMediaRecorder } from "./useMediaRecorder";
 
 // ── Types ───────────────────────────────────────────────────────────────────
@@ -40,6 +40,7 @@ type DemoAction =
   | { type: "START_UPLOAD" }
   | { type: "SET_TRANSCRIPT"; transcript: string }
   | { type: "SET_REPORT"; report: string }
+  | { type: "APPEND_REPORT"; token: string }
   | { type: "SET_VISIT_TYPE"; visitType: VisitType }
   | { type: "SET_TRANSCRIBING"; value: boolean }
   | { type: "SET_GENERATING"; value: boolean }
@@ -69,6 +70,8 @@ function reducer(state: DemoState, action: DemoAction): DemoState {
       return { ...state, transcript: action.transcript };
     case "SET_REPORT":
       return { ...state, report: action.report };
+    case "APPEND_REPORT":
+      return { ...state, report: state.report + action.token };
     case "SET_VISIT_TYPE":
       return { ...state, visitType: action.visitType };
     case "SET_TRANSCRIBING":
@@ -111,9 +114,14 @@ async function transcribeAudio(
   return data.transcript as string;
 }
 
-async function generateReport(
+/**
+ * Stream report tokens from the SSE endpoint, calling onToken for each chunk.
+ * Returns the full accumulated report text.
+ */
+async function streamReport(
   transcript: string,
   visitType: VisitType,
+  onToken: (token: string) => void,
   signal?: AbortSignal,
 ): Promise<string> {
   const res = await fetch("/api/demo/report", {
@@ -128,19 +136,41 @@ async function generateReport(
     throw new Error(data.error ?? "Report generation failed");
   }
 
-  // The API streams ndjson (heartbeat newlines + final JSON line).
-  // Read the full body text, then parse the last non-empty line.
-  const text = await res.text();
-  const lines = text.split("\n").filter((l) => l.trim().length > 0);
-  const last = lines[lines.length - 1];
-  if (!last) {
-    throw new Error("Empty response from report service");
+  const reader = res.body?.getReader();
+  if (!reader) throw new Error("No response stream");
+
+  const decoder = new TextDecoder();
+  let full = "";
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    // Keep the last (possibly incomplete) line in the buffer
+    buffer = lines.pop() ?? "";
+
+    for (const line of lines) {
+      if (!line.startsWith("data: ")) continue;
+      const payload = line.slice(6);
+      if (payload === "[DONE]") continue;
+      try {
+        const parsed = JSON.parse(payload);
+        if (parsed.error) throw new Error(parsed.error);
+        if (parsed.token) {
+          full += parsed.token;
+          onToken(parsed.token);
+        }
+      } catch (e) {
+        if (e instanceof SyntaxError) continue; // skip malformed lines
+        throw e;
+      }
+    }
   }
-  const data = JSON.parse(last);
-  if (data.error) {
-    throw new Error(data.error);
-  }
-  return data.report as string;
+
+  return full;
 }
 
 // ── Hook ────────────────────────────────────────────────────────────────────
@@ -158,39 +188,71 @@ export function useDemoSession() {
   // Prevent overlapping periodic transcription requests
   const pendingRef = useRef(false);
 
+  // Accumulated transcript built from individual segments
+  const fullTranscriptRef = useRef("");
+
+  // Queue for segments that arrive while a request is in-flight
+  const pendingSegmentsRef = useRef<Blob[]>([]);
+
+  // Abort in-flight requests on unmount
+  useEffect(() => {
+    return () => {
+      abortRef.current?.abort();
+    };
+  }, []);
+
   // ── Periodic transcription + report during recording ──────────────────
 
   const handleChunk = useCallback(
-    async (blob: Blob) => {
-      // Skip if a request is already in-flight
-      if (pendingRef.current) return;
+    async (segmentBlob: Blob) => {
+      // Queue if a request is already in-flight (no audio is lost)
+      if (pendingRef.current) {
+        pendingSegmentsRef.current.push(segmentBlob);
+        return;
+      }
       pendingRef.current = true;
 
       const controller = new AbortController();
       abortRef.current = controller;
 
       try {
+        // Collect any queued segments + current one
+        const toProcess = [...pendingSegmentsRef.current, segmentBlob];
+        pendingSegmentsRef.current = [];
+
         dispatch({ type: "SET_TRANSCRIBING", value: true });
-        const transcript = await transcribeAudio(blob, controller.signal);
-        dispatch({ type: "SET_TRANSCRIPT", transcript });
+        const results = await Promise.all(
+          toProcess.map((seg) => transcribeAudio(seg, controller.signal)),
+        );
+        for (const text of results) {
+          const trimmed = text.trim();
+          if (trimmed) {
+            fullTranscriptRef.current +=
+              (fullTranscriptRef.current ? " " : "") + trimmed;
+          }
+        }
+        dispatch({ type: "SET_TRANSCRIPT", transcript: fullTranscriptRef.current });
         dispatch({ type: "SET_TRANSCRIBING", value: false });
 
         dispatch({ type: "SET_GENERATING", value: true });
-        const report = await generateReport(
-          transcript,
+        dispatch({ type: "SET_REPORT", report: "" });
+        await streamReport(
+          fullTranscriptRef.current,
           visitTypeRef.current,
+          (token) => dispatch({ type: "APPEND_REPORT", token }),
           controller.signal,
         );
-        dispatch({ type: "SET_REPORT", report });
         dispatch({ type: "SET_GENERATING", value: false });
       } catch (err) {
-        if ((err as Error).name !== "AbortError") {
-          console.error("Periodic transcription error:", err);
-        }
+        if ((err as Error).name === "AbortError") return;
+        console.error("Periodic transcription error:", err);
         dispatch({ type: "SET_TRANSCRIBING", value: false });
         dispatch({ type: "SET_GENERATING", value: false });
       } finally {
-        pendingRef.current = false;
+        // Only reset if not aborted (handleRecordingStop takes over on abort)
+        if (!controller.signal.aborted) {
+          pendingRef.current = false;
+        }
       }
     },
     [],
@@ -199,10 +261,14 @@ export function useDemoSession() {
   // ── Final processing after recording stops ────────────────────────────
 
   const handleRecordingStop = useCallback(
-    async (blob: Blob) => {
+    async (lastSegmentBlob: Blob) => {
       // Abort any in-flight chunk request before starting final processing
       abortRef.current?.abort();
       pendingRef.current = true;
+
+      // Collect any queued segments + the last one
+      const toProcess = [...pendingSegmentsRef.current, lastSegmentBlob];
+      pendingSegmentsRef.current = [];
 
       dispatch({ type: "STOP_RECORDING" });
 
@@ -211,17 +277,27 @@ export function useDemoSession() {
 
       try {
         dispatch({ type: "SET_TRANSCRIBING", value: true });
-        const transcript = await transcribeAudio(blob, controller.signal);
-        dispatch({ type: "SET_TRANSCRIPT", transcript });
+        const results = await Promise.all(
+          toProcess.map((seg) => transcribeAudio(seg, controller.signal)),
+        );
+        for (const text of results) {
+          const trimmed = text.trim();
+          if (trimmed) {
+            fullTranscriptRef.current +=
+              (fullTranscriptRef.current ? " " : "") + trimmed;
+          }
+        }
+        dispatch({ type: "SET_TRANSCRIPT", transcript: fullTranscriptRef.current });
         dispatch({ type: "SET_TRANSCRIBING", value: false });
 
         dispatch({ type: "SET_GENERATING", value: true });
-        const report = await generateReport(
-          transcript,
+        dispatch({ type: "SET_REPORT", report: "" });
+        await streamReport(
+          fullTranscriptRef.current,
           visitTypeRef.current,
+          (token) => dispatch({ type: "APPEND_REPORT", token }),
           controller.signal,
         );
-        dispatch({ type: "SET_REPORT", report });
         dispatch({ type: "SET_GENERATING", value: false });
 
         dispatch({ type: "SET_STATUS", status: "complete" });
@@ -253,6 +329,8 @@ export function useDemoSession() {
   // ── Public actions ────────────────────────────────────────────────────
 
   const startRecording = useCallback(async () => {
+    fullTranscriptRef.current = "";
+    pendingSegmentsRef.current = [];
     dispatch({ type: "START_RECORDING" });
     try {
       await recorder.start();
@@ -289,12 +367,13 @@ export function useDemoSession() {
 
         dispatch({ type: "SET_STATUS", status: "generating" });
         dispatch({ type: "SET_GENERATING", value: true });
-        const report = await generateReport(
+        dispatch({ type: "SET_REPORT", report: "" });
+        await streamReport(
           transcript,
           visitTypeRef.current,
+          (token) => dispatch({ type: "APPEND_REPORT", token }),
           controller.signal,
         );
-        dispatch({ type: "SET_REPORT", report });
         dispatch({ type: "SET_GENERATING", value: false });
 
         dispatch({ type: "SET_STATUS", status: "complete" });
@@ -314,6 +393,8 @@ export function useDemoSession() {
   const reset = useCallback(() => {
     abortRef.current?.abort();
     abortRef.current = null;
+    fullTranscriptRef.current = "";
+    pendingSegmentsRef.current = [];
     if (recorder.isRecording) {
       recorder.stop();
     }
