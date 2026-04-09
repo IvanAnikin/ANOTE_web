@@ -189,6 +189,10 @@ export function useDemoSession() {
 
   const handleRecordingStop = useCallback(
     async (blob: Blob) => {
+      // Abort any in-flight chunk request before starting final processing
+      abortRef.current?.abort();
+      pendingRef.current = true;
+
       dispatch({ type: "STOP_RECORDING" });
 
       const controller = new AbortController();
@@ -214,6 +218,8 @@ export function useDemoSession() {
         if ((err as Error).name !== "AbortError") {
           dispatch({ type: "SET_ERROR", error: (err as Error).message });
         }
+      } finally {
+        pendingRef.current = false;
       }
     },
     [],

@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
         language: "cs",
         visit_type: visitType,
       }),
+      signal: AbortSignal.timeout(55_000),
     });
 
     if (!response.ok) {
