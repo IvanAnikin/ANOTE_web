@@ -115,8 +115,9 @@ async function transcribeAudio(
 }
 
 /**
- * Stream report tokens from the SSE endpoint, calling onToken for each chunk.
- * Returns the full accumulated report text.
+ * Fetch the full report from the backend (JSON response).
+ * Calls onToken once with the complete report text.
+ * Returns the full report text.
  */
 async function streamReport(
   transcript: string,
@@ -136,41 +137,12 @@ async function streamReport(
     throw new Error(data.error ?? "Report generation failed");
   }
 
-  const reader = res.body?.getReader();
-  if (!reader) throw new Error("No response stream");
-
-  const decoder = new TextDecoder();
-  let full = "";
-  let buffer = "";
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split("\n");
-    // Keep the last (possibly incomplete) line in the buffer
-    buffer = lines.pop() ?? "";
-
-    for (const line of lines) {
-      if (!line.startsWith("data: ")) continue;
-      const payload = line.slice(6);
-      if (payload === "[DONE]") continue;
-      try {
-        const parsed = JSON.parse(payload);
-        if (parsed.error) throw new Error(parsed.error);
-        if (parsed.token) {
-          full += parsed.token;
-          onToken(parsed.token);
-        }
-      } catch (e) {
-        if (e instanceof SyntaxError) continue; // skip malformed lines
-        throw e;
-      }
-    }
+  const data = await res.json();
+  const report = data.report ?? "";
+  if (report) {
+    onToken(report);
   }
-
-  return full;
+  return report;
 }
 
 // ── Hook ────────────────────────────────────────────────────────────────────

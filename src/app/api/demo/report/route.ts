@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`${ANOTE_BACKEND_URL}/report/stream`, {
+    const response = await fetch(`${ANOTE_BACKEND_URL}/report`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,15 +63,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Pipe the SSE stream straight through to the client
-    return new Response(response.body, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
-        "X-Accel-Buffering": "no",
-      },
-    });
+    const data = await response.json();
+    return Response.json({ report: data.report });
   } catch (err) {
     console.error("ANOTE backend request failed:", err);
     return Response.json(
