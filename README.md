@@ -2,7 +2,7 @@
 
 Marketing website and live demo for **ANOTE** — an AI-powered Czech medical dictation assistant that transcribes doctor–patient conversations and generates structured medical reports.
 
-**Live site**: [ashy-sea-04ea79a0f.1.azurestaticapps.net](https://ashy-sea-04ea79a0f.1.azurestaticapps.net)
+**Live site**: [yellow-forest-086a45303.7.azurestaticapps.net](https://yellow-forest-086a45303.7.azurestaticapps.net)
 
 ## Tech Stack
 
@@ -10,7 +10,7 @@ Marketing website and live demo for **ANOTE** — an AI-powered Czech medical di
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **Animations**: Framer Motion 12
-- **Hosting**: Azure Static Web Apps
+- **Hosting**: Azure Static Web Apps (West Europe)
 - **CI/CD**: GitHub Actions (auto-deploy on push to `main`)
 - **Backend APIs**: Azure OpenAI (Whisper + GPT), ANOTE FastAPI backend
 
