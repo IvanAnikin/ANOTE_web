@@ -1,14 +1,18 @@
 "use client";
 
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
-import { Button } from "@/components/ui/Button";
 import { useRef, useState, useEffect, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 export function Testimonials({ dict }: { dict: Dictionary }) {
   const t = dict.testimonials;
   const [active, setActive] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const pathname = usePathname();
+  const firstSegment = pathname.split("/")[1];
+  const lang = (firstSegment === "cs" || firstSegment === "en") ? firstSegment : "cs";
+  const kontaktHref = lang === "cs" ? "/kontakt" : "/en/contact";
 
   const next = useCallback(() => {
     setActive((prev) => (prev + 1) % t.items.length);
@@ -102,14 +106,12 @@ export function Testimonials({ dict }: { dict: Dictionary }) {
               <p className="text-text-secondary mb-4">
                 {t.earlyAccessLabel}
               </p>
-              <Button
-                variant="secondary"
-                onClick={() =>
-                  document.getElementById("cta-bottom")?.scrollIntoView({ behavior: "smooth" })
-                }
+              <a
+                href={kontaktHref}
+                className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 border border-primary text-primary bg-transparent hover:bg-primary/5 px-6 py-2.5 text-base"
               >
                 {t.earlyAccessCta}
-              </Button>
+              </a>
             </div>
           </div>
         </FadeInOnScroll>

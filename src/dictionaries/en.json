@@ -1,13 +1,13 @@
 {
   "meta": {
-    "title": "ANOTE — Medical Reports from Voice in Seconds",
+    "title": "ANOTE — Automated Medical Reports",
     "titleTemplate": "%s | ANOTE",
-    "description": "Transcribe patient conversations and generate structured medical reports with AI. On-device transcription, GDPR compliant, Czech medical terminology.",
-    "ogTitle": "ANOTE — Medical Reports from Voice",
-    "ogDescription": "AI assistant for medical documentation. On-device transcription, reports in seconds.",
-    "ogImageAlt": "ANOTE — Medical Reports from Voice in Seconds",
+    "description": "Transcribe patient conversations and generate structured medical reports with AI. Local and cloud transcription, GDPR compliant, Czech medical terminology.",
+    "ogTitle": "ANOTE — Automated Medical Reports",
+    "ogDescription": "AI assistant for medical documentation. Local and cloud transcription, reports in seconds.",
+    "ogImageAlt": "ANOTE — Automated Medical Reports",
     "twitterDescription": "AI assistant for medical documentation.",
-    "keywords": "medical documentation,dictation,speech recognition,AI reports,GDPR,Czech medicine,medical reports,Whisper,on-device"
+    "keywords": "medical documentation,dictation,speech recognition,AI reports,GDPR,Czech medicine,medical reports,Whisper,gpt-4o-transcribe,on-device"
   },
   "nav": {
     "howItWorks": "How It Works",
@@ -23,15 +23,11 @@
   },
   "hero": {
     "headingLine1": "Medical reports",
-    "headingLine2": "from voice in seconds.",
+    "headingLine2": "automatically.",
     "description": "Record. ANOTE transcribes and creates a structured medical report — right on your phone.",
     "ctaPrimary": "Try for free",
     "ctaSecondary": "See how it works",
-    "badges": ["GDPR", "EU Data", "iOS & Android", "Works Offline"]
-  },
-  "logoBar": {
-    "label": "Used by doctors across the Czech Republic",
-    "logos": ["FN Motol", "IKEM", "VFN Praha", "FN Olomouc", "Your clinic?"]
+    "badges": ["GDPR", "EU Data", "iOS & Android", "Local & cloud transcription"]
   },
   "howItWorks": {
     "heading": "How It Works",
@@ -45,7 +41,7 @@
       {
         "number": "02",
         "title": "Transcribe",
-        "description": "Whisper AI transcribes speech to text directly on device — no audio leaves your phone. Transcription updates live."
+        "description": "ANOTE transcribes speech to text — locally on device (Whisper) or via cloud (gpt-4o-transcribe). Transcription updates live."
       },
       {
         "number": "03",
@@ -58,24 +54,9 @@
     "heading": "Features That Transform Your Practice",
     "items": [
       {
-        "title": "Live Real-Time Transcription",
-        "body": "Transcription appears right before you during the examination. Text updates every 5–10 seconds. See what the AI hears — before the patient leaves the office.",
-        "badge": "⚡ Updates every 5s"
-      },
-      {
-        "title": "13 Sections. Czech Terminology. Automatic.",
-        "body": "ANOTE doesn't just transcribe — it creates a complete medical report with history, findings, diagnosis, and therapy. Format follows Czech documentation standards.",
-        "badge": "📋 6 exam types"
-      },
-      {
-        "title": "Patient Voice Never Leaves the Phone",
-        "body": "Whisper AI runs directly on your device. No audio is sent to a server. Only anonymized text is sent for report generation — exclusively within the EU.",
-        "badge": "🔒 GDPR · 🇪🇺 Azure West Europe"
-      },
-      {
-        "title": "Works Without Internet",
-        "body": "Speech-to-text runs locally. In the field, in an office without WiFi, in a hospital with weak signal — ANOTE transcribes always. Mobile data is enough for report generation.",
-        "badge": "📡 3 modes: offline / cloud / hybrid"
+        "title": "Two Transcription Modes",
+        "body": "Local transcription (Whisper) runs on the phone — audio never leaves the device and works offline. Cloud transcription (gpt-4o-transcribe) is faster and more accurate, audio is sent for processing. Report generation always requires an internet connection.",
+        "badge": "🔒 Local · ☁️ Cloud"
       },
       {
         "title": "Right Template for Every Examination",
@@ -87,7 +68,13 @@
         "body": "Tap record, talk to the patient, tap stop. Copy the report to clipboard or send via email — directly to your EHR system.",
         "badge": "📧 Email · 📋 Copy to clipboard"
       }
-    ]
+    ],
+    "workflow": {
+      "record": "Record",
+      "stop": "Stop",
+      "sendEmail": "Send via Email",
+      "copy": "Copy"
+    }
   },
   "demoVideo": {
     "heading": "See How ANOTE Works",
@@ -151,7 +138,7 @@
     "subheading": "Designed for European Healthcare",
     "features": [
       { "title": "Encryption", "detail": "End-to-end encryption in transit and at rest" },
-      { "title": "On-device AI", "detail": "Transcription runs locally, no audio leaves the device" },
+      { "title": "Local Transcription", "detail": "In local mode, transcription runs on device — no audio leaves the phone" },
       { "title": "EU Data Residency", "detail": "Azure West Europe — data stays in the EU" },
       { "title": "Zero Retention", "detail": "No data retention on Azure OpenAI servers" },
       { "title": "Token Auth", "detail": "Every API request authenticated with bearer token" },
@@ -160,13 +147,14 @@
   },
   "pricing": {
     "heading": "Transparent Pricing",
-    "subheading": "No subscription. You only pay for what you use.",
+    "subheading": "7-day free trial. Then a monthly subscription. Price to be announced.",
     "cardLabel": "ANOTE Pro",
-    "price": "~$0.001",
-    "perUnit": "per report (~0.03 CZK)",
+    "price": "Subscription",
+    "perUnit": "Price to be announced",
     "features": [
+      "7-day free trial",
       "Unlimited recording",
-      "Free on-device transcription",
+      "Local (Whisper) and cloud (gpt-4o-transcribe) transcription",
       "13-section structured reports",
       "6 exam types",
       "iOS + Android",
@@ -174,15 +162,13 @@
       "Email sending",
       "Recording history"
     ],
-    "cta": "Try for free",
+    "cta": "Start for free",
     "comparisonHeading": "Comparison with Alternatives",
     "comparisonHeaders": ["ANOTE", "Manual typing", "Other solutions*"],
     "comparisonRows": [
       { "label": "Time per report", "values": ["~15 seconds", "15–30 minutes", "2–5 minutes"] },
-      { "label": "Cost per report", "values": ["~$0.001", "~$6", "$0.40–2"] },
       { "label": "Data in EU", "values": ["✅", "N/A", "❌ Often US"] },
-      { "label": "Audio on server", "values": ["❌ Never", "N/A", "✅ Often yes"] },
-      { "label": "Works offline", "values": ["✅", "✅", "❌ Usually not"] },
+      { "label": "Local transcription", "values": ["✅ Optional", "N/A", "❌ Usually not"] },
       { "label": "Czech terminology", "values": ["✅", "Depends on doctor", "❌ Generic"] }
     ]
   },
@@ -213,15 +199,13 @@
   "faq": {
     "heading": "Frequently Asked Questions",
     "items": [
-      { "q": "Is the patient recording sent anywhere?", "a": "No. Speech-to-text (Whisper AI) runs exclusively on your device. Only anonymized text is sent to generate the report — within Azure's EU infrastructure." },
-      { "q": "How accurate is Czech transcription?", "a": "For medical dictation (single speaker, quiet room), accuracy is high. Transcription uses a Whisper model optimized for Czech with silence filtering (VAD). The AI report generator can also interpret minor transcription errors." },
+      { "q": "How accurate is Czech transcription?", "a": "For medical dictation (single speaker, quiet room), accuracy is high. Local transcription uses Whisper optimized for Czech. Cloud transcription uses gpt-4o-transcribe for faster, more accurate results. The AI report generator can also interpret minor transcription errors." },
       { "q": "Can I edit the report before sending?", "a": "Yes. The generated report is fully editable within the app. You can edit it, copy to clipboard, or send via email." },
-      { "q": "What exam types does the app support?", "a": "Outpatient exam, follow-up, gastroscopy, colonoscopy, and ultrasound. You can also let AI automatically detect the exam type from the transcript." },
-      { "q": "Does the app work without internet?", "a": "Speech transcription works fully offline (models run on device). Generating a structured report requires an internet connection (mobile data is sufficient)." },
-      { "q": "How much does it cost?", "a": "Transcription is free (on-device). Report generation costs approximately $0.001 per report. No monthly subscription." },
+      { "q": "What exam types does the app support?", "a": "Outpatient exam, follow-up, gastroscopy, colonoscopy, and ultrasound. If you need a different type, we can build a custom template for you. You can also let AI automatically detect the exam type from the transcript." },
+      { "q": "Does the app work without internet?", "a": "Local transcription works offline (Whisper runs on device). Generating a structured report requires an internet connection. This means you can transcribe in the field and generate the report once the phone is online." },
+      { "q": "How much does it cost?", "a": "7-day free trial. Then a monthly subscription. Price to be announced." },
       { "q": "Which devices does ANOTE run on?", "a": "iOS (iPhone) and Android. The app is optimized for modern smartphones with at least 2 GB RAM." },
-      { "q": "Does ANOTE meet GDPR requirements?", "a": "Yes. Audio stays on device. Text data is processed exclusively in Azure West Europe. No data is stored on servers or used to train models." },
-      { "q": "Can I connect ANOTE to my hospital system?", "a": "In the current version, you can copy reports to clipboard or send via email. API integration with EHR/HIS systems is planned." },
+      { "q": "Does ANOTE meet GDPR requirements?", "a": "Yes. In local mode, audio stays on device. In cloud mode, audio is sent for processing and then deleted. Text data is processed exclusively in Azure West Europe. No data is stored or used to train models." },
       { "q": "How long does report generation take?", "a": "Usually 5–15 seconds after recording ends. During recording, a live report preview updates every 15 seconds." }
     ]
   },
@@ -232,7 +216,6 @@
       "name": "Name",
       "email": "Email",
       "phone": "Phone",
-      "practiceType": "Practice Type",
       "message": "Message",
       "gdpr": "I agree to the processing of personal data according to the privacy policy"
     },
@@ -240,10 +223,9 @@
       "name": "Dr. John Smith",
       "email": "john.smith@clinic.com",
       "phone": "+420 ...",
-      "practiceType": "Select...",
       "message": "I'd like to learn more about..."
     },
-    "practiceTypes": ["General Practitioner", "Specialist", "Clinic", "Hospital"],
+    "practiceTypes": [],
     "errors": {
       "nameRequired": "Name is required",
       "emailInvalid": "Enter a valid email",
@@ -254,7 +236,7 @@
     "successTitle": "Thank you!",
     "successMessage": "We'll get back to you within 24 hours.",
     "altContact": "Or contact us directly:",
-    "phone": "+420 XXX XXX XXX",
+    "phone": "+420 739 168 738",
     "ctaOnlyHeading": "Ready to streamline your documentation?",
     "ctaOnlySubheading": "Join doctors saving hours every day.",
     "ctaOnlyButton": "Contact Us"
@@ -271,7 +253,7 @@
   },
   "pricingPage": {
     "title": "Pricing — ANOTE",
-    "description": "Transparent pricing with no subscriptions. You only pay for what you use.",
+    "description": "7-day free trial. Then a monthly subscription. Price to be announced.",
     "subtitle": "Transparent pricing with no hidden fees"
   },
   "reportTypesPage": {
@@ -340,7 +322,7 @@
     "ctaHeading": "Try it yourself"
   },
   "footer": {
-    "tagline": "Medical reports from voice. In seconds.",
+    "tagline": "Medical reports, automatically.",
     "product": "Product",
     "support": "Support",
     "legal": "Legal",
@@ -356,11 +338,10 @@
     },
     "legalLinks": {
       "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "impressum": "Legal Imprint"
+      "privacy": "Privacy Policy"
     },
     "copyright": "© {year} ANOTE. All rights reserved.",
-    "disclaimer": "ANOTE is not a certified medical device. It serves exclusively as a tool to support medical documentation."
+    "disclaimer": ""
   },
   "kontakt": {
     "title": "Contact — ANOTE",
@@ -368,7 +349,9 @@
     "heading": "Contact Us",
     "subheading": "Have questions about ANOTE? We're happy to help.",
     "emailLabel": "Email",
-    "phoneLabel": "Phone"
+    "phoneLabel": "Phone",
+    "email": "anote-appka@outlook.com",
+    "phones": ["+420 739 168 738", "+420 735 852 353"]
   },
   "podminky": {
     "title": "Terms of Service — ANOTE",
@@ -379,7 +362,7 @@
       { "heading": "1. Introduction", "content": "These terms of service (\"Terms\") govern the use of the ANOTE application and related services. By using the application, you agree to these Terms." },
       { "heading": "2. Service Description", "content": "ANOTE is an application for transcribing medical conversations and generating structured medical reports using artificial intelligence. The application is intended exclusively as a tool to support medical documentation." },
       { "heading": "3. Limitation of Liability", "content": "ANOTE is not a certified medical device. All generated report content must be reviewed by a qualified physician before any clinical use. The operator is not liable for any inaccuracies in generated reports." },
-      { "heading": "4. Personal Data Protection", "content": "Processing of personal data is governed by our Privacy Policy. Audio recordings are processed exclusively on the user's device and are never sent to a server." },
+      { "heading": "4. Personal Data Protection", "content": "Processing of personal data is governed by our Privacy Policy. In local mode, audio recordings are processed on the user's device. In cloud mode, they are sent for processing and then deleted." },
       { "heading": "5. Payment Terms", "content": "Speech-to-text transcription is free (runs on device). Report generation is charged according to the current price list. Payments are billed based on actual usage with no monthly subscription." },
       { "heading": "6. Service Termination", "content": "Users may stop using the service at any time. The operator reserves the right to limit or terminate access to the service in case of violation of these Terms." },
       { "heading": "7. Governing Law", "content": "These Terms are governed by the laws of the Czech Republic. Czech courts have jurisdiction for dispute resolution." }
@@ -392,10 +375,10 @@
     "heading": "Privacy Policy",
     "lastUpdated": "Last updated: April 4, 2026",
     "sections": [
-      { "heading": "1. Data Controller", "content": "The data controller is the operator of the ANOTE application (contact: info@anote.cz)." },
+      { "heading": "1. Data Controller", "content": "The data controller is the operator of the ANOTE application (contact: anote-appka@outlook.com)." },
       { "heading": "2. What Data We Process", "subsections": [
-        { "heading": "2.1 Contact Form", "content": "Name, email address, optionally phone number and practice type — for the purpose of handling your inquiry and providing access to the service." },
-        { "heading": "2.2 Audio Recordings", "content": "Audio recordings never leave your device. Speech-to-text transcription runs exclusively locally on your phone using the Whisper AI model. No audio data is sent to servers." },
+        { "heading": "2.1 Contact Form", "content": "Name, email address, optionally phone number — for the purpose of handling your inquiry and providing access to the service." },
+        { "heading": "2.2 Audio Recordings", "content": "In local mode, audio recordings never leave your device. Speech-to-text transcription runs locally on your phone using the Whisper model. In cloud mode, audio is sent for processing (gpt-4o-transcribe) and then deleted." },
         { "heading": "2.3 Text Transcripts", "content": "Anonymized text transcript is sent to Azure OpenAI server (West Europe region, EU) exclusively for generating a structured medical report. Data is not stored on servers and is not used for model training." }
       ]},
       { "heading": "3. Legal Basis", "content": "We process personal data based on your consent (Art. 6(1)(a) GDPR) and legitimate interest in providing the service (Art. 6(1)(f) GDPR)." },
@@ -403,7 +386,7 @@
       { "heading": "5. Retention Period", "content": "Contact data from the form is retained for the period necessary to process your request, maximum 12 months. Text transcripts are not retained on servers (zero retention policy)." },
       { "heading": "6. Your Rights", "content": "You have the right to access, rectification, erasure, restriction of processing, data portability, and the right to lodge a complaint with the Office for Personal Data Protection (ÚOOÚ)." },
       { "heading": "7. Cookies", "content": "The ANOTE website does not use tracking cookies. Analytics are handled using a privacy-friendly solution without cookies." },
-      { "heading": "8. Contact", "content": "For privacy-related questions, contact us at info@anote.cz." }
+      { "heading": "8. Contact", "content": "For privacy-related questions, contact us at anote-appka@outlook.com." }
     ],
     "note": "Full privacy policy text will be added after legal review."
   },

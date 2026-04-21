@@ -42,15 +42,21 @@ export default async function KontaktPage({
             <div>
               <p className="font-semibold text-text-primary mb-1">{t.emailLabel}</p>
               <a
-                href="mailto:info@anote.cz"
+                href={`mailto:${t.email}`}
                 className="text-primary hover:underline"
               >
-                info@anote.cz
+                {t.email}
               </a>
             </div>
             <div>
               <p className="font-semibold text-text-primary mb-1">{t.phoneLabel}</p>
-              <span>+420 XXX XXX XXX</span>
+              <div className="flex flex-col gap-1">
+                {t.phones.map((phone) => (
+                  <a key={phone} href={`tel:${phone.replace(/\s/g, "")}`} className="hover:text-primary transition-colors">
+                    {phone}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

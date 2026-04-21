@@ -31,7 +31,6 @@ export async function sendContactNotification(
   <tr><td style="padding:4px 12px;font-weight:bold;">Jméno</td><td style="padding:4px 12px;">${esc(submission.name)}</td></tr>
   <tr><td style="padding:4px 12px;font-weight:bold;">Email</td><td style="padding:4px 12px;">${esc(submission.email)}</td></tr>
   <tr><td style="padding:4px 12px;font-weight:bold;">Telefon</td><td style="padding:4px 12px;">${esc(submission.phone || "—")}</td></tr>
-  <tr><td style="padding:4px 12px;font-weight:bold;">Typ praxe</td><td style="padding:4px 12px;">${esc(submission.practiceType || "—")}</td></tr>
   <tr><td style="padding:4px 12px;font-weight:bold;">Zpráva</td><td style="padding:4px 12px;">${esc(submission.message || "—")}</td></tr>
   <tr><td style="padding:4px 12px;font-weight:bold;">Čas</td><td style="padding:4px 12px;">${submission.timestamp}</td></tr>
 </table>

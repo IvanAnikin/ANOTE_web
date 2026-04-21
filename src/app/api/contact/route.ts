@@ -13,7 +13,6 @@ const contactSchema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
   phone: z.string().optional(),
-  practiceType: z.string().optional(),
   message: z.string().optional(),
   gdpr: z.literal(true),
 });
@@ -72,7 +71,6 @@ export async function POST(request: NextRequest) {
     name: data.name,
     email: data.email,
     phone: data.phone ?? "",
-    practiceType: data.practiceType ?? "",
     message: data.message ?? "",
   });
 

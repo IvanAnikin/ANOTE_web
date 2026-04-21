@@ -13,6 +13,7 @@ export function Pricing({ dict }: { dict: Dictionary }) {
   const pathname = usePathname();
   const firstSegment = pathname.split("/")[1];
   const lang = (firstSegment === "cs" || firstSegment === "en") ? firstSegment : "cs";
+  const kontaktHref = lang === "cs" ? `/${lang}/kontakt` : `/en/contact`;
   return (
     <section id="pricing" className="py-24 sm:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -50,7 +51,7 @@ export function Pricing({ dict }: { dict: Dictionary }) {
                 ))}
               </ul>
 
-              <Link href={`/${lang}/demo`} className="w-full">
+              <Link href={kontaktHref} className="w-full">
                 <Button
                   size="lg"
                   className="w-full"

@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/lib/i18n";
 import { Hero } from "@/components/sections/Hero";
-import { LogoBar } from "@/components/sections/LogoBar";
 
 // Below-fold sections: dynamic imports for code splitting.
 // HTML is still prerendered at build time (SSG) for SEO;
@@ -16,6 +15,7 @@ const Features = dynamic(() =>
 const DemoVideo = dynamic(() =>
   import("@/components/sections/DemoVideo").then((m) => m.DemoVideo)
 );
+// Testimonials import kept for easy re-enable; currently not rendered
 const Testimonials = dynamic(() =>
   import("@/components/sections/Testimonials").then((m) => m.Testimonials)
 );
@@ -38,11 +38,11 @@ export default async function Home({
   return (
     <main>
       <Hero dict={dict} />
-      <LogoBar dict={dict} />
       <HowItWorks dict={dict} />
       <Features dict={dict} />
       <DemoVideo dict={dict} />
-      <Testimonials dict={dict} />
+      {/* Testimonials hidden until more doctor feedback is collected — re-enable by uncommenting */}
+      {/* <Testimonials dict={dict} /> */}
       <TrustStrip lang={lang as Locale} dict={dict} />
       <BottomCTA dict={dict} compact lang={lang as Locale} />
     </main>

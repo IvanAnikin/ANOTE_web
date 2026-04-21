@@ -1,9 +1,10 @@
 export const siteConfig = {
   name: "ANOTE",
-  url: "https://anote.cz",
+  // TODO: replace with production domain when anote.cz is configured
+  url: "https://yellow-forest-086a45303.7.azurestaticapps.net",
   description:
-    "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. On-device přepis, GDPR compliant, česká terminologie.",
-  contactEmail: "info@anote.cz",
+    "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. Lokální i cloudový přepis, GDPR compliant, česká terminologie.",
+  contactEmail: "anote-appka@outlook.com",
 };
 
 export const navLinks = [

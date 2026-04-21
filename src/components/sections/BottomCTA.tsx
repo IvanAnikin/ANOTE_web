@@ -2,7 +2,7 @@
 
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { Button } from "@/components/ui/Button";
-import { Input, Textarea, Select, Checkbox } from "@/components/ui/Input";
+import { Input, Textarea, Checkbox } from "@/components/ui/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -66,7 +66,6 @@ function FullCTA({ dict }: { dict: Dictionary }) {
     name: z.string().min(1, t.errors.nameRequired),
     email: z.string().email(t.errors.emailInvalid),
     phone: z.string().optional(),
-    practiceType: z.string().optional(),
     message: z.string().optional(),
     gdpr: z.literal(true, {
       error: t.errors.gdprRequired,
@@ -74,11 +73,6 @@ function FullCTA({ dict }: { dict: Dictionary }) {
   });
 
   type ContactFormValues = z.infer<typeof contactSchema>;
-
-  const practiceOptions = t.practiceTypes.map((label) => ({
-    value: label,
-    label,
-  }));
 
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -93,7 +87,6 @@ function FullCTA({ dict }: { dict: Dictionary }) {
       name: "",
       email: "",
       phone: "",
-      practiceType: "",
       message: "",
     },
   });
@@ -189,13 +182,6 @@ function FullCTA({ dict }: { dict: Dictionary }) {
                   error={errors.phone?.message}
                   {...register("phone")}
                 />
-                <Select
-                  label={t.labels.practiceType}
-                  placeholder={t.placeholders.practiceType}
-                  options={practiceOptions}
-                  error={errors.practiceType?.message}
-                  {...register("practiceType")}
-                />
                 <Textarea
                   label={t.labels.message}
                   placeholder={t.placeholders.message}
@@ -224,10 +210,10 @@ function FullCTA({ dict }: { dict: Dictionary }) {
             {/* Alternative contact */}
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-white/70">
               <a
-                href="mailto:info@anote.cz"
+                href="mailto:anote-appka@outlook.com"
                 className="hover:text-white transition-colors"
               >
-                📧 info@anote.cz
+                📧 anote-appka@outlook.com
               </a>
               <span className="hidden sm:inline text-white/30">·</span>
               <span>📞 {t.phone}</span>

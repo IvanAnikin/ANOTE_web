@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://anote.cz/sitemap.xml",
+    // TODO: replace with production domain when anote.cz is configured
+    sitemap: "https://yellow-forest-086a45303.7.azurestaticapps.net/sitemap.xml",
   };
 }

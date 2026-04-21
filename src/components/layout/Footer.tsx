@@ -24,7 +24,6 @@ export function Footer({
   const termsHref = lang === "cs" ? `${prefix}/podminky` : "/en/terms";
   const privacyHref =
     lang === "cs" ? `${prefix}/ochrana-soukromi` : "/en/privacy";
-  const impressumHref = `${prefix}/impressum`;
 
   const productLinks = [
     { label: t.productLinks.howItWorks, href: `${homeHref}#how-it-works` },
@@ -36,13 +35,12 @@ export function Footer({
   const supportLinks = [
     { label: t.supportLinks.faq, href: faqHref },
     { label: t.supportLinks.contact, href: kontaktHref },
-    { label: "info@anote.cz", href: "mailto:info@anote.cz" },
+    { label: "anote-appka@outlook.com", href: "mailto:anote-appka@outlook.com" },
   ];
 
   const legalLinks = [
     { label: t.legalLinks.terms, href: termsHref },
     { label: t.legalLinks.privacy, href: privacyHref },
-    { label: t.legalLinks.impressum, href: impressumHref },
   ];
 
   return (
@@ -59,7 +57,7 @@ export function Footer({
             </p>
             <div className="mt-5 flex gap-4">
               <a
-                href="mailto:info@anote.cz"
+                href="mailto:anote-appka@outlook.com"
                 className="text-white/50 hover:text-primary transition-colors"
                 aria-label="Email"
               >
@@ -133,11 +131,13 @@ export function Footer({
         </div>
 
         {/* Medical disclaimer */}
-        <div className="mt-12 border-t border-white/10 pt-6">
-          <p className="text-xs text-white/40 leading-relaxed max-w-3xl">
-            {t.disclaimer}
-          </p>
-        </div>
+        {t.disclaimer && (
+          <div className="mt-12 border-t border-white/10 pt-6">
+            <p className="text-xs text-white/40 leading-relaxed max-w-3xl">
+              {t.disclaimer}
+            </p>
+          </div>
+        )}
 
         {/* Bottom bar */}
         <div className="mt-6 flex flex-col items-center justify-between gap-2 border-t border-white/10 pt-6 sm:flex-row">

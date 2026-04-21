@@ -57,8 +57,8 @@ export default async function CenikPage({
   const prefix = lang === "cs" ? "" : "/en";
   const kontaktSlug = lang === "cs" ? "kontakt" : "contact";
 
-  // Filter pricing-related FAQ items (indices 5, 4, 8 — cost, offline, integration)
-  const pricingFaqIndices = [5, 4, 8];
+  // Filter pricing-related FAQ items (devices, cost, duration)
+  const pricingFaqIndices = [5, 4, 7];
   const pricingFaqDict = {
     ...dict,
     faq: {

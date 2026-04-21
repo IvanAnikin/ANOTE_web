@@ -7,7 +7,6 @@ interface Submission {
   name: string;
   email: string;
   phone: string;
-  practiceType: string;
   message: string;
   timestamp: string;
 }
@@ -131,9 +130,8 @@ export default function AdminPage() {
                   <th className="text-left px-4 py-3 font-semibold">Čas</th>
                   <th className="text-left px-4 py-3 font-semibold">Jméno</th>
                   <th className="text-left px-4 py-3 font-semibold">Email</th>
-                  <th className="text-left px-4 py-3 font-semibold">Telefon</th>
-                  <th className="text-left px-4 py-3 font-semibold">Typ praxe</th>
-                  <th className="text-left px-4 py-3 font-semibold">Zpráva</th>
+                   <th className="text-left px-4 py-3 font-semibold">Telefon</th>
+                   <th className="text-left px-4 py-3 font-semibold">Zpráva</th>
                 </tr>
               </thead>
               <tbody>
@@ -149,9 +147,8 @@ export default function AdminPage() {
                         {s.email}
                       </a>
                     </td>
-                    <td className="px-4 py-3">{s.phone || "—"}</td>
-                    <td className="px-4 py-3">{s.practiceType || "—"}</td>
-                    <td className="px-4 py-3 max-w-xs truncate">{s.message || "—"}</td>
+                     <td className="px-4 py-3">{s.phone || "—"}</td>
+                     <td className="px-4 py-3 max-w-xs truncate">{s.message || "—"}</td>
                   </tr>
                 ))}
               </tbody>

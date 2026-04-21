@@ -6,7 +6,6 @@ export interface Submission {
   name: string;
   email: string;
   phone: string;
-  practiceType: string;
   message: string;
   timestamp: string;
 }
@@ -49,7 +48,6 @@ export function submissionsToCsv(submissions: Submission[]): string {
     "name",
     "email",
     "phone",
-    "practiceType",
     "message",
     "timestamp",
   ];

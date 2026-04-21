@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://anote.cz";
+  // TODO: replace with production domain when anote.cz is configured
+  const baseUrl = "https://yellow-forest-086a45303.7.azurestaticapps.net";
 
   // Pages with same slug for both locales
   const sameSlugPages = [
@@ -11,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { cs: "/demo", en: "/demo", changeFrequency: "monthly" as const, priority: 0.6 },
     { cs: "/podminky", en: "/podminky", changeFrequency: "yearly" as const, priority: 0.3 },
     { cs: "/ochrana-soukromi", en: "/ochrana-soukromi", changeFrequency: "yearly" as const, priority: 0.3 },
-    { cs: "/impressum", en: "/impressum", changeFrequency: "yearly" as const, priority: 0.3 },
   ];
 
   // Pages with different slugs per locale (EN slug in the URL, CS slug on filesystem)
