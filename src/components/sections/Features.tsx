@@ -1,10 +1,11 @@
 "use client";
 
+import { BouncingChips } from "@/components/animations/BouncingChips";
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { Badge } from "@/components/ui/Badge";
 import type { Dictionary } from "@/lib/dictionary-types";
 
-const featurePlaceholders = ["transcript", "templates", "workflow"];
+const featurePlaceholders = ["transcript", "anamneza", "workflow"];
 
 function FeatureVisual({ type, dict }: { type: string; dict: Dictionary }) {
   const wf = dict.features.workflow;
@@ -52,6 +53,11 @@ function FeatureVisual({ type, dict }: { type: string; dict: Dictionary }) {
             {icon}
           </div>
         ))}
+      </div>
+    ),
+    anamneza: (
+      <div className="w-full h-40 p-2">
+        <BouncingChips chips={["NO", "RA", "OA", "FA", "AA"]} />
       </div>
     ),
     workflow: (

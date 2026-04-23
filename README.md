@@ -31,7 +31,6 @@ src/
 │   │   ├── faq/                 # FAQ page
 │   │   ├── kontakt/             # Contact form
 │   │   ├── typy-zprav/          # Report types showcase
-│   │   ├── impressum/           # Legal – Impressum
 │   │   ├── ochrana-soukromi/    # Legal – Privacy policy
 │   │   └── podminky/            # Legal – Terms of service
 │   ├── admin/                   # Admin panel (submission viewer)
@@ -66,7 +65,6 @@ src/
 | `/typy-zprav` | Report types — visit type showcase, report structure |
 | `/faq` | Frequently asked questions with JSON-LD schema |
 | `/kontakt` | Contact form |
-| `/impressum` | Legal impressum |
 | `/podminky` | Terms of service |
 | `/ochrana-soukromi` | Privacy policy |
 

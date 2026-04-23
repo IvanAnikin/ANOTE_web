@@ -202,7 +202,7 @@
       { "q": "How accurate is Czech transcription?", "a": "For medical dictation (single speaker, quiet room), accuracy is high. Local transcription uses Whisper optimized for Czech. Cloud transcription uses gpt-4o-transcribe for faster, more accurate results. The AI report generator can also interpret minor transcription errors." },
       { "q": "Can I edit the report before sending?", "a": "Yes. The generated report is fully editable within the app. You can edit it, copy to clipboard, or send via email." },
       { "q": "What exam types does the app support?", "a": "Outpatient exam, follow-up, gastroscopy, colonoscopy, and ultrasound. If you need a different type, we can build a custom template for you. You can also let AI automatically detect the exam type from the transcript." },
-      { "q": "Does the app work without internet?", "a": "Local transcription works offline (Whisper runs on device). Generating a structured report requires an internet connection. This means you can transcribe in the field and generate the report once the phone is online." },
+      { "q": "Can I connect ANOTE to my hospital system?", "a": "ANOTE works independently of hospital systems — local transcription runs on the phone (Whisper, even offline) and the structured report is generated once the phone is online. You can then paste the report into your documentation or send it by email." },
       { "q": "How much does it cost?", "a": "7-day free trial. Then a monthly subscription. Price to be announced." },
       { "q": "Which devices does ANOTE run on?", "a": "iOS (iPhone) and Android. The app is optimized for modern smartphones with at least 2 GB RAM." },
       { "q": "Does ANOTE meet GDPR requirements?", "a": "Yes. In local mode, audio stays on device. In cloud mode, audio is sent for processing and then deleted. Text data is processed exclusively in Azure West Europe. No data is stored or used to train models." },
@@ -314,7 +314,7 @@
     "errorInvalidFormat": "Unsupported file format.",
     "errorRateLimit": "Too many requests. Please try again in a moment.",
 
-    "disclaimer": "ANOTE is not a certified medical device. This demo is for demonstration purposes only. Do not use for actual clinical documentation.",
+    "disclaimer": "This demo is for demonstration purposes only. Do not use for actual clinical documentation.",
 
     "uploadHint": "MP3, WAV, M4A, WebM — max 25 MB",
     "dragDropHint": "Drag and drop a file here or click to browse",
@@ -361,7 +361,7 @@
     "sections": [
       { "heading": "1. Introduction", "content": "These terms of service (\"Terms\") govern the use of the ANOTE application and related services. By using the application, you agree to these Terms." },
       { "heading": "2. Service Description", "content": "ANOTE is an application for transcribing medical conversations and generating structured medical reports using artificial intelligence. The application is intended exclusively as a tool to support medical documentation." },
-      { "heading": "3. Limitation of Liability", "content": "ANOTE is not a certified medical device. All generated report content must be reviewed by a qualified physician before any clinical use. The operator is not liable for any inaccuracies in generated reports." },
+      { "heading": "3. Limitation of Liability", "content": "All generated report content must be reviewed by a qualified physician before any clinical use. The operator is not liable for any inaccuracies in generated reports." },
       { "heading": "4. Personal Data Protection", "content": "Processing of personal data is governed by our Privacy Policy. In local mode, audio recordings are processed on the user's device. In cloud mode, they are sent for processing and then deleted." },
       { "heading": "5. Payment Terms", "content": "Speech-to-text transcription is free (runs on device). Report generation is charged according to the current price list. Payments are billed based on actual usage with no monthly subscription." },
       { "heading": "6. Service Termination", "content": "Users may stop using the service at any time. The operator reserves the right to limit or terminate access to the service in case of violation of these Terms." },
@@ -389,23 +389,5 @@
       { "heading": "8. Contact", "content": "For privacy-related questions, contact us at anote-appka@outlook.com." }
     ],
     "note": "Full privacy policy text will be added after legal review."
-  },
-  "impressum": {
-    "title": "Legal Imprint — ANOTE",
-    "description": "Legal information about the ANOTE application operator.",
-    "heading": "Legal Imprint",
-    "operator": "Operator",
-    "operatorValue": "[Company Name]\n[Street Address]\n[Postal Code City]\nCzech Republic",
-    "identification": "Identification",
-    "ico": "Company ID (IČO)",
-    "icoValue": "[To be added]",
-    "dic": "Tax ID (DIČ)",
-    "dicValue": "[To be added]",
-    "registration": "Registration",
-    "registrationValue": "Registered in the commercial register maintained by [the relevant court], section [X], file [XXXX]",
-    "contactHeading": "Contact",
-    "responsiblePerson": "Responsible Person",
-    "responsiblePersonValue": "[Name of responsible person — to be added]",
-    "note": "Details will be added after establishing the legal entity."
   }
 }

@@ -202,7 +202,7 @@
       { "q": "Jak přesný je přepis v češtině?", "a": "Pro lékařskou diktaci (jeden mluvčí, tichá místnost) je přesnost vysoká. Lokální přepis využívá Whisper optimalizovaný pro češtinu. Cloudový přepis využívá gpt-4o-transcribe — rychlejší a přesnější výsledky. AI generátor zpráv navíc dokáže interpretovat i drobné chyby přepisu." },
       { "q": "Mohu zprávu upravit před odesláním?", "a": "Ano. Vygenerovaná zpráva je plně editovatelná přímo v aplikaci. Můžete ji upravit, zkopírovat do schránky nebo odeslat emailem." },
       { "q": "Jaké typy vyšetření aplikace podporuje?", "a": "Ambulantní vyšetření, kontrolní vyšetření, gastroskopii, kolonoskopii a ultrazvuk. Pokud potřebujete jiný typ, uděláme vám typ na míru. Nebo nechte AI automaticky rozpoznat typ vyšetření z přepisu." },
-      { "q": "Funguje aplikace bez internetu?", "a": "Lokální přepis řeči funguje offline (Whisper běží na zařízení). Pro vygenerování strukturované zprávy je potřeba připojení k internetu. Díky tomu lze přepisovat v terénu a zprávu vygenerovat, jakmile je telefon online." },
+      { "q": "Mohu ANOTE napojit na svůj nemocniční systém?", "a": "ANOTE funguje nezávisle na nemocničním systému — lokální přepis běží přímo v telefonu (Whisper, i bez připojení) a strukturovanou zprávu vygenerujeme, jakmile je telefon online. Hotovou zprávu pak přenesete do vaší dokumentace kopírováním nebo e‑mailem." },
       { "q": "Kolik to stojí?", "a": "7 dní zdarma. Poté měsíční předplatné. Cena bude oznámena." },
       { "q": "Na jakých zařízeních ANOTE běží?", "a": "iOS (iPhone) a Android. Aplikace je optimalizována pro moderní smartphony s alespoň 2 GB RAM." },
       { "q": "Splňuje ANOTE požadavky GDPR?", "a": "Ano. V lokálním režimu audio zůstává na zařízení. V cloudovém režimu je nahrávka odeslána ke zpracování a poté smazána. Textová data jsou zpracovávána výhradně v Azure West Europe. Data se neukládají a nepoužívají k trénování modelů." },
@@ -314,7 +314,7 @@
     "errorInvalidFormat": "Nepodporovaný formát souboru.",
     "errorRateLimit": "Příliš mnoho požadavků. Zkuste to za chvíli.",
 
-    "disclaimer": "ANOTE není certifikovaný zdravotnický prostředek. Demo slouží pouze pro demonstrační účely. Nepoužívejte pro skutečnou klinickou dokumentaci.",
+    "disclaimer": "Demo slouží pouze pro demonstrační účely. Nepoužívejte pro skutečnou klinickou dokumentaci.",
 
     "uploadHint": "MP3, WAV, M4A, WebM — max 25 MB",
     "dragDropHint": "Přetáhněte soubor sem nebo klikněte pro výběr",
@@ -361,7 +361,7 @@
     "sections": [
       { "heading": "1. Úvodní ustanovení", "content": "Tyto podmínky služby (dále jen \"Podmínky\") upravují používání aplikace ANOTE a souvisejících služeb. Používáním aplikace souhlasíte s těmito Podmínkami." },
       { "heading": "2. Popis služby", "content": "ANOTE je aplikace pro přepis lékařských konverzací a generování strukturovaných lékařských zpráv pomocí umělé inteligence. Aplikace je určena výhradně jako nástroj pro podporu lékařské dokumentace." },
-      { "heading": "3. Omezení odpovědnosti", "content": "ANOTE není certifikovaný zdravotnický prostředek. Veškerý obsah generovaných zpráv musí být zkontrolován kvalifikovaným lékařem před jakýmkoliv klinickým použitím. Provozovatel nenese odpovědnost za případné nepřesnosti v generovaných zprávách." },
+      { "heading": "3. Omezení odpovědnosti", "content": "Veškerý obsah generovaných zpráv musí být zkontrolován kvalifikovaným lékařem před jakýmkoliv klinickým použitím. Provozovatel nenese odpovědnost za případné nepřesnosti v generovaných zprávách." },
       { "heading": "4. Ochrana osobních údajů", "content": "Zpracování osobních údajů se řídí naší Zásadami ochrany soukromí. V lokálním režimu jsou zvukové nahrávky zpracovávány na zařízení uživatele. V cloudovém režimu jsou odeslány ke zpracování a poté smazány." },
       { "heading": "5. Platební podmínky", "content": "Přepis řeči na text je zdarma (probíhá na zařízení). Generování zpráv je zpoplatněno dle aktuálního ceníku. Platby jsou účtovány dle skutečného použití bez měsíčního předplatného." },
       { "heading": "6. Ukončení služby", "content": "Uživatel může přestat službu používat kdykoliv. Provozovatel si vyhrazuje právo omezit nebo ukončit přístup ke službě při porušení těchto Podmínek." },
@@ -389,23 +389,5 @@
       { "heading": "8. Kontakt", "content": "V případě dotazů ohledně ochrany soukromí nás kontaktujte na anote-appka@outlook.com." }
     ],
     "note": "Plný text zásad ochrany soukromí bude doplněn po právní revizi."
-  },
-  "impressum": {
-    "title": "Impressum — ANOTE",
-    "description": "Právní informace o provozovateli aplikace ANOTE.",
-    "heading": "Impressum",
-    "operator": "Provozovatel",
-    "operatorValue": "[Název společnosti]\n[Ulice a číslo popisné]\n[PSČ Město]\nČeská republika",
-    "identification": "Identifikační údaje",
-    "ico": "IČO",
-    "icoValue": "[Bude doplněno]",
-    "dic": "DIČ",
-    "dicValue": "[Bude doplněno]",
-    "registration": "Zápis",
-    "registrationValue": "Zapsáno v obchodním rejstříku vedeném [příslušným soudem], oddíl [X], vložka [XXXX]",
-    "contactHeading": "Kontakt",
-    "responsiblePerson": "Odpovědná osoba",
-    "responsiblePersonValue": "[Jméno odpovědné osoby — bude doplněno]",
-    "note": "Údaje budou doplněny po založení právní entity."
   }
 }
