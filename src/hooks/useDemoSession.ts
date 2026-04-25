@@ -115,26 +115,109 @@ async function transcribeAudio(
 }
 
 /**
- * Fetch the full report from the backend (JSON response).
- * Calls onToken once with the complete report text.
- * Returns the full report text.
+ * Fetch a report from the backend.
+ *
+ * - When `useStream` is true, opens an SSE stream (`?stream=1`) and calls
+ *   `onToken` incrementally as `data:` chunks arrive. Falls back to the
+ *   JSON path automatically if the response is not `text/event-stream`.
+ * - When `useStream` is false, performs the legacy JSON request and
+ *   calls `onToken` once with the full text.
+ *
+ * Retries exactly once on a 5xx response to absorb transient cold-start
+ * or upstream blips. 4xx and network errors are not retried.
  */
 async function streamReport(
   transcript: string,
   visitType: VisitType,
   onToken: (token: string) => void,
   signal?: AbortSignal,
+  useStream = false,
+  onFinal?: (text: string) => void,
 ): Promise<string> {
-  const res = await fetch("/api/demo/report", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ transcript, visit_type: visitType }),
-    signal,
-  });
+  const url = useStream ? "/api/demo/report?stream=1" : "/api/demo/report";
+
+  const doFetch = () =>
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(useStream ? { Accept: "text/event-stream" } : {}),
+      },
+      body: JSON.stringify({ transcript, visit_type: visitType }),
+      signal,
+    });
+
+  let res = await doFetch();
+  if (res.status >= 500 && res.status < 600 && !signal?.aborted) {
+    res = await doFetch();
+  }
 
   if (!res.ok) {
     const data = await res.json().catch(() => ({}));
     throw new Error(data.error ?? "Report generation failed");
+  }
+
+  const contentType = res.headers.get("Content-Type") ?? "";
+
+  if (useStream && contentType.includes("text/event-stream") && res.body) {
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let full = "";
+
+    // SSE framing: events are separated by blank lines; payload lines
+    // begin with `data: `. We forward each non-`[DONE]` payload via
+    // `onToken`. Aborts surface as `AbortError` from `reader.read()` and
+    // propagate to the caller.
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      let sep: number;
+      while ((sep = buffer.indexOf("\n\n")) !== -1) {
+        const event = buffer.slice(0, sep);
+        buffer = buffer.slice(sep + 2);
+        for (const rawLine of event.split("\n")) {
+          if (!rawLine.startsWith("data:")) continue;
+          const payload = rawLine.slice(5).trimStart();
+          if (!payload || payload === "[DONE]") continue;
+          // Accept either raw text payloads or JSON envelopes:
+          //   {"text": "<delta>"}        — incremental chunk
+          //   {"final": "<full text>"}    — canonical full report
+          //   {"error": "<message>"}      — upstream failure
+          let token = payload;
+          if (payload.startsWith("{")) {
+            try {
+              const parsed = JSON.parse(payload) as {
+                text?: string;
+                token?: string;
+                delta?: string;
+                final?: string;
+                error?: string;
+              };
+              if (parsed.error) {
+                throw new Error(parsed.error);
+              }
+              if (typeof parsed.final === "string") {
+                full = parsed.final;
+                onFinal?.(parsed.final);
+                continue;
+              }
+              token = parsed.text ?? parsed.token ?? parsed.delta ?? "";
+            } catch (e) {
+              if (e instanceof Error && e.message) throw e;
+              token = payload;
+            }
+          }
+          if (token) {
+            full += token;
+            onToken(token);
+          }
+        }
+      }
+    }
+    return full;
   }
 
   const data = await res.json();
@@ -145,6 +228,15 @@ async function streamReport(
   return report;
 }
 
+// Toggle to enable opt-in SSE end-to-end. The `anote-web-api` backend
+// exposes `?stream=1` since image `0.2.0`; flip this to `false` to
+// fall back to the JSON path if the stream regresses.
+const ENABLE_SSE_REPORT = true;
+
+// Skip periodic regeneration when transcript growth since the last
+// report request is below this many characters.
+const REPORT_MIN_DELTA_CHARS = 30;
+
 // ── Hook ────────────────────────────────────────────────────────────────────
 
 const MAX_DURATION_SECONDS = 10 * 60; // 10 minutes
@@ -153,6 +245,15 @@ const MIN_SEGMENT_BYTES = 1000; // Skip segments too small to be valid audio
 export function useDemoSession() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const abortRef = useRef<AbortController | null>(null);
+
+  // Dedicated controller for the in-flight `/report` call. Allows a
+  // newer transcript to abort an older report request without canceling
+  // the (still-useful) transcribe pipeline.
+  const reportAbortRef = useRef<AbortController | null>(null);
+
+  // Transcript length at the time the most recent `/report` was issued.
+  // Used to debounce regeneration when growth is below the threshold.
+  const lastReportTranscriptLenRef = useRef(0);
 
   // Keep visitType in a ref so callbacks don't go stale
   const visitTypeRef = useRef(state.visitType);
@@ -171,6 +272,7 @@ export function useDemoSession() {
   useEffect(() => {
     return () => {
       abortRef.current?.abort();
+      reportAbortRef.current?.abort();
     };
   }, []);
 
@@ -178,6 +280,12 @@ export function useDemoSession() {
 
   const handleChunk = useCallback(
     async (segmentBlob: Blob) => {
+      // A newer chunk has arrived: abort any stale `/report` so the
+      // newest transcript wins (B-5). Transcribe queueing below
+      // preserves audio bytes already uploaded.
+      reportAbortRef.current?.abort();
+      reportAbortRef.current = null;
+
       // Queue if a request is already in-flight (no audio is lost)
       if (pendingRef.current) {
         pendingSegmentsRef.current.push(segmentBlob);
@@ -212,13 +320,28 @@ export function useDemoSession() {
         dispatch({ type: "SET_TRANSCRIPT", transcript: fullTranscriptRef.current });
         dispatch({ type: "SET_TRANSCRIBING", value: false });
 
+        // Debounce (B-4): skip regeneration on tiny transcript growth.
+        const currentLen = fullTranscriptRef.current.length;
+        const delta = currentLen - lastReportTranscriptLenRef.current;
+        if (delta < REPORT_MIN_DELTA_CHARS) {
+          return;
+        }
+        lastReportTranscriptLenRef.current = currentLen;
+
+        // Issue a fresh report request with its own controller so a
+        // newer chunk can abort just this call (B-5).
+        const reportController = new AbortController();
+        reportAbortRef.current = reportController;
+
         dispatch({ type: "SET_GENERATING", value: true });
         dispatch({ type: "SET_REPORT", report: "" });
         await streamReport(
           fullTranscriptRef.current,
           visitTypeRef.current,
           (token) => dispatch({ type: "APPEND_REPORT", token }),
-          controller.signal,
+          reportController.signal,
+          ENABLE_SSE_REPORT,
+          (text) => dispatch({ type: "SET_REPORT", report: text }),
         );
         dispatch({ type: "SET_GENERATING", value: false });
       } catch (err) {
@@ -242,6 +365,7 @@ export function useDemoSession() {
     async (lastSegmentBlob: Blob) => {
       // Abort any in-flight chunk request before starting final processing
       abortRef.current?.abort();
+      reportAbortRef.current?.abort();
       pendingRef.current = true;
 
       // Collect any queued segments + the last one, filtering tiny/empty blobs
@@ -271,13 +395,20 @@ export function useDemoSession() {
         dispatch({ type: "SET_TRANSCRIPT", transcript: fullTranscriptRef.current });
         dispatch({ type: "SET_TRANSCRIBING", value: false });
 
+        // Final report always runs regardless of debounce threshold.
+        lastReportTranscriptLenRef.current = fullTranscriptRef.current.length;
+        const reportController = new AbortController();
+        reportAbortRef.current = reportController;
+
         dispatch({ type: "SET_GENERATING", value: true });
         dispatch({ type: "SET_REPORT", report: "" });
         await streamReport(
           fullTranscriptRef.current,
           visitTypeRef.current,
           (token) => dispatch({ type: "APPEND_REPORT", token }),
-          controller.signal,
+          reportController.signal,
+          ENABLE_SSE_REPORT,
+          (text) => dispatch({ type: "SET_REPORT", report: text }),
         );
         dispatch({ type: "SET_GENERATING", value: false });
 
@@ -312,6 +443,9 @@ export function useDemoSession() {
   const startRecording = useCallback(async () => {
     fullTranscriptRef.current = "";
     pendingSegmentsRef.current = [];
+    lastReportTranscriptLenRef.current = 0;
+    reportAbortRef.current?.abort();
+    reportAbortRef.current = null;
     dispatch({ type: "START_RECORDING" });
     try {
       await recorder.start();
@@ -354,6 +488,8 @@ export function useDemoSession() {
           visitTypeRef.current,
           (token) => dispatch({ type: "APPEND_REPORT", token }),
           controller.signal,
+          ENABLE_SSE_REPORT,
+          (text) => dispatch({ type: "SET_REPORT", report: text }),
         );
         dispatch({ type: "SET_GENERATING", value: false });
 
@@ -374,8 +510,11 @@ export function useDemoSession() {
   const reset = useCallback(() => {
     abortRef.current?.abort();
     abortRef.current = null;
+    reportAbortRef.current?.abort();
+    reportAbortRef.current = null;
     fullTranscriptRef.current = "";
     pendingSegmentsRef.current = [];
+    lastReportTranscriptLenRef.current = 0;
     if (recorder.isRecording) {
       recorder.stop();
     }

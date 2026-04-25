@@ -1,0 +1,227 @@
+# ANOTE — Kompletní marketingový brief
+
+> Interní podklad pro tvorbu kampaní (Google, Meta, LinkedIn, e‑mail, PR, video).
+> Zdroje: mobilní aplikace ANOTE (Flutter + FastAPI backend), webové stránky (`anote-web`), slovníky `src/dictionaries/cs.json` a `en.json`, repo memory.
+
+---
+
+## 1. One‑liner a elevator pitch
+
+- **One‑liner (CS):** *Lékařské zprávy automaticky — nahrajte, ANOTE přepíše a vytvoří strukturovanou zprávu.*
+- **One‑liner (EN):** *Medical reports, automatically — record, ANOTE transcribes and writes the structured report for you.*
+
+**Elevator pitch (30 s):**
+ANOTE je mobilní AI asistent pro českou lékařskou dokumentaci. Lékař zapne nahrávání během vyšetření, ANOTE přepíše konverzaci (lokálně na zařízení modelem Whisper nebo v cloudu přes `gpt-4o-transcribe`) a přibližně do 15 sekund vygeneruje strukturovanou českou lékařskou zprávu s 13–14 standardizovanými sekcemi (NO, RA, OA, FA, AA, GA, SA, Adherence, Objektivní nález, Hodnocení, Návrh vyšetření, Návrh terapie, Pokyny a plán kontrol). Lékař zprávu upraví a zkopíruje nebo odešle e‑mailem do libovolného EHR. Audio může zůstat přímo v telefonu, text se zpracovává v Azure West Europe bez ukládání dat — GDPR od základu.
+
+---
+
+## 2. Pozicování produktu
+
+- **Kategorie:** AI ambient medical scribe / asistent pro lékařskou diktaci.
+- **Trh a jazyk:** primárně **český trh**, optimalizováno pro **českou lékařskou terminologii** (Prestarium, Metformin, zkratky NO / RA / OA / FA / AA, GA, SA…), což obecné americké nástroje neumí.
+- **Forma:** mobile‑first aplikace (iOS + Android, Flutter). Web slouží jako marketingová prezentace a živé demo v prohlížeči.
+- **Klíčové odlišovače (v pořadí důrazu):**
+  1. **Lokální přepis na zařízení** — audio fyzicky neopustí telefon (Whisper Small / Large‑v3‑Turbo přes sherpa‑onnx).
+  2. **EU / česká identita** — Azure West Europe, GDPR by design, české klinické šablony.
+  3. **Rychlost** — ~15 s od Stop k hotové zprávě; živý náhled každých 15 s během nahrávání.
+  4. **Správná šablona pro každé vyšetření** — Ambulantní, Kontrola, Gastroskopie, Kolonoskopie, Ultrazvuk + automatická detekce typu.
+  5. **Jednoduchost** — jedno klepnutí na nahrát, jedno na stop, kopírovat nebo e‑mailem do EHR.
+
+---
+
+## 3. Cílové publikum
+
+**Primární persona — „Přetížený český lékař“:**
+- Praktický lékař, internista, gastroenterolog, radiolog (UZ).
+- Ordinace 20–40 pacientů denně.
+- Bolest: 1–2 hodiny denně navíc nad dokumentací po ordinaci, únava, chyby z přepracování.
+- Technologie: iPhone nebo Android, zkušenost s běžnými aplikacemi, **nezávislost na velkém EHR vendorovi**.
+
+**Sekundární publikum:**
+- Soukromé kliniky a řetězce (typu EUC, Canadian Medical, ProCare).
+- Vedoucí lékaři a IT ředitelé ve fakultních nemocnicích, kteří řeší GDPR a data v EU.
+- Specializace s protokolovým reportingem: endoskopie, ultrazvuk.
+
+**Terciární (expanze):**
+- SK, AT, DE trh — EU data residency jako hlavní páka.
+- Zdravotní sestry pro vstupní anamnézy.
+
+---
+
+## 4. Pain points → benefity
+
+| Bolest | Benefit ANOTE |
+|---|---|
+| 1–2 hodiny dokumentace po ordinaci | Zpráva za ~15 sekund |
+| Diktovací systémy posílají audio do USA | Lokální přepis, audio nikdy neopustí telefon |
+| Cizí AI nástroje neumí česky | Whisper + GPT v kontextu **české lékařské terminologie** |
+| Nestrukturované poznámky | 13–14 sekcí dle českého standardu automaticky |
+| Různé typy vyšetření = různé šablony | 6 typů + auto‑detekce typu z přepisu |
+| Drahá integrace s EHR | Copy‑paste / e‑mail — funguje s čímkoli |
+| Data v USA vs. GDPR | Azure West Europe, zero retention, možnost self‑host |
+
+---
+
+## 5. Produktová fakta (pro fact‑checking copy)
+
+- **Platformy:** iOS a Android (Flutter 3.2+). Web = marketing + demo v prohlížeči.
+- **Režimy přepisu:** lokální (Whisper Small 358 MB / Large‑v3‑Turbo ~1 GB, offline) · cloudový (Azure `gpt-4o-transcribe` / Whisper API) · hybridní (živý náhled lokálně + finální přepis v cloudu).
+- **Engine pro zprávy:** Azure OpenAI `gpt-5-chat` primárně, `gpt-4o-mini` jako fallback, max 4096 tokenů.
+- **Latence:** živý náhled zprávy každých 15 s během nahrávání; finální zpráva typicky 5–15 s po ukončení.
+- **Typy vyšetření:** default / initial / followup / gastroscopy / colonoscopy / ultrasound + auto‑detekce.
+- **Bezpečnost:** autentizace bearer tokenem, žádné ukládání audia na serveru, žádné trénování na datech zákazníka, možnost self‑host.
+- **Deployment:** backend v Azure Container Apps, West Europe. Web v Azure Static Web Apps, West Europe.
+- **Jazyky:** čeština (primárně). Web CS + EN. UI aplikace v češtině.
+- **Cena (aktuálně):** 7 dní zdarma → měsíční předplatné, cena bude oznámena.
+- **Kontakt:** anote-appka@outlook.com · +420 739 168 738 · +420 735 852 353.
+- **Live web:** `yellow-forest-086a45303.7.azurestaticapps.net` (doporučeno nasadit custom doménu — viz §14).
+
+> ⚠ **Nesrovnalosti, které je nutné vyřešit před spuštěním placených kampaní** (neupravováno v rámci tohoto briefu):
+> - Hero komunikuje „přímo na vašem telefonu“ — platí jen v lokálním režimu; cloudový přepis i generování zprávy vždy jdou přes Azure. Copy musí zůstat přesné.
+> - Podmínky služby §5 říkají „bez měsíčního předplatného, pay‑per‑use“, zatímco stránka Ceník mluví o **měsíčním předplatném**. Sjednotit.
+> - V marketingu se uvádí „13 sekcí“, reálné schéma má **14 sekcí** (+ identifikační hlavička).
+> - Testimonialy jsou placeholdery (`MUDr. [Jméno]`) — nepoužitelné v placených reklamách, dokud nebudou nahrazeny reálnými referencemi.
+
+---
+
+## 6. Messaging pilíře (obsahové kbelíky)
+
+1. **„Vraťte si večery.“** — úspora času, prevence vyhoření, work‑life balance.
+2. **„Vaše audio neopustí telefon.“** — soukromí, GDPR, data v EU.
+3. **„Rozumí česky — lékařsky.“** — česká lékařská terminologie, názvy léků, zkratky (NO, RA, OA).
+4. **„Správná šablona pro každé vyšetření.“** — gastro, kolono, UZ, kontrola, ambulance.
+5. **„Bez integrace, bez IT projektu.“** — funguje s jakýmkoli EHR přes copy / e‑mail.
+6. **„Připraveno pro evropské zdravotnictví.“** — Azure EU, zero retention, self‑host.
+
+---
+
+## 7. Taglines a hooks (připraveno k použití)
+
+**Česky:**
+- Lékařské zprávy automaticky.
+- Nahrajte. Zbytek zařídí ANOTE.
+- Ordinace končí dveřmi, ne v deset večer.
+- Váš AI zapisovatel. Česky. Bezpečně.
+- Gastro, kolono, UZ i ambulance — jedna aplikace, správná šablona.
+- Audio zůstane ve vašem telefonu. Zpráva přistane v EHR.
+- 15 sekund a máte hotovou zprávu.
+
+**Anglicky (pro EU / expanzi):**
+- Medical reports, automatically.
+- Your AI medical scribe — in Czech, on‑device, GDPR‑ready.
+- Record the visit. We'll write the report.
+- Stop typing at 10 PM.
+
+**Krátké ad hooks (≤ 40 znaků):**
+- „Zpráva za 15 vteřin.“
+- „Hodina navíc každý den.“
+- „Audio neopustí telefon.“
+- „Česky. Lékařsky. Bezpečně.“
+
+---
+
+## 8. Proof points / čísla pro kreativy
+
+- **~15 sekund** od ukončení nahrávání k hotové strukturované zprávě.
+- **13–14 sekcí** strukturované zprávy dle českých standardů.
+- **6 typů vyšetření** + auto‑detekce.
+- **2 režimy přepisu**: lokálně (0 B odeslaných audio dat) / cloud.
+- **iOS + Android**.
+- Data v **Azure West Europe**, zero retention, nepoužívají se k trénování modelů.
+- Oproti ručnímu přepisu: **15–30 minut → ~15 s**.
+
+---
+
+## 9. Feature matrix (sales one‑pager)
+
+| Oblast | ANOTE |
+|---|---|
+| Přepis — lokálně na zařízení | ✅ Whisper Small / Large‑v3‑Turbo |
+| Přepis — cloud | ✅ Azure gpt‑4o‑transcribe |
+| Přepis — hybridní | ✅ |
+| Offline režim | ✅ (lokální přepis, zpráva po připojení) |
+| Strukturovaná zpráva | ✅ GPT‑5‑chat, fallback gpt‑4o‑mini |
+| Typy vyšetření | 6 + auto |
+| Živý náhled zprávy | ✅ každých 15 s |
+| Editace zprávy v aplikaci | ✅ |
+| Export | Copy / E‑mail |
+| Integrace EHR | Přes copy / e‑mail (bez IT projektu) |
+| iOS / Android | ✅ |
+| Čeština UI i zpráv | ✅ |
+| GDPR / EU data | ✅ Azure West Europe, zero retention |
+| Self‑host backend | ✅ (enterprise) |
+| Token‑based API auth | ✅ |
+| Historie nahrávek | ✅ (lokálně na zařízení) |
+| Ukládání audia na server | ❌ (záměrně) |
+
+---
+
+## 10. Kanály a obsahový plán
+
+**Google Search (CZ):**
+- Keywords: *diktovací software lékař, AI zápis lékařské zprávy, přepis řeči čeština, medical scribe česky, GDPR dictation, Whisper lékař, automatická lékařská zpráva, software pro ambulanci, gastroskopie nález automaticky*.
+- Landing page: `/cs/demo` (lead magnet = živé demo v prohlížeči, bez registrace).
+
+**Google / Meta display:**
+- Vizuály: iPhone mockup → waveform → strukturovaná zpráva.
+- Hooks: „Zpráva za 15 s“, „Audio neopustí telefon“.
+
+**LinkedIn (B2B — kliniky, vedení, IT):**
+- Long‑form posty: GDPR, EU data residency, self‑host, ROI výpočet (2 h/den × lékař × sazba).
+- Carousely: „Jak vypadá zpráva z ANOTE“ — použít reálný NO / OA / AA příklad z `reportShowcase`.
+
+**Facebook skupiny / české lékařské komunity:**
+- Tón: kolegiální, nikoli korporátní. Video ukázky, doporučení konkrétních lékařů.
+
+**YouTube / TikTok / IG Reels:**
+- 30–60 s demo: stopky od „Stop“ do zobrazené zprávy.
+- Před/po: „Ordinace v 18:00 vs. ordinace v 18:02.“
+- Gastroskopie speed‑run: diktát → hotový nález.
+
+**E‑mail (cold + nurture):**
+- Segment A — samostatný lékař: úspora času, pozvánka na demo.
+- Segment B — klinika / ředitel: GDPR, EU, ROI, self‑host.
+- Nurture sekvence: Den 1 demo, Den 3 privacy deep‑dive, Den 7 případová studie, Den 14 pozvánka na call.
+
+**PR / odborné:**
+- Zdravotnický deník, Medical Tribune, konference ČLK, Dny praktických lékařů.
+
+---
+
+## 11. Vizuální a značkové vedení
+
+- **Tón:** klidný, profesionální, kolegiální. Nikoli „startup flexing“. Důvěra > hype.
+- **Jazyk:** česky jako první. V EN zachovat stejnou střízlivost.
+- **Barvy / font:** sladit s webem (`src/app/globals.css`, `src/lib/fonts.ts`) — v kreativách reklam používat **stejný** design systém, aby si prospect vizuálně spojil reklamu se stránkou.
+- **Obrazový jazyk:**
+  - ✅ Lékař v ordinaci s telefonem v ruce, pacient v rozostření.
+  - ✅ iPhone mockup s živým přepisem → přechod na strukturovanou zprávu (podle `ReportShowcase`).
+  - ✅ Animace stopek 00:15.
+  - ❌ Vyhnout se stockovým „AI brain“ obrázkům, 3D robotům, zeleným terminálům.
+- **Povinný compliance disclaimer** u každé kreativy se zprávou: *„Demonstrační obsah. Každou zprávu musí před klinickým použitím zkontrolovat lékař.“* — v souladu s Podmínkami §3.
+
+---
+
+## 12. Landing pages dle kampaně
+
+| Kampaň | LP | CTA |
+|---|---|---|
+| Search „diktování lékař“ | `/cs/demo` | Vyzkoušet v prohlížeči |
+| LinkedIn GDPR | `/cs/ochrana-soukromi` + sekce Privacy | Kontakt |
+| Gastro / kolono specialisté | `/cs/typy-zprav` | Early access |
+| Ceník / ROI | `/cs/cenik` | Chci early access |
+| Cold e‑mail | `/cs` (home) | Demo video + kontakt |
+
+**Doporučení:** vytvořit variantu LP **bez navbar** pro placený provoz (vyšší konverze) a přidat **UTM + Plausible goals** pro každý kanál (Plausible už je na webu integrovaný — `src/components/analytics/PlausibleProvider.tsx`).
+
+---
+
+## 13. Social proof, který je nutné co nejdříve získat
+
+Marketing nebude fungovat, dokud nemáme:
+- 3–5 reálných lékařů s citací, jménem, fotkou, specializací a městem (nahradit `MUDr. [Jméno]` placeholdery v `cs.json` a `en.json`).
+- 1–2 kvantitativní případové studie („MUDr. X ušetří 1 h 40 min denně, 22 pacientů/den, Praha 5“).
+- Logo bar s 3–5 klinikami (pokud už jsou pilotní zákazníci).
+- 30 s talking‑head video od reálného lékaře.
+
+---

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createSpeechVad, type SpeechVad } from "@/lib/speech-vad";
 
 export interface UseMediaRecorderOptions {
   /** Called every `timeslice` ms with a standalone audio segment */
@@ -44,6 +45,7 @@ export function useMediaRecorder({
   const segmentTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const mimeTypeRef = useRef("audio/webm");
   const stoppingRef = useRef(false);
+  const vadRef = useRef<SpeechVad | null>(null);
 
   // Keep latest callbacks in refs to avoid stale closures
   const onChunkRef = useRef(onChunk);
@@ -62,6 +64,8 @@ export function useMediaRecorder({
     if (segmentTimerRef.current) {
       clearInterval(segmentTimerRef.current);
       segmentTimerRef.current = null;
+    vadRef.current?.destroy();
+    vadRef.current = null;
     }
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
@@ -93,8 +97,12 @@ export function useMediaRecorder({
         cleanup();
         setIsRecording(false);
       } else {
-        // Periodic segment rotation — skip tiny/empty segments
-        if (segmentBlob.size >= MIN_SEGMENT_BYTES) {
+        // Periodic segment rotation — skip tiny/empty segments and, when VAD
+        // is enabled, segments where no speech frame was detected.
+        const vad = vadRef.current;
+        const speechSeen = !vad || vad.disabled || vad.hasSpeech();
+        vad?.consume();
+        if (segmentBlob.size >= MIN_SEGMENT_BYTES && speechSeen) {
           onChunkRef.current?.(segmentBlob);
         }
         startSegment();
@@ -111,7 +119,11 @@ export function useMediaRecorder({
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     streamRef.current = stream;
     setElapsedSeconds(0);
+// Best-effort VAD init. Falls back silently to raw-upload behavior on
+    // any failure (CSP block, asset load failure, runtime error).
+    vadRef.current = await createSpeechVad(stream);
 
+    
     const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
       ? "audio/webm;codecs=opus"
       : "audio/webm";

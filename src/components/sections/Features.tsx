@@ -11,12 +11,29 @@ function FeatureVisual({ type, dict }: { type: string; dict: Dictionary }) {
   const wf = dict.features.workflow;
   const visuals: Record<string, React.ReactNode> = {
     transcript: (
-      <div className="space-y-2 p-4">
-        <div className="h-2.5 w-4/5 bg-primary/50 rounded animate-[pulse_2s_ease-in-out_infinite]" />
-        <div className="h-2.5 w-full bg-primary/40 rounded animate-[pulse_2s_ease-in-out_infinite_0.2s]" />
-        <div className="h-2.5 w-3/4 bg-primary/30 rounded animate-[pulse_2s_ease-in-out_infinite_0.4s]" />
-        <div className="h-2.5 w-5/6 bg-primary/40 rounded animate-[pulse_2s_ease-in-out_infinite_0.6s]" />
-        <div className="h-2.5 w-2/3 bg-primary/30 rounded" />
+      <div className="grid grid-cols-2 gap-3 p-4 w-full">
+        <div className="rounded-xl border-2 border-primary bg-primary/5 p-3 shadow-[var(--shadow-sm)]">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-lg leading-none">🔒</span>
+            <span className="text-sm font-semibold text-text-primary">Whisper</span>
+          </div>
+          <div className="text-[11px] font-medium text-primary mb-2">On-device</div>
+          <div className="flex items-center gap-1 text-[10px] text-text-secondary">
+            <span className="w-1.5 h-1.5 rounded-full bg-success" />
+            <span>Offline · 0 KB out</span>
+          </div>
+        </div>
+        <div className="rounded-xl border border-border bg-surface p-3 shadow-[var(--shadow-sm)]">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-lg leading-none">☁️</span>
+            <span className="text-sm font-semibold text-text-primary">gpt-4o</span>
+          </div>
+          <div className="text-[11px] font-medium text-text-secondary mb-2">Cloud</div>
+          <div className="flex items-center gap-1 text-[10px] text-text-secondary">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <span>Faster · higher accuracy</span>
+          </div>
+        </div>
       </div>
     ),
     privacy: (

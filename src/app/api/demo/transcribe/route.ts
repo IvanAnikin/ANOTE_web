@@ -69,10 +69,17 @@ export async function POST(request: NextRequest) {
 
   const language = (formData.get("language") as string) ?? "cs";
 
+  // Short Czech medical prompt anchor. Biases Whisper toward medical
+  // Czech vocabulary and reduces silence-induced hallucinations on
+  // ambiguous low-energy audio.
+  const CZECH_MEDICAL_PROMPT =
+    "Lékařská zpráva. Pacient udává obtíže, anamnéza, vyšetření, diagnóza, doporučení.";
+
   // Build multipart form for Azure Whisper API
   const azureForm = new FormData();
   azureForm.append("file", file, "audio.webm");
   azureForm.append("language", language);
+  azureForm.append("prompt", CZECH_MEDICAL_PROMPT);
 
   try {
     const response = await fetch(AZURE_WHISPER_ENDPOINT, {

@@ -6,8 +6,8 @@ import { getDictionary, hasLocale, locales, type Locale } from "@/lib/i18n";
 import { siteConfig } from "@/lib/constants";
 import { PageHeader } from "@/components/layout/PageHeader";
 
-const Pricing = dynamic(() =>
-  import("@/components/sections/Pricing").then((m) => m.Pricing)
+const Privacy = dynamic(() =>
+  import("@/components/sections/Privacy").then((m) => m.Privacy)
 );
 
 export async function generateStaticParams() {
@@ -22,9 +22,9 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  const t = dict.pricingPage;
-  const enSlug = "pricing";
-  const csSlug = "cenik";
+  const t = dict.securityPage;
+  const csSlug = "bezpecnost";
+  const enSlug = "security";
 
   return {
     title: t.title,
@@ -42,7 +42,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function CenikPage({
+export default async function BezpecnostPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -50,24 +50,24 @@ export default async function CenikPage({
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = await getDictionary(lang as Locale);
-  const t = dict.pricingPage;
+  const t = dict.securityPage;
   const prefix = lang === "cs" ? "" : "/en";
-  const kontaktSlug = lang === "cs" ? "kontakt" : "contact";
+  const demoSlug = "demo";
 
   return (
     <main>
-      <PageHeader title={dict.pricing.heading} subtitle={t.subtitle} />
-      <Pricing dict={dict} />
+      <PageHeader title={t.title.replace(" — ANOTE", "")} subtitle={t.subtitle} />
+      <Privacy dict={dict} />
       <section className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary-dark text-center">
         <div className="mx-auto max-w-2xl px-6">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
-            {dict.bottomCta.ctaOnlyHeading}
+            {dict.demoPage.ctaHeading}
           </h2>
           <Link
-            href={`${prefix}/${kontaktSlug}`}
+            href={`${prefix}/${demoSlug}`}
             className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-3 text-base font-semibold text-primary shadow-lg hover:bg-white/90 transition-colors"
           >
-            {dict.bottomCta.ctaOnlyButton}
+            {dict.nav.demo}
           </Link>
         </div>
       </section>

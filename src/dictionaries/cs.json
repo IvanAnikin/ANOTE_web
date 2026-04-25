@@ -261,6 +261,11 @@
     "description": "Podívejte se, jaké strukturované lékařské zprávy ANOTE generuje z hlasového záznamu.",
     "subtitle": "Podívejte se, co ANOTE dokáže vytvořit z konverzace"
   },
+  "securityPage": {
+    "title": "Bezpečnost — ANOTE",
+    "description": "Jak ANOTE chrání vaše data: šifrování, lokální přepis, EU data residency a zero retention.",
+    "subtitle": "Navrženo pro evropské zdravotnictví"
+  },
   "faqPage": {
     "title": "FAQ — ANOTE",
     "description": "Často kladené otázky o aplikaci ANOTE pro lékařskou dokumentaci."

@@ -39,12 +39,23 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Empty transcript" }, { status: 400 });
   }
 
+  // Opt-in SSE pass-through. When `?stream=1` is set, this proxy forwards
+  // the same flag and streams `text/event-stream` bytes straight through
+  // to the client. The non-streaming JSON path remains the default and
+  // is preserved as a fallback.
+  const wantsStream = request.nextUrl.searchParams.get("stream") === "1";
+
+  const upstreamUrl = wantsStream
+    ? `${ANOTE_BACKEND_URL}/report?stream=1`
+    : `${ANOTE_BACKEND_URL}/report`;
+
   try {
-    const response = await fetch(`${ANOTE_BACKEND_URL}/report`, {
+    const response = await fetch(upstreamUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${ANOTE_API_TOKEN}`,
+        ...(wantsStream ? { Accept: "text/event-stream" } : {}),
       },
       body: JSON.stringify({
         transcript,
@@ -61,6 +72,18 @@ export async function POST(request: NextRequest) {
         { error: "Report generation failed" },
         { status: 502 },
       );
+    }
+
+    if (wantsStream && response.body) {
+      return new Response(response.body, {
+        status: 200,
+        headers: {
+          "Content-Type": "text/event-stream",
+          "Cache-Control": "no-cache, no-transform",
+          Connection: "keep-alive",
+          "X-Accel-Buffering": "no",
+        },
+      });
     }
 
     const data = await response.json();

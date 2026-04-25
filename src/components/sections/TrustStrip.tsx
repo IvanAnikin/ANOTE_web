@@ -15,7 +15,7 @@ export function TrustStrip({
 }) {
   const t = dict.trustStrip;
   const prefix = lang === "cs" ? "" : "/en";
-  const reportTypesSlug = lang === "cs" ? "typy-zprav" : "report-types";
+  const securitySlug = lang === "cs" ? "bezpecnost" : "security";
 
   return (
     <section className="py-16 sm:py-20 bg-dark-bg text-white relative overflow-hidden">
@@ -41,9 +41,9 @@ export function TrustStrip({
               ))}
             </div>
 
-            {/* Link to full security section */}
+            {/* Link to dedicated security page */}
             <Link
-              href={`${prefix}/${reportTypesSlug}#security`}
+              href={`${prefix}/${securitySlug}`}
               className="text-sm text-primary hover:text-primary/80 transition-colors font-medium"
             >
               {t.link} →

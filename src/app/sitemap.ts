@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const localizedPages = [
     { cs: "/cenik", en: "/pricing", changeFrequency: "monthly" as const, priority: 0.8 },
     { cs: "/typy-zprav", en: "/report-types", changeFrequency: "monthly" as const, priority: 0.7 },
+    { cs: "/bezpecnost", en: "/security", changeFrequency: "monthly" as const, priority: 0.7 },
   ];
 
   const allPages = [...sameSlugPages, ...localizedPages];

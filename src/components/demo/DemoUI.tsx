@@ -20,6 +20,18 @@ export function DemoUI({ dict }: DemoUIProps) {
   const session = useDemoSession();
   const [mobileTab, setMobileTab] = useState<MobileTab>("transcript");
 
+  // Non-blocking backend pre-warm on mount. Errors are swallowed so a
+  // failing health ping never surfaces to the user or blocks rendering.
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/demo/health", {
+      method: "GET",
+      signal: controller.signal,
+      cache: "no-store",
+    }).catch(() => {});
+    return () => controller.abort();
+  }, []);
+
   // Track analytics events for state transitions
   const prevStatusRef = useRef(session.status);
   useEffect(() => {

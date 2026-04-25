@@ -11,6 +11,7 @@ const enSlugMap: Record<string, string> = {
   contact: "kontakt",
   terms: "podminky",
   privacy: "ochrana-soukromi",
+  security: "bezpecnost",
 };
 
 function getLocale(request: NextRequest): string {

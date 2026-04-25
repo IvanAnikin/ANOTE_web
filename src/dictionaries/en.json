@@ -261,6 +261,11 @@
     "description": "See what structured medical reports ANOTE generates from voice recordings.",
     "subtitle": "See what ANOTE can create from a conversation"
   },
+  "securityPage": {
+    "title": "Security — ANOTE",
+    "description": "How ANOTE protects your data: encryption, on-device transcription, EU data residency, and zero retention.",
+    "subtitle": "Built for European healthcare"
+  },
   "faqPage": {
     "title": "FAQ — ANOTE",
     "description": "Frequently asked questions about the ANOTE medical documentation app."

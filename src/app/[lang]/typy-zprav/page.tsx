@@ -12,9 +12,6 @@ const ReportShowcase = dynamic(() =>
 const VisitTypes = dynamic(() =>
   import("@/components/sections/VisitTypes").then((m) => m.VisitTypes)
 );
-const Privacy = dynamic(() =>
-  import("@/components/sections/Privacy").then((m) => m.Privacy)
-);
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -65,9 +62,6 @@ export default async function TypyZpravPage({
       <PageHeader title={t.title.replace(" — ANOTE", "")} subtitle={t.subtitle} />
       <ReportShowcase dict={dict} />
       <VisitTypes dict={dict} />
-      <div id="security">
-        <Privacy dict={dict} />
-      </div>
       <section className="py-16 sm:py-20 bg-gradient-to-br from-primary to-primary-dark text-center">
         <div className="mx-auto max-w-2xl px-6">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
