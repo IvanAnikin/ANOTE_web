@@ -17,17 +17,6 @@ export function Pricing({ dict }: { dict: Dictionary }) {
   return (
     <section id="pricing" className="py-24 sm:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <FadeInOnScroll>
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-text-primary">
-              {t.heading}
-            </h2>
-            <p className="mt-4 text-lg text-text-secondary">
-              {t.subheading}
-            </p>
-          </div>
-        </FadeInOnScroll>
-
         {/* Pricing card */}
         <FadeInOnScroll>
           <div className="max-w-md mx-auto mb-20">
