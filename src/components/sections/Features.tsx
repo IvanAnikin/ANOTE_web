@@ -74,7 +74,7 @@ function FeatureVisual({ type, dict }: { type: string; dict: Dictionary }) {
     ),
     anamneza: (
       <div className="w-full h-40 p-2">
-        <BouncingChips chips={["NO", "RA", "OA", "FA", "AA"]} />
+        <BouncingChips chips={["NO", "RA", "OA", "FA", "AA", "GA", "SA", "EA"]} />
       </div>
     ),
     workflow: (
