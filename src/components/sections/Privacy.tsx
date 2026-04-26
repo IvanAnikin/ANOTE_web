@@ -23,11 +23,11 @@ const privacyIcons = ["🔒", "📱", "🇪🇺", "🚫", "🔑", "🏢"];
 export function Privacy({ dict }: { dict: Dictionary }) {
   const t = dict.privacy;
   return (
-    <section id="privacy" className="py-24 sm:py-32 bg-dark-bg text-white relative overflow-hidden">
+    <section id="privacy" className="pt-12 pb-24 sm:pt-16 sm:pb-32 bg-dark-bg text-white relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative">
         {/* Centerpiece shield */}
         <FadeInOnScroll>
-          <div className="flex justify-center mb-4">
+          <div className="flex justify-center mb-16">
             <div className="relative">
               <Shield
                 className="w-16 h-16 text-primary animate-[pulse_4s_ease-in-out_infinite]"
@@ -36,17 +36,6 @@ export function Privacy({ dict }: { dict: Dictionary }) {
               {/* Glow ring */}
               <div className="absolute inset-0 rounded-full bg-primary/20 blur-xl animate-[pulse_4s_ease-in-out_infinite]" />
             </div>
-          </div>
-        </FadeInOnScroll>
-
-        <FadeInOnScroll>
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold">
-              {t.heading}
-            </h2>
-            <p className="mt-4 text-lg text-white/60">
-              {t.subheading}
-            </p>
           </div>
         </FadeInOnScroll>
 
