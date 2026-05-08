@@ -49,9 +49,10 @@ export function Navbar({
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   // lock body scroll when mobile menu is open
   useEffect(() => {
@@ -68,7 +69,9 @@ export function Navbar({
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
+        mobileOpen
+          ? "bg-surface/95 backdrop-blur-xl shadow-[var(--shadow-sm)]"
+          : scrolled
           ? "bg-white/80 backdrop-blur-lg shadow-[var(--shadow-sm)]"
           : "bg-transparent",
       )}
@@ -142,7 +145,7 @@ export function Navbar({
       {/* Mobile drawer */}
       <div
         className={cn(
-          "md:hidden fixed inset-0 top-[72px] bg-white/95 backdrop-blur-lg transition-transform duration-300 z-40",
+          "md:hidden fixed left-0 right-0 top-[72px] bottom-0 h-[calc(100dvh-72px)] bg-surface/95 backdrop-blur-xl transition-transform duration-300 z-40 shadow-[var(--shadow-md)]",
           mobileOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
