@@ -82,11 +82,10 @@
     "playLabel": "Play video",
     "placeholder": "Video coming soon",
     "screenshots": [
-      "Recording conversation",
-      "Live transcription",
-      "Generating report",
-      "Selecting exam type",
-      "Sending via email"
+      "Medical report",
+      "Recording history",
+      "Settings",
+      "Light mode"
     ],
     "cta": "I want to try ANOTE"
   },
