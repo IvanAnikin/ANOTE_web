@@ -104,6 +104,9 @@ Open [http://localhost:3000](http://localhost:3000).
 Create `.env.local` with:
 
 ```env
+# Public analytics
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
+
 # Admin
 ADMIN_SECRET=your-admin-password
 
@@ -125,7 +128,7 @@ ANOTE_BACKEND_URL=https://your-backend-url
 ANOTE_API_TOKEN=your-token
 ```
 
-All env vars are **server-side only** (no `NEXT_PUBLIC_` prefix).
+`NEXT_PUBLIC_*` variables are exposed client-side. Keep secrets and protected tokens on server-only variables.
 
 ## Deployment
 
@@ -133,7 +136,7 @@ All env vars are **server-side only** (no `NEXT_PUBLIC_` prefix).
 
 The site deploys automatically via GitHub Actions on every push to `main`.
 
-**Workflow**: `.github/workflows/azure-static-web-apps.yml`
+**Workflow**: `.github/workflows/azure-static-web-apps-yellow-forest-086a45303.yml`
 - Installs dependencies (`npm ci`)
 - Runs type checking (`tsc --noEmit`)
 - Builds (`npm run build`)
@@ -141,10 +144,12 @@ The site deploys automatically via GitHub Actions on every push to `main`.
 
 **Required GitHub secret**: `AZURE_STATIC_WEB_APPS_API_TOKEN`
 
+**Recommended GitHub repository variable**: `NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9`
+
 **Azure app settings** (env vars) are configured via Azure Portal or CLI:
 ```bash
 az staticwebapp appsettings set --name anote-web \
-  --setting-names "AZURE_WHISPER_KEY=..." "ANOTE_API_TOKEN=..." ...
+  --setting-names "AZURE_WHISPER_KEY=..." "ANOTE_API_TOKEN=..." "NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9" ...
 ```
 
 ### Security Headers
