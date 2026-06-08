@@ -8,7 +8,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "GTM-5JCQPNZ9";
 
   return (
     <html className={`${jakarta.variable} h-full antialiased`} suppressHydrationWarning>
