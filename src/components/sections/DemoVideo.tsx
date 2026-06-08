@@ -18,7 +18,12 @@ const itemVariant: Variants = {
   },
 };
 
-const screenshotIcons = ["🎙️", "📝", "📋", "🏥", "📧"];
+const screenshotImages = [
+  "/screenshots/IMG_0306.PNG",
+  "/screenshots/IMG_0305.PNG",
+  "/screenshots/IMG_0304.PNG",
+  "/screenshots/IMG_0299.PNG",
+] as const;
 
 export function DemoVideo({ dict }: { dict: Dictionary }) {
   const t = dict.demoVideo;
@@ -75,23 +80,25 @@ export function DemoVideo({ dict }: { dict: Dictionary }) {
         </FadeInOnScroll>
 
         {/* Screenshot carousel fallback */}
-        <StaggerChildren className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-          {t.screenshots.map((caption, i) => (
+        <StaggerChildren className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 md:justify-items-center xl:grid-cols-4 md:overflow-visible">
+          {screenshotImages.map((src, i) => (
             <motion.div
-              key={caption}
+              key={src}
               variants={itemVariant}
-              className="snap-center shrink-0 w-48 sm:w-56"
+              className="snap-center shrink-0"
             >
-              <div className="aspect-[9/16] rounded-xl bg-dark-bg-lighter border border-white/10 flex flex-col items-center justify-center gap-3 p-4">
-                <span className="text-4xl">{screenshotIcons[i]}</span>
-                <div className="space-y-1.5 w-full">
-                  <div className="h-1.5 w-full bg-white/10 rounded" />
-                  <div className="h-1.5 w-3/4 bg-white/10 rounded" />
-                  <div className="h-1.5 w-5/6 bg-white/10 rounded" />
-                </div>
+              <div className="w-fit overflow-hidden rounded-[1.75rem] border border-white/10 bg-dark-bg-lighter shadow-xl">
+                <img
+                  src={src}
+                  alt={t.screenshots[i]}
+                  width="1170"
+                  height="2532"
+                  className="block h-auto w-64 bg-dark-bg-lighter sm:w-72 xl:w-[17rem]"
+                  loading="lazy"
+                />
               </div>
               <p className="mt-2 text-sm text-white/50 text-center">
-                {caption}
+                {t.screenshots[i]}
               </p>
             </motion.div>
           ))}
