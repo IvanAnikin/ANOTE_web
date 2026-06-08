@@ -36,6 +36,8 @@ export function Footer({
     { label: t.supportLinks.faq, href: faqHref },
     { label: t.supportLinks.contact, href: kontaktHref },
     { label: "anote-appka@outlook.com", href: "mailto:anote-appka@outlook.com" },
+    { label: "+420 739 168 738", href: "tel:+420739168738" },
+    { label: "+420 735 852 353", href: "tel:+420735852353" },
   ];
 
   const legalLinks = [
@@ -96,7 +98,7 @@ export function Footer({
             </h4>
             <ul className="mt-4 flex flex-col gap-3">
               {supportLinks.map((l) =>
-                l.href.startsWith("mailto:") ? (
+                l.href.startsWith("mailto:") || l.href.startsWith("tel:") ? (
                   <li key={l.href}>
                     <a href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
                       {l.label}
