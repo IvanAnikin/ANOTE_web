@@ -82,11 +82,10 @@
     "playLabel": "Přehrát video",
     "placeholder": "Video bude brzy k dispozici",
     "screenshots": [
-      "Nahrávání konverzace",
-      "Živý přepis",
-      "Generování zprávy",
-      "Výběr typu vyšetření",
-      "Odeslání emailem"
+      "Lékařská zpráva",
+      "Historie nahrávek",
+      "Nastavení",
+      "Světlý režim"
     ],
     "cta": "Chci vyzkoušet ANOTE"
   },
