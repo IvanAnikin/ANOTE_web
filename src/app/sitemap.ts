@@ -1,9 +1,7 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // TODO: replace with production domain when anote.cz is configured
-  const baseUrl = "https://yellow-forest-086a45303.7.azurestaticapps.net";
-
   // Pages with same slug for both locales
   const sameSlugPages = [
     { cs: "", en: "", changeFrequency: "weekly" as const, priority: 1 },
@@ -25,26 +23,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return allPages.flatMap((page) => [
     {
-      url: `${baseUrl}${page.cs}`,
+      url: `${siteUrl}${page.cs}`,
       lastModified: new Date(),
       changeFrequency: page.changeFrequency,
       priority: page.priority,
       alternates: {
         languages: {
-          cs: `${baseUrl}${page.cs}`,
-          en: `${baseUrl}/en${page.en}`,
+          cs: `${siteUrl}${page.cs}`,
+          en: `${siteUrl}/en${page.en}`,
         },
       },
     },
     {
-      url: `${baseUrl}/en${page.en}`,
+      url: `${siteUrl}/en${page.en}`,
       lastModified: new Date(),
       changeFrequency: page.changeFrequency,
       priority: page.priority * 0.9,
       alternates: {
         languages: {
-          cs: `${baseUrl}${page.cs}`,
-          en: `${baseUrl}/en${page.en}`,
+          cs: `${siteUrl}${page.cs}`,
+          en: `${siteUrl}/en${page.en}`,
         },
       },
     },

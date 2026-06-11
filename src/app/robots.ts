@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,7 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    // TODO: replace with production domain when anote.cz is configured
-    sitemap: "https://yellow-forest-086a45303.7.azurestaticapps.net/sitemap.xml",
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

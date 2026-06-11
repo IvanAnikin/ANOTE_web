@@ -1,7 +1,10 @@
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+  "https://anote-appka.cz";
+
 export const siteConfig = {
   name: "ANOTE",
-  // TODO: replace with production domain when anote.cz is configured
-  url: "https://yellow-forest-086a45303.7.azurestaticapps.net",
+  url: siteUrl,
   description:
     "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. Lokální i cloudový přepis, GDPR compliant, česká terminologie.",
   contactEmail: "anote-appka@outlook.com",

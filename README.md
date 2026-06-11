@@ -2,7 +2,7 @@
 
 Marketing website and live demo for **ANOTE** — an AI-powered Czech medical dictation assistant that transcribes doctor–patient conversations and generates structured medical reports.
 
-**Live site**: [yellow-forest-086a45303.7.azurestaticapps.net](https://yellow-forest-086a45303.7.azurestaticapps.net)
+**Live site**: [anote-appka.cz](https://anote-appka.cz)
 
 ## Tech Stack
 
@@ -104,6 +104,9 @@ Open [http://localhost:3000](http://localhost:3000).
 Create `.env.local` with:
 
 ```env
+# Public site config
+NEXT_PUBLIC_SITE_URL=https://anote-appka.cz
+
 # Public analytics
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
 
@@ -146,10 +149,12 @@ The site deploys automatically via GitHub Actions on every push to `main`.
 
 **Recommended GitHub repository variable**: `NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9`
 
+**Recommended GitHub repository variable**: `NEXT_PUBLIC_SITE_URL=https://anote-appka.cz`
+
 **Azure app settings** (env vars) are configured via Azure Portal or CLI:
 ```bash
 az staticwebapp appsettings set --name anote-web \
-  --setting-names "AZURE_WHISPER_KEY=..." "ANOTE_API_TOKEN=..." "NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9" ...
+  --setting-names "AZURE_WHISPER_KEY=..." "ANOTE_API_TOKEN=..." "NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9" "NEXT_PUBLIC_SITE_URL=https://anote-appka.cz" ...
 ```
 
 ### Security Headers
