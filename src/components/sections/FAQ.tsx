@@ -2,7 +2,6 @@
 
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { Accordion } from "@/components/ui/Accordion";
-import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 export function FAQ({ dict }: { dict: Dictionary }) {
@@ -25,7 +24,7 @@ export function FAQ({ dict }: { dict: Dictionary }) {
         </FadeInOnScroll>
 
         <FadeInOnScroll>
-          <Accordion items={faqItems} onItemOpen={(title) => trackEvent("faq_expand", { question: title })} />
+          <Accordion items={faqItems} />
         </FadeInOnScroll>
       </div>
     </section>

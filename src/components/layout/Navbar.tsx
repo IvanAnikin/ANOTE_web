@@ -117,7 +117,6 @@ export function Navbar({
         <div className="hidden md:flex items-center gap-3">
           <Link
             href={localePrefix}
-            onClick={() => trackEvent("language_toggle", { to: otherLocale })}
             className="text-xs font-semibold px-2.5 py-1 rounded-full border border-border text-text-secondary hover:text-text-primary hover:border-primary/40 transition-colors"
           >
             {otherLocale.toUpperCase()}
@@ -125,7 +124,7 @@ export function Navbar({
           <Link href={demoHref}>
             <Button
               size="default"
-              onClick={() => trackEvent("cta_click_nav")}
+              onClick={() => trackEvent("cta_click", { location: "navbar" })}
             >
               {t.tryDemo}
             </Button>
@@ -180,7 +179,6 @@ export function Navbar({
           <li>
             <Link
               href={localePrefix}
-              onClick={() => trackEvent("language_toggle", { to: otherLocale })}
               className="text-sm font-semibold px-3 py-1.5 rounded-full border border-border text-text-secondary"
             >
               {otherLocale.toUpperCase()}
@@ -190,7 +188,7 @@ export function Navbar({
             <Link href={demoHref} onClick={() => setMobileOpen(false)}>
               <Button
                 size="lg"
-                onClick={() => trackEvent("cta_click_nav")}
+                onClick={() => trackEvent("cta_click", { location: "navbar" })}
               >
                 {t.tryDemo}
               </Button>

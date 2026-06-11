@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/Card";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 export function Pricing({ dict }: { dict: Dictionary }) {
@@ -14,6 +16,11 @@ export function Pricing({ dict }: { dict: Dictionary }) {
   const firstSegment = pathname.split("/")[1];
   const lang = (firstSegment === "cs" || firstSegment === "en") ? firstSegment : "cs";
   const kontaktHref = lang === "cs" ? `/${lang}/kontakt` : `/en/contact`;
+
+  useEffect(() => {
+    trackEvent("pricing_view");
+  }, []);
+
   return (
     <section id="pricing" className="py-24 sm:py-32 bg-background">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -44,6 +51,7 @@ export function Pricing({ dict }: { dict: Dictionary }) {
                 <Button
                   size="lg"
                   className="w-full"
+                  onClick={() => trackEvent("cta_click", { location: "pricing" })}
                 >
                   {t.cta}
                 </Button>

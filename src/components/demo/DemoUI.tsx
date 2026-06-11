@@ -24,6 +24,7 @@ export function DemoUI({ dict }: DemoUIProps) {
   // failing health ping never surfaces to the user or blocks rendering.
   useEffect(() => {
     const controller = new AbortController();
+    trackEvent("demo_page_view");
     fetch("/api/demo/health", {
       method: "GET",
       signal: controller.signal,
@@ -31,47 +32,6 @@ export function DemoUI({ dict }: DemoUIProps) {
     }).catch(() => {});
     return () => controller.abort();
   }, []);
-
-  // Track analytics events for state transitions
-  const prevStatusRef = useRef(session.status);
-  useEffect(() => {
-    const prev = prevStatusRef.current;
-    const curr = session.status;
-    prevStatusRef.current = curr;
-
-    if (prev !== curr) {
-      if (curr === "recording") {
-        trackEvent("demo_start_recording", { visitType: session.visitType });
-      }
-      if (prev === "recording" && (curr === "processing" || curr === "complete")) {
-        trackEvent("demo_stop_recording", {
-          durationSeconds: String(session.elapsedSeconds),
-          visitType: session.visitType,
-        });
-      }
-      if (curr === "error" && session.error) {
-        trackEvent("demo_error", { type: prev, message: session.error });
-      }
-    }
-  }, [session.status, session.visitType, session.elapsedSeconds, session.error]);
-
-  // Track transcription complete
-  const prevTranscriptRef = useRef("");
-  useEffect(() => {
-    if (
-      session.transcript &&
-      session.transcript !== prevTranscriptRef.current &&
-      !session.isTranscribing
-    ) {
-      const wordCount = session.transcript.split(/\s+/).filter(Boolean).length;
-      const method = session.status === "complete" || session.status === "generating" ? "upload" : "live";
-      trackEvent("demo_transcription_complete", {
-        wordCount: String(wordCount),
-        method,
-      });
-      prevTranscriptRef.current = session.transcript;
-    }
-  }, [session.transcript, session.isTranscribing, session.status]);
 
   // Track report complete
   const prevReportRef = useRef("");
@@ -82,15 +42,13 @@ export function DemoUI({ dict }: DemoUIProps) {
       !session.isGenerating &&
       session.status === "complete"
     ) {
-      trackEvent("demo_report_complete", {
-        visitType: session.visitType,
-        method: "live",
-      });
+      trackEvent("demo_report_generated");
       prevReportRef.current = session.report;
     }
   }, [session.report, session.isGenerating, session.status, session.visitType]);
 
   const handleStartRecording = useCallback(() => {
+    trackEvent("demo_start", { method: "recording" });
     session.startRecording();
   }, [session]);
 

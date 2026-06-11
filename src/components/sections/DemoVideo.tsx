@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/Button";
 import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 const itemVariant: Variants = {
@@ -58,7 +57,6 @@ export function DemoVideo({ dict }: { dict: Dictionary }) {
               <button
                 className="group relative z-10 w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-[var(--shadow-glow)] transition-transform duration-300 hover:scale-110 cursor-pointer"
                 aria-label={t.playLabel}
-                onClick={() => trackEvent("video_play")}
               >
                 <svg
                   className="w-8 h-8 text-white ml-1"

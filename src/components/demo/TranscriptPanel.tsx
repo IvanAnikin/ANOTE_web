@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { trackEvent } from "@/lib/analytics";
 
 interface TranscriptPanelProps {
   transcript: string;
@@ -33,7 +32,6 @@ export function TranscriptPanel({
     if (!transcript) return;
     await navigator.clipboard.writeText(transcript);
     setCopied(true);
-    trackEvent("demo_copy_transcript");
     setTimeout(() => setCopied(false), 2000);
   }, [transcript]);
 

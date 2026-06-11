@@ -4,7 +4,6 @@ import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
 import { Card } from "@/components/ui/Card";
 import { motion, type Variants } from "framer-motion";
-import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 const itemVariant: Variants = {
@@ -44,7 +43,7 @@ export function VisitTypes({ dict }: { dict: Dictionary }) {
               variants={itemVariant}
               className="snap-center shrink-0 w-56 lg:w-auto"
             >
-              <Card className="h-full" onClick={() => trackEvent("visit_type_click", { type: vt.name })}>
+              <Card className="h-full">
                 <div className="text-3xl mb-3">{visitTypeIcons[i]}</div>
                 <h3 className="text-base font-bold text-text-primary mb-3">
                   {vt.name}

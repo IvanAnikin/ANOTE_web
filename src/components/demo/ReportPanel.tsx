@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { trackEvent } from "@/lib/analytics";
 
 interface ReportPanelProps {
   report: string;
@@ -34,7 +33,6 @@ export function ReportPanel({
     if (!report) return;
     await navigator.clipboard.writeText(report);
     setCopied(true);
-    trackEvent("demo_copy_report");
     setTimeout(() => setCopied(false), 2000);
   }, [report]);
 
@@ -47,7 +45,6 @@ export function ReportPanel({
     a.download = "anote-report.txt";
     a.click();
     URL.revokeObjectURL(url);
-    trackEvent("demo_download_report");
   }, [report]);
 
   return (

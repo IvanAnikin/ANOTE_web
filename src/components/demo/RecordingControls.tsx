@@ -72,10 +72,7 @@ export function RecordingControls({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (file) {
-        trackEvent("demo_upload_file", {
-          fileType: file.type,
-          fileSizeMB: (file.size / (1024 * 1024)).toFixed(1),
-        });
+        trackEvent("demo_start", { method: "upload" });
         onUpload(file);
       }
       // Reset input so re-uploading the same file triggers change
@@ -92,10 +89,7 @@ export function RecordingControls({
 
       const file = e.dataTransfer.files?.[0];
       if (file && (file.type.startsWith("audio/") || ACCEPTED_MIME_TYPES.includes(file.type))) {
-        trackEvent("demo_upload_file", {
-          fileType: file.type,
-          fileSizeMB: (file.size / (1024 * 1024)).toFixed(1),
-        });
+        trackEvent("demo_start", { method: "upload" });
         onUpload(file);
       }
     },

@@ -60,7 +60,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
             >
               <Link
                 href={`/${lang}/demo`}
-                onClick={() => trackEvent("cta_click_hero")}
+                onClick={() => trackEvent("cta_click", { location: "hero" })}
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-200 bg-primary text-white hover:bg-primary-dark hover:shadow-[var(--shadow-glow)] hover:scale-[1.03] active:scale-[0.97] px-8 py-3.5 text-lg"
               >
                 {t.ctaPrimary}

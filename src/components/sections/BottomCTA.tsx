@@ -47,6 +47,7 @@ function CompactCTA({ dict, lang }: { dict: Dictionary; lang?: Locale }) {
             <div className="mt-8">
               <a
                 href={`${prefix}/${kontaktSlug}`}
+                onClick={() => trackEvent("cta_click", { location: "compact_cta" })}
                 className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-3.5 text-base font-semibold text-primary shadow-lg hover:bg-white/90 transition-colors"
               >
                 {t.ctaOnlyButton}
@@ -76,7 +77,6 @@ function FullCTA({ dict }: { dict: Dictionary }) {
 
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const [formStarted, setFormStarted] = useState(false);
   const {
     register,
     handleSubmit,
@@ -91,13 +91,6 @@ function FullCTA({ dict }: { dict: Dictionary }) {
     },
   });
 
-  const handleFormFocus = () => {
-    if (!formStarted) {
-      setFormStarted(true);
-      trackEvent("form_start");
-    }
-  };
-
   const onSubmit = async (data: ContactFormValues) => {
     setServerError(null);
     try {
@@ -111,12 +104,11 @@ function FullCTA({ dict }: { dict: Dictionary }) {
         throw new Error(body?.error ?? t.serverError);
       }
       setSubmitted(true);
-      trackEvent("form_submit");
+      trackEvent("contact_form_submit");
     } catch (err) {
       setServerError(
         err instanceof Error ? err.message : t.serverError,
       );
-      trackEvent("form_error", { reason: err instanceof Error ? err.message : "unknown" });
     }
   };
 
@@ -157,8 +149,7 @@ function FullCTA({ dict }: { dict: Dictionary }) {
               </div>
             ) : (
               <form
-                onSubmit={handleSubmit(onSubmit, () => trackEvent("form_error", { reason: "validation" }))}
-                onFocus={handleFormFocus}
+                onSubmit={handleSubmit(onSubmit)}
                 className="rounded-2xl bg-white p-8 sm:p-10 shadow-xl space-y-5"
                 noValidate
               >
@@ -211,12 +202,19 @@ function FullCTA({ dict }: { dict: Dictionary }) {
             <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-white/70">
               <a
                 href="mailto:anote-appka@outlook.com"
+                onClick={() => trackEvent("email_click", { location: "bottom_cta" })}
                 className="hover:text-white transition-colors"
               >
                 📧 anote-appka@outlook.com
               </a>
               <span className="hidden sm:inline text-white/30">·</span>
-              <span>📞 {t.phone}</span>
+              <a
+                href="tel:+420739168738"
+                onClick={() => trackEvent("phone_click", { location: "bottom_cta" })}
+                className="hover:text-white transition-colors"
+              >
+                📞 {t.phone}
+              </a>
             </div>
           </div>
         </FadeInOnScroll>

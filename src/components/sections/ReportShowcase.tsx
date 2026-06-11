@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/Button";
 import { CountUp } from "@/components/animations/CountUp";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 export function ReportShowcase({ dict }: { dict: Dictionary }) {
@@ -130,7 +129,7 @@ export function ReportShowcase({ dict }: { dict: Dictionary }) {
               <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wide mb-4">
                 {t.arrowLabel}
               </h3>
-              <Accordion items={accordionItems} onItemOpen={(title) => trackEvent("report_section_expand", { section: title })} />
+              <Accordion items={accordionItems} />
             </div>
           </FadeInOnScroll>
         </div>

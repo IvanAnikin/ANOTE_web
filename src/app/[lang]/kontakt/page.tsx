@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/lib/i18n";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 import { BottomCTA } from "@/components/sections/BottomCTA";
 
 export async function generateMetadata({
@@ -41,20 +42,28 @@ export default async function KontaktPage({
           <div className="flex flex-wrap justify-center gap-8 text-text-secondary">
             <div>
               <p className="font-semibold text-text-primary mb-1">{t.emailLabel}</p>
-              <a
+              <TrackedLink
                 href={`mailto:${t.email}`}
+                eventName="email_click"
+                eventProps={{ location: "contact_page" }}
                 className="text-primary hover:underline"
               >
                 {t.email}
-              </a>
+              </TrackedLink>
             </div>
             <div>
               <p className="font-semibold text-text-primary mb-1">{t.phoneLabel}</p>
               <div className="flex flex-col gap-1">
                 {t.phones.map((phone) => (
-                  <a key={phone} href={`tel:${phone.replace(/\s/g, "")}`} className="hover:text-primary transition-colors">
+                  <TrackedLink
+                    key={phone}
+                    href={`tel:${phone.replace(/\s/g, "")}`}
+                    eventName="phone_click"
+                    eventProps={{ location: "contact_page" }}
+                    className="hover:text-primary transition-colors"
+                  >
                     {phone}
-                  </a>
+                  </TrackedLink>
                 ))}
               </div>
             </div>

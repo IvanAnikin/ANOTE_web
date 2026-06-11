@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { getDictionary, hasLocale, locales, type Locale } from "@/lib/i18n";
 import { siteConfig } from "@/lib/constants";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 const Pricing = dynamic(() =>
   import("@/components/sections/Pricing").then((m) => m.Pricing)
@@ -63,12 +63,14 @@ export default async function CenikPage({
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-6">
             {dict.bottomCta.ctaOnlyHeading}
           </h2>
-          <Link
+          <TrackedLink
             href={`${prefix}/${kontaktSlug}`}
+            eventName="cta_click"
+            eventProps={{ location: "pricing_page" }}
             className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-3 text-base font-semibold text-primary shadow-lg hover:bg-white/90 transition-colors"
           >
             {dict.bottomCta.ctaOnlyButton}
-          </Link>
+          </TrackedLink>
         </div>
       </section>
     </main>

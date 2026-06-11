@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Mail, Globe } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 import type { Locale } from "@/lib/i18n";
 
@@ -60,6 +63,7 @@ export function Footer({
             <div className="mt-5 flex gap-4">
               <a
                 href="mailto:anote-appka@outlook.com"
+                onClick={() => trackEvent("email_click", { location: "footer" })}
                 className="text-white/50 hover:text-primary transition-colors"
                 aria-label="Email"
               >
@@ -100,7 +104,16 @@ export function Footer({
               {supportLinks.map((l) =>
                 l.href.startsWith("mailto:") || l.href.startsWith("tel:") ? (
                   <li key={l.href}>
-                    <a href={l.href} className="text-sm text-white/60 hover:text-white transition-colors">
+                    <a
+                      href={l.href}
+                      onClick={() =>
+                        trackEvent(
+                          l.href.startsWith("mailto:") ? "email_click" : "phone_click",
+                          { location: "footer" },
+                        )
+                      }
+                      className="text-sm text-white/60 hover:text-white transition-colors"
+                    >
                       {l.label}
                     </a>
                   </li>
