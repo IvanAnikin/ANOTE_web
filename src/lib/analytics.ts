@@ -1,7 +1,5 @@
 /* global plausible */
 
-import { hasAnalyticsConsent } from "@/lib/consent";
-
 type SafeAnalyticsEvent =
   | "contact_form_submit"
   | "cta_click"
@@ -89,6 +87,5 @@ export function trackEvent(name: string, props?: Record<string, string>): void {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: name, ...payload });
 
-  if (!hasAnalyticsConsent()) return;
   window.plausible?.(name, Object.keys(payload).length ? { props: payload } : undefined);
 }
