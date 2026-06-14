@@ -21,7 +21,21 @@ function getLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
+const AZURE_DEFAULT_HOST = "yellow-forest-086a45303.7.azurestaticapps.net";
+const CANONICAL_ORIGIN = "https://anote-appka.cz";
+
 export function proxy(request: NextRequest) {
+  // Permanently redirect the Azure default hostname to the canonical domain,
+  // preserving path and query string so crawlers don't index the .azurestaticapps.net URL.
+  const host = request.headers.get("host") ?? "";
+  if (host === AZURE_DEFAULT_HOST || host.startsWith(`${AZURE_DEFAULT_HOST}:`)) {
+    const destination = new URL(
+      request.nextUrl.pathname + request.nextUrl.search,
+      CANONICAL_ORIGIN
+    );
+    return NextResponse.redirect(destination, { status: 308 });
+  }
+
   const { pathname } = request.nextUrl;
 
   // Skip internal paths, API routes, static files, admin
