@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { ParallaxFloat } from "@/components/animations/ParallaxFloat";
 import { trackEvent } from "@/lib/analytics";
+import { HeroPhoneDemo } from "@/components/sections/HeroPhoneDemo";
 import type { Dictionary } from "@/lib/dictionary-types";
 
 const fadeUp = (delay: number) => ({
@@ -89,53 +89,8 @@ export function Hero({ dict }: { dict: Dictionary }) {
             </motion.div>
           </div>
 
-          {/* Right: Phone mockup placeholder */}
-          <motion.div
-            initial={{ opacity: 0, x: 60, rotateY: -8 }}
-            animate={{ opacity: 1, x: 0, rotateY: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.33, 1, 0.68, 1] }}
-            className="relative flex justify-center lg:justify-end"
-          >
-            <ParallaxFloat speed={0.15}>
-              <div className="relative w-[280px] sm:w-[320px] lg:w-[340px] mb-[-80px]">
-                {/* Phone frame placeholder */}
-                <div className="aspect-[9/19] rounded-[2.5rem] bg-gradient-to-b from-dark-bg to-dark-bg-lighter border-4 border-dark-bg shadow-xl overflow-hidden">
-                  {/* Screen content placeholder */}
-                  <div className="h-full flex flex-col p-4 pt-8">
-                    {/* Status bar */}
-                    <div className="flex justify-between text-white/40 text-xs mb-4">
-                      <span>9:41</span>
-                      <span>●●●</span>
-                    </div>
-                    {/* App header */}
-                    <div className="text-center mb-4">
-                      <span className="text-xl font-bold text-white">ANOTE</span>
-                    </div>
-                    {/* Fake transcript lines */}
-                    <div className="flex-1 space-y-2">
-                      <div className="h-2 w-3/4 bg-white/10 rounded" />
-                      <div className="h-2 w-full bg-white/10 rounded" />
-                      <div className="h-2 w-5/6 bg-white/10 rounded" />
-                      <div className="h-2 w-2/3 bg-primary/30 rounded" />
-                      <div className="mt-4 h-2 w-full bg-white/10 rounded" />
-                      <div className="h-2 w-4/5 bg-white/10 rounded" />
-                      <div className="h-2 w-3/4 bg-primary/30 rounded" />
-                      <div className="mt-4 h-2 w-full bg-white/10 rounded" />
-                      <div className="h-2 w-2/3 bg-white/10 rounded" />
-                    </div>
-                    {/* Record button */}
-                    <div className="flex justify-center py-4">
-                      <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-[var(--shadow-glow)]">
-                        <div className="w-5 h-5 rounded-full bg-white animate-pulse" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Shadow underneath */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-dark-bg/20 blur-2xl rounded-full" />
-              </div>
-            </ParallaxFloat>
-          </motion.div>
+          {/* Right: Interactive phone demo */}
+          <HeroPhoneDemo dict={dict} />
         </div>
       </div>
     </section>
