@@ -1,6 +1,6 @@
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-  "https://anote-appka.cz";
+  "https://anote.cz";
 
 export const siteConfig = {
   name: "ANOTE",

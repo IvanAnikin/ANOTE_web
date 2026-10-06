@@ -22,7 +22,7 @@ function getLocale(request: NextRequest): string {
 }
 
 const AZURE_DEFAULT_HOST = "yellow-forest-086a45303.7.azurestaticapps.net";
-const CANONICAL_ORIGIN = "https://anote-appka.cz";
+const CANONICAL_ORIGIN = "https://anote.cz";
 
 export function proxy(request: NextRequest) {
   // Permanently redirect the Azure default hostname to the canonical domain,
