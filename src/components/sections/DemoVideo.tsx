@@ -43,41 +43,9 @@ export function DemoVideo({ dict }: { dict: Dictionary }) {
             <h2 className="text-3xl sm:text-4xl font-extrabold">
               {t.heading}
             </h2>
-            <p className="mt-4 text-lg text-white/60">
-              {t.subheading}
-            </p>
           </div>
         </FadeInOnScroll>
 
-        {/* Video placeholder */}
-        <FadeInOnScroll>
-          <div className="max-w-4xl mx-auto mb-14">
-            <div className="aspect-video rounded-2xl bg-dark-bg-lighter border border-white/10 overflow-hidden relative flex items-center justify-center shadow-xl">
-              {/* Play button */}
-              <button
-                className="group relative z-10 w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-[var(--shadow-glow)] transition-transform duration-300 hover:scale-110 cursor-pointer"
-                aria-label={t.playLabel}
-              >
-                <svg
-                  className="w-8 h-8 text-white ml-1"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <polygon points="5 3 19 12 5 21 5 3" />
-                </svg>
-                {/* Pulse ring */}
-                <span className="absolute inset-0 rounded-full border-2 border-primary/40 animate-ping" />
-              </button>
-
-              {/* Placeholder text */}
-              <span className="absolute bottom-4 text-sm text-white/30">
-                {t.placeholder}
-              </span>
-            </div>
-          </div>
-        </FadeInOnScroll>
-
-        {/* Screenshot carousel fallback */}
         <StaggerChildren className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 md:justify-items-center xl:grid-cols-4 md:overflow-visible">
           {screenshotImages.map((src, i) => (
             <motion.div
