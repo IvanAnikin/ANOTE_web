@@ -271,6 +271,7 @@
     "description": "Try ANOTE right in your browser. Record a patient conversation and watch AI create a structured medical report in seconds.",
     "heading": "Try ANOTE",
     "subtitle": "Record a conversation or upload an audio file — ANOTE will transcribe it and create a structured medical report.",
+    "phoneDemoHint": "Try the app right here",
 
     "recordButton": "Record",
     "stopButton": "Stop",

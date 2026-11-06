@@ -4,12 +4,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createSpeechVad, type SpeechVad } from "@/lib/speech-vad";
 
 export interface UseMediaRecorderOptions {
-  /** Called every `timeslice` ms with a standalone audio segment */
+  /** Called after each standalone audio segment is recorded */
   onChunk?: (segmentBlob: Blob) => void;
   /** Called when recording stops with the final segment */
   onStop?: (lastSegmentBlob: Blob) => void;
-  /** Interval in ms between segments (default 20000) */
+  /** Repeating segment duration after any `initialTimeslices` (default 20000) */
   timeslice?: number;
+  /** Initial segment durations, in ms, before the repeating `timeslice` */
+  initialTimeslices?: readonly number[];
 }
 
 export interface UseMediaRecorderReturn {
@@ -24,6 +26,7 @@ export function useMediaRecorder({
   onChunk,
   onStop,
   timeslice = 20_000,
+  initialTimeslices = [],
 }: UseMediaRecorderOptions = {}): UseMediaRecorderReturn {
   const [isRecording, setIsRecording] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
@@ -42,7 +45,8 @@ export function useMediaRecorder({
   const streamRef = useRef<MediaStream | null>(null);
   const currentChunksRef = useRef<Blob[]>([]);
   const elapsedTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const segmentTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const segmentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const segmentRotationIndexRef = useRef(0);
   const mimeTypeRef = useRef("audio/webm");
   const stoppingRef = useRef(false);
   const vadRef = useRef<SpeechVad | null>(null);
@@ -62,15 +66,28 @@ export function useMediaRecorder({
       elapsedTimerRef.current = null;
     }
     if (segmentTimerRef.current) {
-      clearInterval(segmentTimerRef.current);
+      clearTimeout(segmentTimerRef.current);
       segmentTimerRef.current = null;
+    }
     vadRef.current?.destroy();
     vadRef.current = null;
-    }
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
     mediaRecorderRef.current = null;
   }, []);
+
+  const scheduleSegmentRotation = useCallback(() => {
+    const delay =
+      initialTimeslices[segmentRotationIndexRef.current] ?? timeslice;
+    segmentRotationIndexRef.current += 1;
+    segmentTimerRef.current = setTimeout(() => {
+      segmentTimerRef.current = null;
+      const recorder = mediaRecorderRef.current;
+      if (recorder && recorder.state !== "inactive" && !stoppingRef.current) {
+        recorder.stop();
+      }
+    }, delay);
+  }, [initialTimeslices, timeslice]);
 
   // Start a new recording segment on the existing stream.
   // Each segment produces a standalone, valid audio file.
@@ -110,7 +127,8 @@ export function useMediaRecorder({
     };
 
     recorder.start();
-  }, [cleanup]);
+    scheduleSegmentRotation();
+  }, [cleanup, scheduleSegmentRotation]);
 
   const start = useCallback(async () => {
     if (mediaRecorderRef.current) return;
@@ -119,16 +137,16 @@ export function useMediaRecorder({
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     streamRef.current = stream;
     setElapsedSeconds(0);
-// Best-effort VAD init. Falls back silently to raw-upload behavior on
+    // Best-effort VAD init. Falls back silently to raw-upload behavior on
     // any failure (CSP block, asset load failure, runtime error).
     vadRef.current = await createSpeechVad(stream);
 
-    
     const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
       ? "audio/webm;codecs=opus"
       : "audio/webm";
     mimeTypeRef.current = mimeType;
 
+    segmentRotationIndexRef.current = 0;
     startSegment();
     setIsRecording(true);
 
@@ -136,21 +154,12 @@ export function useMediaRecorder({
     elapsedTimerRef.current = setInterval(() => {
       setElapsedSeconds((s) => s + 1);
     }, 1000);
-
-    // Segment rotation: stop the current recorder every `timeslice` ms.
-    // The onstop handler will deliver the segment via onChunk and start a new one.
-    segmentTimerRef.current = setInterval(() => {
-      const recorder = mediaRecorderRef.current;
-      if (recorder && recorder.state !== "inactive" && !stoppingRef.current) {
-        recorder.stop();
-      }
-    }, timeslice);
-  }, [timeslice, cleanup, startSegment]);
+  }, [cleanup, startSegment]);
 
   const stop = useCallback(() => {
     // Clear segment rotation first to prevent races
     if (segmentTimerRef.current) {
-      clearInterval(segmentTimerRef.current);
+      clearTimeout(segmentTimerRef.current);
       segmentTimerRef.current = null;
     }
     stoppingRef.current = true;

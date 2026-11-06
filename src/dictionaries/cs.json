@@ -271,6 +271,7 @@
     "description": "Vyzkoušejte ANOTE přímo v prohlížeči. Nahrajte konverzaci s pacientem a sledujte, jak AI vytvoří strukturovanou lékařskou zprávu za sekundy.",
     "heading": "Vyzkoušejte ANOTE",
     "subtitle": "Nahrajte konverzaci nebo nahrajte audio soubor — ANOTE přepíše a vytvoří strukturovanou lékařskou zprávu.",
+    "phoneDemoHint": "Vyzkoušejte jak aplikace funguje",
 
     "recordButton": "Nahrávat",
     "stopButton": "Zastavit",

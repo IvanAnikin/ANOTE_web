@@ -241,6 +241,7 @@ const REPORT_MIN_DELTA_CHARS = 30;
 
 const MAX_DURATION_SECONDS = 10 * 60; // 10 minutes
 const MIN_SEGMENT_BYTES = 1000; // Skip segments too small to be valid audio
+const INITIAL_TRANSCRIPTION_INTERVALS = [3_000, 4_000] as const;
 
 export function useDemoSession() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -353,6 +354,10 @@ export function useDemoSession() {
         // Only reset if not aborted (handleRecordingStop takes over on abort)
         if (!controller.signal.aborted) {
           pendingRef.current = false;
+          const nextSegment = pendingSegmentsRef.current.shift();
+          if (nextSegment) {
+            void handleChunk(nextSegment);
+          }
         }
       }
     },
@@ -428,6 +433,7 @@ export function useDemoSession() {
 
   const recorder = useMediaRecorder({
     timeslice: 20_000,
+    initialTimeslices: INITIAL_TRANSCRIPTION_INTERVALS,
     onChunk: handleChunk,
     onStop: handleRecordingStop,
   });
