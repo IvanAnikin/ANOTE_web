@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { addSubmission } from "@/lib/submissions";
 import { sendContactNotification } from "@/lib/email";
+import { forwardToAssistant } from "@/lib/assistant-forward";
 
 const CONTACT_EMAILS = (
   process.env.CONTACT_EMAIL_TO ?? "ianikin2002@gmail.com"
@@ -78,6 +79,11 @@ export async function POST(request: NextRequest) {
   sendContactNotification(submission, CONTACT_EMAILS).catch((err) =>
     console.error("Failed to send contact notification email:", err),
   );
+
+  // Forward to the n8n assistant. Awaited (bounded to ~8.5 s) because a serverless
+  // function may be frozen once the response is sent; it never throws and its outcome
+  // does not change the response.
+  await forwardToAssistant(submission, request.headers.get("referer"));
 
   return NextResponse.json({ success: true });
 }

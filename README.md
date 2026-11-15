@@ -122,6 +122,12 @@ SMTP_USER=you@gmail.com
 SMTP_PASS=your-app-password
 SMTP_FROM=you@gmail.com
 
+# Contact form → n8n assistant (optional; server-side only, HTTPS only).
+# Forwarded after the submission is stored, with Idempotency-Key = submission id,
+# retried once on 5xx/network error. Unset = not forwarded. Test: `npm test`.
+ASSISTANT_ANOTE_WEBHOOK_URL=https://<n8n-host>/webhook/anote-lead-v1
+ASSISTANT_ANOTE_WEBHOOK_SECRET=same-value-as-n8n-credential-webhook_anote_secret
+
 # Live demo — Azure Whisper API (transcription)
 AZURE_WHISPER_ENDPOINT=https://<resource>.openai.azure.com/openai/deployments/whisper/audio/transcriptions?api-version=2024-06-01
 AZURE_WHISPER_KEY=your-key
