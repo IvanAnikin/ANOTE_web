@@ -78,6 +78,7 @@
   },
   "demoVideo": {
     "heading": "See How ANOTE Works",
+    "videoLabel": "Demo: ANOTE transcribes a doctor–patient conversation and turns it into a medical report",
     "screenshots": [
       "Medical report",
       "Recording history",

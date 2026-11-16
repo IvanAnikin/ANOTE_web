@@ -78,6 +78,7 @@
   },
   "demoVideo": {
     "heading": "Podívejte se, jak ANOTE funguje",
+    "videoLabel": "Ukázka: ANOTE přepisuje rozhovor lékařky s pacientkou a vytvoří z něj lékařskou zprávu",
     "screenshots": [
       "Lékařská zpráva",
       "Historie nahrávek",
