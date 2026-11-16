@@ -7,6 +7,9 @@
       }
     }
   ],
+  "mimeTypes": {
+    ".mp4": "video/mp4"
+  },
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
     "X-Frame-Options": "DENY",
