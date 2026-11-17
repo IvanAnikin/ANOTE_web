@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Mail, Globe } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
+import { openConsentSettings } from "@/lib/consent";
 import type { Dictionary } from "@/lib/dictionary-types";
 import type { Locale } from "@/lib/i18n";
 
@@ -178,6 +179,15 @@ export function Footer({
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={openConsentSettings}
+                  className="text-sm text-white/60 hover:text-white transition-colors cursor-pointer"
+                >
+                  {t.legalLinks.cookieSettings}
+                </button>
+              </li>
             </ul>
           </div>
         </div>

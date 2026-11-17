@@ -8,7 +8,9 @@ type SafeAnalyticsEvent =
   | "demo_report_generated"
   | "pricing_view"
   | "email_click"
-  | "phone_click";
+  | "phone_click"
+  | "social_click"
+  | "video_play";
 
 type SafePayload = Partial<{
   location:
@@ -19,8 +21,11 @@ type SafePayload = Partial<{
     | "pricing_page"
     | "bottom_cta"
     | "footer"
-    | "contact_page";
+    | "contact_page"
+    | "hero_phone"
+    | "demo_video";
   method: "recording" | "upload";
+  network: "facebook" | "instagram";
 }>;
 
 const safeEvents = new Set<SafeAnalyticsEvent>([
@@ -32,6 +37,8 @@ const safeEvents = new Set<SafeAnalyticsEvent>([
   "pricing_view",
   "email_click",
   "phone_click",
+  "social_click",
+  "video_play",
 ]);
 
 const allowedLocations = new Set<NonNullable<SafePayload["location"]>>([
@@ -43,11 +50,18 @@ const allowedLocations = new Set<NonNullable<SafePayload["location"]>>([
   "bottom_cta",
   "footer",
   "contact_page",
+  "hero_phone",
+  "demo_video",
 ]);
 
 const allowedMethods = new Set<NonNullable<SafePayload["method"]>>([
   "recording",
   "upload",
+]);
+
+const allowedNetworks = new Set<NonNullable<SafePayload["network"]>>([
+  "facebook",
+  "instagram",
 ]);
 
 declare global {
@@ -67,6 +81,7 @@ function sanitizePayload(props?: Record<string, string>): Record<string, string>
   const next: Record<string, string> = {};
   const location = props.location as NonNullable<SafePayload["location"]> | undefined;
   const method = props.method as NonNullable<SafePayload["method"]> | undefined;
+  const network = props.network as NonNullable<SafePayload["network"]> | undefined;
 
   if (location && allowedLocations.has(location)) {
     next.location = location;
@@ -74,6 +89,10 @@ function sanitizePayload(props?: Record<string, string>): Record<string, string>
 
   if (method && allowedMethods.has(method)) {
     next.method = method;
+  }
+
+  if (network && allowedNetworks.has(network)) {
+    next.network = network;
   }
 
   return next;

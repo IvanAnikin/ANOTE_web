@@ -8,6 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/dictionary-types";
+import { trackEvent } from "@/lib/analytics";
 
 /**
  * Muted, looping app demo. Horizontal (16:9) on wider screens, vertical (9:16)
@@ -20,6 +21,7 @@ function DemoClip({ lang, label }: { lang: "cs" | "en"; label: string }) {
   const [vertical, setVertical] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [near, setNear] = useState(false);
+  const playTracked = useRef(false);
 
   useEffect(() => {
     const narrow = window.matchMedia("(max-width: 639px)");
@@ -77,6 +79,12 @@ function DemoClip({ lang, label }: { lang: "cs" | "en"; label: string }) {
         controls={reducedMotion}
         preload="none"
         aria-label={label}
+        onPlay={() => {
+          // Once per page view: the clip autoplays (muted) when scrolled into view.
+          if (playTracked.current) return;
+          playTracked.current = true;
+          trackEvent("video_play", { location: "demo_video" });
+        }}
       />
     </div>
   );

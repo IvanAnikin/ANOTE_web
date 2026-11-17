@@ -341,7 +341,8 @@
     },
     "legalLinks": {
       "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "privacy": "Privacy Policy",
+      "cookieSettings": "Cookie settings"
     },
     "copyright": "© {year} ANOTE. All rights reserved.",
     "disclaimer": ""
@@ -376,7 +377,7 @@
     "title": "Privacy Policy — ANOTE",
     "description": "Privacy policy and personal data processing in the ANOTE application.",
     "heading": "Privacy Policy",
-    "lastUpdated": "Last updated: April 4, 2026",
+    "lastUpdated": "Last updated: November 17, 2026",
     "sections": [
       { "heading": "1. Data Controller", "content": "The data controller is the operator of the ANOTE application (contact: anote-appka@outlook.com)." },
       { "heading": "2. What Data We Process", "subsections": [
@@ -385,12 +386,18 @@
         { "heading": "2.3 Text Transcripts", "content": "Anonymized text transcript is sent to Azure OpenAI server (West Europe region, EU) exclusively for generating a structured medical report. Data is not stored on servers and is not used for model training." }
       ]},
       { "heading": "3. Legal Basis", "content": "We process personal data based on your consent (Art. 6(1)(a) GDPR) and legitimate interest in providing the service (Art. 6(1)(f) GDPR)." },
-      { "heading": "4. Data Transfers", "content": "Text data for report generation is processed exclusively within the EU (Azure West Europe). Data is not transferred to third countries outside the EU/EEA." },
+      { "heading": "4. Data Transfers", "content": "Text data for report generation is processed exclusively within the EU (Azure West Europe). Data from the app is not transferred to third countries outside the EU/EEA. The exception is analytics and marketing cookies on the website, if you consent to them (see section 7)." },
       { "heading": "5. Retention Period", "content": "Contact data from the form is retained for the period necessary to process your request, maximum 12 months. Text transcripts are not retained on servers (zero retention policy)." },
       { "heading": "6. Your Rights", "content": "You have the right to access, rectification, erasure, restriction of processing, data portability, and the right to lodge a complaint with the Office for Personal Data Protection (ÚOOÚ)." },
-      { "heading": "7. Cookies", "content": "The ANOTE website does not use tracking cookies. Analytics are handled using a privacy-friendly solution without cookies." },
+      { "heading": "7. Cookies", "content": "We use essential browser storage (localStorage) only to remember your cookie choice; we keep it for 12 months. Google Analytics 4 analytics cookies (_ga, _ga_*, up to 2 years) and Meta Pixel marketing cookies (_fbp, 90 days) are set only with your consent, which you give with \"Accept all\" in the cookie bar (we use Google Consent Mode v2). If you choose \"Necessary only\", these cookies are not set. You can change or withdraw your consent at any time via \"Cookie settings\" in the website footer. The providers Google Ireland Ltd. and Meta Platforms Ireland Ltd. may transfer data to the USA under the EU-US Data Privacy Framework." },
       { "heading": "8. Contact", "content": "For privacy-related questions, contact us at anote-appka@outlook.com." }
     ],
     "note": "Full privacy policy text will be added after legal review."
+  },
+  "cookieConsent": {
+    "text": "We use essential storage to run the site. With your consent, we also use analytics (Google Analytics) and marketing (Meta Pixel) cookies to measure visits and ads.",
+    "privacyLink": "More about cookies",
+    "acceptAll": "Accept all",
+    "necessaryOnly": "Necessary only"
   }
 }
