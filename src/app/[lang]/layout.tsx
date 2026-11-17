@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { siteConfig } from "@/lib/constants";
 import { getDictionary, hasLocale, locales, type Locale } from "@/lib/i18n";
 
@@ -99,6 +100,7 @@ export default async function LangLayout({
       <Navbar lang={lang as Locale} dict={dict} />
       <div className="flex-1">{children}</div>
       <Footer lang={lang as Locale} dict={dict} />
+      <CookieConsent lang={lang as Locale} dict={dict} />
     </>
   );
 }

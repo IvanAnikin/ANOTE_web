@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { jakarta } from "@/lib/fonts";
 import { PlausibleProvider } from "@/components/analytics/PlausibleProvider";
 import { GoogleTagManager } from "@next/third-parties/google";
+import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,8 @@ export default function RootLayout({
   return (
     <html className={`${jakarta.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
+        {/* Consent Mode v2 defaults (all denied) — must run before GTM loads. */}
+        <script dangerouslySetInnerHTML={{ __html: CONSENT_DEFAULT_SCRIPT }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
