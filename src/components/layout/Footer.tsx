@@ -6,6 +6,8 @@ import { trackEvent } from "@/lib/analytics";
 import type { Dictionary } from "@/lib/dictionary-types";
 import type { Locale } from "@/lib/i18n";
 
+export const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61590339076321";
+
 export function Footer({
   lang,
   dict,
@@ -67,6 +69,18 @@ export function Footer({
                 aria-label="Email"
               >
                 <Mail className="h-5 w-5" />
+              </a>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent("social_click", { network: "facebook", location: "footer" })}
+                className="text-white/50 hover:text-primary transition-colors"
+                aria-label="Facebook"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+                  <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.76 8.43-4.92 8.43-9.94Z" />
+                </svg>
               </a>
               <a
                 href="#"
