@@ -72,7 +72,10 @@ const jsonLd = {
   description:
     "AI-powered medical report generation from voice dictation. On-device transcription, GDPR compliant.",
   availableLanguage: ["cs", "en"],
-  sameAs: ["https://www.facebook.com/profile.php?id=61590339076321"],
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=61590339076321",
+    "https://www.instagram.com/anote.cz/",
+  ],
 };
 
 export default async function LangLayout({
