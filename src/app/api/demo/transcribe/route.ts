@@ -18,6 +18,33 @@ const ALLOWED_TYPES = new Set([
   "video/webm", // MediaRecorder often reports video/webm for audio-only
 ]);
 
+/**
+ * Whisper picks the decoder from the file extension, so the name must match
+ * the real format: an MP3/WAV/M4A upload sent as "audio.webm" fails.
+ */
+const EXT_BY_MIME: Record<string, string> = {
+  "audio/mpeg": "mp3",
+  "audio/mp3": "mp3",
+  "audio/mpga": "mp3",
+  "audio/mp4": "m4a",
+  "audio/m4a": "m4a",
+  "audio/x-m4a": "m4a",
+  "audio/wav": "wav",
+  "audio/x-wav": "wav",
+  "audio/wave": "wav",
+  "audio/ogg": "ogg",
+  "audio/webm": "webm",
+  "video/webm": "webm",
+};
+const KNOWN_EXT = new Set(["mp3", "mp4", "mpeg", "mpga", "m4a", "wav", "webm", "ogg", "flac"]);
+
+function whisperFileName(file: File): string {
+  const fromName = file.name?.split(".").pop()?.toLowerCase();
+  if (fromName && KNOWN_EXT.has(fromName)) return `audio.${fromName}`;
+  const mimeBase = file.type?.split(";")[0]?.trim().toLowerCase() ?? "";
+  return `audio.${EXT_BY_MIME[mimeBase] ?? "webm"}`;
+}
+
 function getClientIp(request: NextRequest): string {
   return (
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown"
@@ -77,7 +104,7 @@ export async function POST(request: NextRequest) {
 
   // Build multipart form for Azure Whisper API
   const azureForm = new FormData();
-  azureForm.append("file", file, "audio.webm");
+  azureForm.append("file", file, whisperFileName(file));
   azureForm.append("language", language);
   azureForm.append("prompt", CZECH_MEDICAL_PROMPT);
 
