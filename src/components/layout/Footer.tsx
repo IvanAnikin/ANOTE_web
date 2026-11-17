@@ -39,7 +39,6 @@ export function Footer({
     { label: t.supportLinks.faq, href: faqHref },
     { label: t.supportLinks.contact, href: kontaktHref },
     { label: "anote-appka@outlook.com", href: "mailto:anote-appka@outlook.com" },
-    { label: "+420 739 168 738", href: "tel:+420739168738" },
     { label: "+420 735 852 353", href: "tel:+420735852353" },
   ];
 
