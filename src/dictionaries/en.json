@@ -233,7 +233,7 @@
     "successTitle": "Thank you!",
     "successMessage": "We'll get back to you within 24 hours.",
     "altContact": "Or contact us directly:",
-    "phone": "+420 739 168 738",
+    "phone": "+420 735 852 353",
     "ctaOnlyHeading": "Ready to streamline your documentation?",
     "ctaOnlySubheading": "Join doctors saving hours every day.",
     "ctaOnlyButton": "Contact Us"
@@ -354,7 +354,7 @@
     "emailLabel": "Email",
     "phoneLabel": "Phone",
     "email": "anote-appka@outlook.com",
-    "phones": ["+420 739 168 738", "+420 735 852 353"]
+    "phones": ["+420 735 852 353"]
   },
   "podminky": {
     "title": "Terms of Service — ANOTE",

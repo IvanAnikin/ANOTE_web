@@ -209,7 +209,7 @@ function FullCTA({ dict }: { dict: Dictionary }) {
               </a>
               <span className="hidden sm:inline text-white/30">·</span>
               <a
-                href="tel:+420739168738"
+                href="tel:+420735852353"
                 onClick={() => trackEvent("phone_click", { location: "bottom_cta" })}
                 className="hover:text-white transition-colors"
               >
