@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "ANOTE — Lékařské zprávy automaticky",
-    "titleTemplate": "%s | ANOTE",
-    "description": "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. Lokální i cloudový přepis, GDPR compliant, česká terminologie.",
+    "titleTemplate": "%s",
+    "description": "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. Lékař zprávu zkontroluje. Zpracování na infrastruktuře v EU, česká terminologie.",
     "ogTitle": "ANOTE — Lékařské zprávy automaticky",
     "ogDescription": "AI asistent pro lékařskou dokumentaci. Lokální i cloudový přepis, zprávy za sekundy.",
     "ogImageAlt": "ANOTE — Lékařské zprávy automaticky",
@@ -27,7 +27,7 @@
     "description": "Nahrávejte. ANOTE přepíše a vytvoří strukturovanou lékařskou zprávu — přímo na vašem telefonu.",
     "ctaPrimary": "Vyzkoušet zdarma",
     "ctaSecondary": "Podívejte se, jak to funguje",
-    "badges": ["GDPR", "Data v EU", "iOS & Android", "Přepis lokálně i v cloudu"]
+    "badges": ["Data v EU", "iOS & Android", "Přepis lokálně i v cloudu"]
   },
   "howItWorks": {
     "heading": "Jak to funguje",
@@ -155,7 +155,7 @@
       "13-sekční strukturované zprávy",
       "6 typů vyšetření",
       "iOS + Android",
-      "GDPR compliant",
+      "Zpracování v EU",
       "Email odesílání",
       "Historie nahrávek"
     ],

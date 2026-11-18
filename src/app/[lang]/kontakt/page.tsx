@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/lib/i18n";
 import { TrackedLink } from "@/components/analytics/TrackedLink";
@@ -12,10 +13,8 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return {
-    title: dict.kontakt.title,
-    description: dict.kontakt.description,
-  };
+  const t = dict.kontakt;
+  return pageMetadata("contact", lang as Locale, t.title, t.description);
 }
 
 export default async function KontaktPage({

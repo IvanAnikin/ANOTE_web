@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, locales, type Locale } from "@/lib/i18n";
 import { siteConfig } from "@/lib/constants";
@@ -18,21 +19,7 @@ export async function generateMetadata({
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
   const t = dict.demoPage;
-
-  return {
-    title: t.title,
-    description: t.description,
-    alternates: {
-      canonical:
-        lang === "cs"
-          ? `${siteConfig.url}/demo`
-          : `${siteConfig.url}/en/demo`,
-      languages: {
-        cs: `${siteConfig.url}/demo`,
-        en: `${siteConfig.url}/en/demo`,
-      },
-    },
-  };
+  return pageMetadata("demo", lang as Locale, t.title, t.description);
 }
 
 export default async function DemoPage({

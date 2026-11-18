@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "ANOTE — Automated Medical Reports",
-    "titleTemplate": "%s | ANOTE",
-    "description": "Transcribe patient conversations and generate structured medical reports with AI. Local and cloud transcription, GDPR compliant, Czech medical terminology.",
+    "titleTemplate": "%s",
+    "description": "Transcribe patient conversations and generate structured medical reports with AI. The doctor reviews every report. Processing on EU infrastructure, Czech medical terminology.",
     "ogTitle": "ANOTE — Automated Medical Reports",
     "ogDescription": "AI assistant for medical documentation. Local and cloud transcription, reports in seconds.",
     "ogImageAlt": "ANOTE — Automated Medical Reports",
@@ -27,7 +27,7 @@
     "description": "Record. ANOTE transcribes and creates a structured medical report — right on your phone.",
     "ctaPrimary": "Try for free",
     "ctaSecondary": "See how it works",
-    "badges": ["GDPR", "EU Data", "iOS & Android", "Local & cloud transcription"]
+    "badges": ["EU Data", "iOS & Android", "Local & cloud transcription"]
   },
   "howItWorks": {
     "heading": "How It Works",
@@ -155,7 +155,7 @@
       "13-section structured reports",
       "6 exam types",
       "iOS + Android",
-      "GDPR compliant",
+      "Processing in the EU",
       "Email sending",
       "Recording history"
     ],

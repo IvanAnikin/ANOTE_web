@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -23,21 +24,7 @@ export async function generateMetadata({
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
   const t = dict.faqPage;
-
-  return {
-    title: t.title,
-    description: t.description,
-    alternates: {
-      canonical:
-        lang === "cs"
-          ? `${siteConfig.url}/faq`
-          : `${siteConfig.url}/en/faq`,
-      languages: {
-        cs: `${siteConfig.url}/faq`,
-        en: `${siteConfig.url}/en/faq`,
-      },
-    },
-  };
+  return pageMetadata("faq", lang as Locale, t.title, t.description);
 }
 
 function FAQJsonLd({ dict, lang }: { dict: Awaited<ReturnType<typeof getDictionary>>; lang: string }) {

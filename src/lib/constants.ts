@@ -6,7 +6,7 @@ export const siteConfig = {
   name: "ANOTE",
   url: siteUrl,
   description:
-    "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. Lokální i cloudový přepis, GDPR compliant, česká terminologie.",
+    "Přepisujte rozhovory s pacienty a generujte strukturované lékařské zprávy pomocí AI. Lékař zprávu zkontroluje. Zpracování na infrastruktuře v EU, česká terminologie.",
   contactEmail: "anote-appka@outlook.com",
 };
 
