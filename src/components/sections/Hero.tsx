@@ -38,21 +38,17 @@ export function Hero({ dict }: { dict: Dictionary }) {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text content */}
           <div className="max-w-xl">
-            <motion.h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary leading-[1.1]"
-              {...fadeUp(0)}
-            >
+            {/* h1 and lead paragraph render visible on first paint (no fade-in):
+                they are the LCP element, and opacity:0 until hydration cost ~6 s of LCP on mobile. */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text-primary leading-[1.1]">
               {t.headingLine1}
               <br />
               <span className="text-primary">{t.headingLine2}</span>
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              className="mt-6 text-lg sm:text-xl text-text-secondary leading-relaxed"
-              {...fadeUp(0.15)}
-            >
+            <p className="mt-6 text-lg sm:text-xl text-text-secondary leading-relaxed">
               {t.description}
-            </motion.p>
+            </p>
 
             <motion.div
               className="mt-8 flex flex-wrap gap-4"
