@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { getDictionary, hasLocale, type Locale } from "@/lib/i18n";
 
@@ -10,10 +11,8 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
-  return {
-    title: dict.ochranaSoukromi.title,
-    description: dict.ochranaSoukromi.description,
-  };
+  const t = dict.ochranaSoukromi;
+  return pageMetadata("privacy", lang as Locale, t.title, t.description);
 }
 
 export default async function OchranaSoukromiPage({

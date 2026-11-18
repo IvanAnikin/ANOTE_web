@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -26,23 +27,7 @@ export async function generateMetadata({
   if (!hasLocale(lang)) return {};
   const dict = await getDictionary(lang as Locale);
   const t = dict.reportTypesPage;
-  const enSlug = "report-types";
-  const csSlug = "typy-zprav";
-
-  return {
-    title: t.title,
-    description: t.description,
-    alternates: {
-      canonical:
-        lang === "cs"
-          ? `${siteConfig.url}/${csSlug}`
-          : `${siteConfig.url}/en/${enSlug}`,
-      languages: {
-        cs: `${siteConfig.url}/${csSlug}`,
-        en: `${siteConfig.url}/en/${enSlug}`,
-      },
-    },
-  };
+  return pageMetadata("reportTypes", lang as Locale, t.title, t.description);
 }
 
 export default async function TypyZpravPage({

@@ -21,19 +21,27 @@ function getLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
-const AZURE_DEFAULT_HOST = "yellow-forest-086a45303.7.azurestaticapps.net";
 const CANONICAL_ORIGIN = "https://anote.cz";
 
+// Hostnames that must 301 to the canonical domain, path and query preserved:
+// the Azure default hostname, the retired anote-appka.cz domain, and www.
+const LEGACY_HOSTS = new Set([
+  "yellow-forest-086a45303.7.azurestaticapps.net",
+  "anote-appka.cz",
+  "www.anote-appka.cz",
+  "www.anote.cz",
+]);
+
 export function proxy(request: NextRequest) {
-  // Permanently redirect the Azure default hostname to the canonical domain,
-  // preserving path and query string so crawlers don't index the .azurestaticapps.net URL.
-  const host = request.headers.get("host") ?? "";
-  if (host === AZURE_DEFAULT_HOST || host.startsWith(`${AZURE_DEFAULT_HOST}:`)) {
+  const host = (request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? "")
+    .split(":")[0]
+    .toLowerCase();
+  if (LEGACY_HOSTS.has(host)) {
     const destination = new URL(
       request.nextUrl.pathname + request.nextUrl.search,
       CANONICAL_ORIGIN
     );
-    return NextResponse.redirect(destination, { status: 308 });
+    return NextResponse.redirect(destination, { status: 301 });
   }
 
   const { pathname } = request.nextUrl;
@@ -78,5 +86,7 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|api|images|.*\\..*).*)"],
+  // Runs on every path (incl. robots.txt, sitemap.xml, images) so legacy hosts
+  // redirect everywhere; locale handling below still skips files and APIs.
+  matcher: ["/((?!_next/static|_next/image).*)"],
 };
