@@ -2,7 +2,7 @@
 
 Marketing website and live demo for **ANOTE** — an AI-powered Czech medical dictation assistant that transcribes doctor–patient conversations and generates structured medical reports.
 
-**Live site**: [anote-appka.cz](https://anote-appka.cz)
+**Live site**: [anote.cz](https://anote.cz) (legacy `anote-appka.cz` 301-redirects here)
 
 ## Tech Stack
 
@@ -105,7 +105,7 @@ Create `.env.local` with:
 
 ```env
 # Public site config
-NEXT_PUBLIC_SITE_URL=https://anote-appka.cz
+NEXT_PUBLIC_SITE_URL=https://anote.cz
 
 # Public analytics
 NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX
@@ -149,12 +149,12 @@ The site deploys automatically via GitHub Actions on every push to `main`.
 
 **Recommended GitHub repository variable**: `NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9`
 
-**Recommended GitHub repository variable**: `NEXT_PUBLIC_SITE_URL=https://anote-appka.cz`
+**Recommended GitHub repository variable**: `NEXT_PUBLIC_SITE_URL=https://anote.cz`
 
 **Azure app settings** (env vars) are configured via Azure Portal or CLI:
 ```bash
 az staticwebapp appsettings set --name anote-web \
-  --setting-names "AZURE_WHISPER_KEY=..." "ANOTE_API_TOKEN=..." "NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9" "NEXT_PUBLIC_SITE_URL=https://anote-appka.cz" ...
+  --setting-names "AZURE_WHISPER_KEY=..." "ANOTE_API_TOKEN=..." "NEXT_PUBLIC_GTM_ID=GTM-5JCQPNZ9" "NEXT_PUBLIC_SITE_URL=https://anote.cz" ...
 ```
 
 ### Security Headers
