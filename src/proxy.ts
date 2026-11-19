@@ -32,6 +32,19 @@ const LEGACY_HOSTS = new Set([
   "www.anote.cz",
 ]);
 
+// Azure Static Web Apps keeps prerendered pages in an edge cache keyed by path
+// only, and serves cache hits without running this proxy. A page cached from
+// anote.cz was therefore answered with 200 on anote-appka.cz instead of the 301
+// below. Pages leave here without `s-maxage`, so the edge never stores them and
+// every request (whatever its host) reaches this proxy; Next still serves the
+// prerendered HTML from its own cache, so rendering cost does not change.
+const PAGE_CACHE_CONTROL = "public, max-age=0, must-revalidate";
+
+function noEdgeCache(response: NextResponse) {
+  response.headers.set("Cache-Control", PAGE_CACHE_CONTROL);
+  return response;
+}
+
 export function proxy(request: NextRequest) {
   const host = (request.headers.get("x-forwarded-host") ?? request.headers.get("host") ?? "")
     .split(":")[0]
@@ -73,16 +86,16 @@ export function proxy(request: NextRequest) {
     if (firstSegment && enSlugMap[firstSegment]) {
       segments[0] = enSlugMap[firstSegment];
       request.nextUrl.pathname = `/en/${segments.join("/")}`;
-      return NextResponse.rewrite(request.nextUrl);
+      return noEdgeCache(NextResponse.rewrite(request.nextUrl));
     }
   }
 
-  if (pathnameHasLocale) return;
+  if (pathnameHasLocale) return noEdgeCache(NextResponse.next());
 
   // No locale prefix → rewrite to default locale (cs)
   // so that / stays as / but internally resolves to /cs
   request.nextUrl.pathname = `/${defaultLocale}${pathname}`;
-  return NextResponse.rewrite(request.nextUrl);
+  return noEdgeCache(NextResponse.rewrite(request.nextUrl));
 }
 
 export const config = {
