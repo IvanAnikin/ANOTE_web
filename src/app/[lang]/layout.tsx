@@ -52,6 +52,8 @@ export async function generateMetadata({
     other: {
       // Meta Business domain verification: anote-appka.cz (legacy) and anote.cz.
       "facebook-domain-verification": ["nir1sumltt1te39ymgev8tte3kpt0w", "v9x19bg7izlirsfozjytehcwzfalfh"],
+      // Seznam Webmaster verification for anote.cz.
+      "seznam-wmt": "4W4uBoC3z3ge9329pqiUR3FKBLsUv1rK",
     },
   };
 }
