@@ -383,7 +383,7 @@
       { "heading": "2. What Data We Process", "subsections": [
         { "heading": "2.1 Contact Form", "content": "Name, email address, optionally phone number — for the purpose of handling your inquiry and providing access to the service." },
         { "heading": "2.2 Audio Recordings", "content": "In local mode, audio recordings never leave your device. Speech-to-text transcription runs locally on your phone using the Whisper model. In cloud mode, audio is sent for processing (gpt-4o-transcribe) and then deleted." },
-        { "heading": "2.3 Text Transcripts", "content": "Anonymized text transcript is sent to Azure OpenAI server (West Europe region, EU) exclusively for generating a structured medical report. Data is not stored on servers and is not used for model training." }
+        { "heading": "2.3 Text Transcripts", "content": "The text transcript is sent to Azure OpenAI server (West Europe region, EU) exclusively for generating a structured medical report. Data is not stored on servers and is not used for model training." }
       ]},
       { "heading": "3. Legal Basis", "content": "We process personal data based on your consent (Art. 6(1)(a) GDPR) and legitimate interest in providing the service (Art. 6(1)(f) GDPR)." },
       { "heading": "4. Data Transfers", "content": "Text data for report generation is processed exclusively within the EU (Azure West Europe). Data from the app is not transferred to third countries outside the EU/EEA. The exception is analytics and marketing cookies on the website, if you consent to them (see section 7)." },

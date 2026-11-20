@@ -383,7 +383,7 @@
       { "heading": "2. Jaké údaje zpracováváme", "subsections": [
         { "heading": "2.1 Kontaktní formulář", "content": "Jméno, emailová adresa, případně telefonní číslo — za účelem vyřízení vašeho dotazu a poskytnutí přístupu ke službě." },
         { "heading": "2.2 Zvukové nahrávky", "content": "V lokálním režimu zvukové nahrávky neopouštějí vaše zařízení. Přepis řeči na text probíhá lokálně na vašem telefonu pomocí modelu Whisper. V cloudovém režimu je nahrávka odeslána ke zpracování (gpt-4o-transcribe) a poté smazána." },
-        { "heading": "2.3 Textové přepisy", "content": "Anonymizovaný textový přepis je odeslán na server Azure OpenAI (oblast West Europe, EU) výhradně za účelem vygenerování strukturované lékařské zprávy. Data nejsou uchovávána na serverech a nejsou používána k trénování modelů." }
+        { "heading": "2.3 Textové přepisy", "content": "Textový přepis je odeslán na server Azure OpenAI (oblast West Europe, EU) výhradně za účelem vygenerování strukturované lékařské zprávy. Data nejsou uchovávána na serverech a nejsou používána k trénování modelů." }
       ]},
       { "heading": "3. Právní základ", "content": "Osobní údaje zpracováváme na základě vašeho souhlasu (čl. 6 odst. 1 písm. a) GDPR) a oprávněného zájmu v rámci plnění služby (čl. 6 odst. 1 písm. f) GDPR)." },
       { "heading": "4. Předávání údajů", "content": "Textová data pro generování zpráv jsou zpracovávána výhradně v rámci EU (Azure West Europe). Údaje z aplikace nejsou předávány do třetích zemí mimo EU/EHP. Výjimkou jsou analytické a marketingové cookies na webu, pokud k nim udělíte souhlas (viz bod 7)." },
