@@ -37,6 +37,13 @@ export function Footer({
     { label: t.productLinks.reportTypes, href: reportTypesHref },
     { label: t.productLinks.pricing, href: pricingHref },
     { label: t.productLinks.demo, href: demoHref },
+    // Czech-only sections, no English counterpart.
+    ...(lang === "cs"
+      ? [
+          { label: "Obory", href: "/obory" },
+          { label: "Články", href: "/clanky" },
+        ]
+      : []),
   ];
 
   const supportLinks = [

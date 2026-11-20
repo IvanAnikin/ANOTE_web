@@ -1,0 +1,47 @@
+/**
+ * Czech-only SEO content (/obory/*, /clanky/*). Every claim in these files must
+ * map to the ANOTE claim ledger (Knowledge.Healthcare
+ * marketing/knowledge/claims-and-compliance-guardrails.md) — see SPEC-0058.
+ */
+
+export type Block =
+  | { type: "p"; text: string }
+  | { type: "ul"; items: string[] }
+  | { type: "ol"; items: string[] }
+  | { type: "table"; head: string[]; rows: string[][] };
+
+export interface Section {
+  heading: string;
+  blocks: Block[];
+}
+
+export interface RelatedLink {
+  href: string;
+  label: string;
+}
+
+export interface ContentCtaConfig {
+  heading: string;
+  text: string;
+  /** Primary button: "demo" → /demo, "contact" → /kontakt. */
+  primary: "demo" | "contact";
+}
+
+export interface ContentPage {
+  slug: string;
+  /** H1. */
+  title: string;
+  /** <title>, ≤ 60 characters. */
+  metaTitle: string;
+  /** Meta description, 120–155 characters. */
+  description: string;
+  /** Short label for hub cards and breadcrumbs. */
+  shortTitle: string;
+  perex: string;
+  sections: Section[];
+  related: RelatedLink[];
+  cta: ContentCtaConfig;
+  /** ISO dates. */
+  published: string;
+  modified: string;
+}

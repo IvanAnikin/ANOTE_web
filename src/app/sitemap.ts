@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
-import { routes, routeUrl, routeLanguages, type RouteKey } from "@/lib/seo";
+import { routes, routeUrl, routeLanguages, contentUrl, type RouteKey } from "@/lib/seo";
+import { contentSitemapEntries } from "@/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return (Object.keys(routes) as RouteKey[]).flatMap((key) => {
+  const core = (Object.keys(routes) as RouteKey[]).flatMap((key) => {
     const r = routes[key];
     const languages = routeLanguages(key);
     return (["cs", "en"] as const).map((lang) => ({
@@ -12,4 +13,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages },
     }));
   });
+
+  // Czech-only content pages (/obory, /clanky): no English alternate.
+  const content = contentSitemapEntries().map((e) => {
+    const url = contentUrl(e.path);
+    return {
+      url,
+      lastModified: e.modified,
+      changeFrequency: "monthly" as const,
+      priority: e.priority,
+      alternates: { languages: { cs: url, "x-default": url } },
+    };
+  });
+
+  return [...core, ...content];
 }

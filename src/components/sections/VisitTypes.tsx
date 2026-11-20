@@ -2,6 +2,7 @@
 
 import { FadeInOnScroll } from "@/components/animations/FadeInOnScroll";
 import { StaggerChildren } from "@/components/animations/StaggerChildren";
+import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { motion, type Variants } from "framer-motion";
 import type { Dictionary } from "@/lib/dictionary-types";
@@ -19,6 +20,16 @@ const itemVariant: Variants = {
 };
 
 const visitTypeIcons = ["🏥", "🔄", "🔬", "🔬", "📡", "🤖"];
+
+// Czech visit-type names → Czech-only specialty pages (/obory/*). English
+// names do not match, so the English site renders no links.
+const specialtyLinks: Record<string, string> = {
+  "Ambulantní vyšetření": "/obory/interna",
+  "Kontrolní vyšetření": "/obory/prakticky-lekar",
+  Gastroskopie: "/obory/gastroenterologie",
+  Kolonoskopie: "/obory/gastroenterologie",
+  Ultrazvuk: "/obory/sonografie",
+};
 
 export function VisitTypes({ dict }: { dict: Dictionary }) {
   const t = dict.visitTypes;
@@ -59,6 +70,14 @@ export function VisitTypes({ dict }: { dict: Dictionary }) {
                     </li>
                   ))}
                 </ul>
+                {specialtyLinks[vt.name] && (
+                  <Link
+                    href={specialtyLinks[vt.name]}
+                    className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+                  >
+                    Více o oboru →
+                  </Link>
+                )}
               </Card>
             </motion.div>
           ))}

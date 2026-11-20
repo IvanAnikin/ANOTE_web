@@ -77,7 +77,16 @@ const jsonLd = {
       ],
     },
     {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      name: "ANOTE",
+      url: siteConfig.url,
+      inLanguage: ["cs-CZ", "en-US"],
+      publisher: { "@id": `${siteConfig.url}/#organization` },
+    },
+    {
       "@type": "MobileApplication",
+      "@id": `${siteConfig.url}/#app`,
       name: "ANOTE",
       url: siteConfig.url,
       applicationCategory: "MedicalApplication",

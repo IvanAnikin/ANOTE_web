@@ -63,3 +63,48 @@ export function pageMetadata(
     twitter: { card: "summary_large_image", title, description, images: [image.url] },
   };
 }
+
+/**
+ * Czech-only content pages (/obory/*, /clanky/*). They have no English
+ * counterpart, so there is no `en` alternate: canonical is the page itself and
+ * hreflang lists only `cs` + `x-default`.
+ */
+export function contentUrl(path: string): string {
+  return `${siteUrl}${path}`;
+}
+
+export function contentMetadata({
+  path,
+  title,
+  description,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+}: {
+  path: string;
+  title: string;
+  description: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+}): Metadata {
+  const url = contentUrl(path);
+  const image = { url: `${siteUrl}/cs/opengraph-image`, width: 1200, height: 630, alt: title };
+  return {
+    title,
+    description,
+    alternates: { canonical: url, languages: { cs: url, "x-default": url } },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "ANOTE",
+      locale: "cs_CZ",
+      images: [image],
+      ...(type === "article"
+        ? { type: "article", publishedTime, modifiedTime, authors: ["ANOTE"] }
+        : { type: "website" }),
+    },
+    twitter: { card: "summary_large_image", title, description, images: [image.url] },
+  };
+}

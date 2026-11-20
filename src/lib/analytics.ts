@@ -23,7 +23,9 @@ type SafePayload = Partial<{
     | "footer"
     | "contact_page"
     | "hero_phone"
-    | "demo_video";
+    | "demo_video"
+    | "specialty_page"
+    | "article";
   method: "recording" | "upload";
   network: "facebook" | "instagram";
 }>;
@@ -52,6 +54,8 @@ const allowedLocations = new Set<NonNullable<SafePayload["location"]>>([
   "contact_page",
   "hero_phone",
   "demo_video",
+  "specialty_page",
+  "article",
 ]);
 
 const allowedMethods = new Set<NonNullable<SafePayload["method"]>>([
