@@ -466,6 +466,37 @@ export const obory: ContentPage[] = [
       "Gastroenterologie, ortopedie, sonografie, diabetologie a ambulantní vyšetření už mají svou strukturu. Pokud váš obor mezi nimi není, další formát zprávy připravíme společně s vámi.",
     sections: [
       {
+        heading: "Obory, pro které hledáme první lékaře",
+        blocks: [
+          {
+            type: "p",
+            text: "Pro tyto obory ANOTE zatím vlastní strukturu zprávy nemá. Rádi ji připravíme s prvním lékařem z oboru, který se k nám ozve:",
+          },
+          {
+            type: "ul",
+            items: [
+              "Kardiologie",
+              "Neurologie",
+              "Psychiatrie a klinická psychologie",
+              "Dermatovenerologie",
+              "Gynekologie a porodnictví",
+              "Pediatrie",
+              "Endokrinologie",
+              "Revmatologie",
+              "Pneumologie",
+              "Nefrologie",
+              "Urologie",
+              "Otorinolaryngologie (ORL)",
+              "Rehabilitační a fyzikální medicína",
+            ],
+          },
+          {
+            type: "p",
+            text: "Váš obor v seznamu není? Napište nám i tak.",
+          },
+        ],
+      },
+      {
         heading: "Jak spolupráce probíhá",
         blocks: [
           {
