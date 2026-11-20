@@ -38,6 +38,8 @@ export function Navbar({
   const navLinks = [
     { label: t.howItWorks, href: howItWorksHref },
     { label: t.reportTypes, href: reportTypesHref },
+    // Czech-only section, no English counterpart.
+    ...(lang === "cs" ? [{ label: "Obory", href: "/obory" }] : []),
     { label: t.pricing, href: pricingHref },
     { label: t.demo, href: demoHref },
     { label: t.faq, href: faqHref },
@@ -83,7 +85,7 @@ export function Navbar({
         </Link>
 
         {/* Desktop nav links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden md:flex items-center gap-4 lg:gap-8">
           {navLinks.map((link) => {
             const isAnchor = link.href.startsWith("#");
             if (isAnchor) {
@@ -91,7 +93,7 @@ export function Navbar({
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
+                    className="relative whitespace-nowrap text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
                   >
                     {link.label}
                     <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
@@ -103,7 +105,7 @@ export function Navbar({
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="relative text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
+                  className="relative whitespace-nowrap text-sm font-medium text-text-secondary hover:text-text-primary transition-colors group"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full" />
@@ -124,6 +126,7 @@ export function Navbar({
           <Link href={demoHref}>
             <Button
               size="default"
+              className="whitespace-nowrap"
               onClick={() => trackEvent("cta_click", { location: "navbar" })}
             >
               {t.tryDemo}
