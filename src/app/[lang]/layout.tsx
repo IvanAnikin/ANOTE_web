@@ -50,7 +50,8 @@ export async function generateMetadata({
     },
     robots: { index: true, follow: true },
     other: {
-      "facebook-domain-verification": "nir1sumltt1te39ymgev8tte3kpt0w",
+      // Meta Business domain verification: anote-appka.cz (legacy) and anote.cz.
+      "facebook-domain-verification": ["nir1sumltt1te39ymgev8tte3kpt0w", "v9x19bg7izlirsfozjytehcwzfalfh"],
     },
   };
 }
