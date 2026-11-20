@@ -47,11 +47,23 @@ test("internal links resolve to a known page", () => {
 test("no claims the ledger forbids", () => {
   const forbidden = [
     /certifik/i, /zero retention/i, /end-to-end/i, /\bE2E\b/, /anonymiz/i, /v reálném čase/i,
-    /splňuje/i, /integrac[ei] s/i, /\d+\s*(s|sekund|minut|min|hodin|h)\b/i, /\d+\s*%/,
+    /splňuje/i, /integrac[ei] s/i,
   ];
   for (const p of all) {
     const t = text(p);
     for (const re of forbidden) assert.ok(!re.test(t), `${p.path} matches ${re}`);
+  }
+});
+
+test("numbers only on sourced pages, never as an ANOTE measurement", () => {
+  const numeric = [/\d+\s*(s|sekund|minut|min|hodin|h)\b/i, /\d+(,\d+)?\s*%/];
+  for (const p of all) {
+    const t = text(p);
+    const hasNumbers = numeric.some((re) => re.test(t));
+    if (!hasNumbers) continue;
+    assert.ok(p.sources && p.sources.length > 0, `${p.path} quotes numbers without sources`);
+    assert.ok(/nejsou měřením ANOTE/.test(t), `${p.path} must say the figures are not ANOTE measurements`);
+    for (const src of p.sources) assert.match(src.url, /^https:\/\//, `${p.path} source url`);
   }
 });
 

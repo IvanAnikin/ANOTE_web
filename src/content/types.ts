@@ -27,6 +27,12 @@ export interface ContentCtaConfig {
   primary: "demo" | "contact";
 }
 
+export interface Source {
+  /** Full citation as shown on the page. */
+  label: string;
+  url: string;
+}
+
 export interface ContentPage {
   slug: string;
   /** H1. */
@@ -41,6 +47,8 @@ export interface ContentPage {
   sections: Section[];
   related: RelatedLink[];
   cta: ContentCtaConfig;
+  /** Required on any page that quotes a number (see tests/content.test.mjs). */
+  sources?: Source[];
   /** ISO dates. */
   published: string;
   modified: string;

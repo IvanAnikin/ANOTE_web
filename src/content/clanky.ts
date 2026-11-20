@@ -363,6 +363,105 @@ export const clanky: ContentPage[] = [
     modified: PUBLISHED,
   },
   {
+    slug: "co-rikaji-studie-o-dokumentaci",
+    shortTitle: "Víte, že…? Co říkají studie o dokumentaci",
+    title: "Víte, že…? Kolik času lékaři tráví dokumentací a co ukazují studie o AI asistentech",
+    metaTitle: "Kolik času zabírá dokumentace: co říkají studie | ANOTE",
+    description:
+      "Kolik času lékaři tráví u počítače a co zatím ukázaly veřejně dostupné studie o AI asistentech pro zápis z návštěvy — čísla, zdroje a jejich limity.",
+    perex:
+      "Přehled veřejně dostupných studií o tom, kolik času zabírá lékařská dokumentace a co zatím ukázalo nasazení AI asistentů, kteří z rozhovoru připravují návrh zápisu. U každého čísla uvádíme zdroj a jeho omezení.",
+    sections: [
+      {
+        heading: "Důležité předem",
+        blocks: [
+          {
+            type: "p",
+            text: "Všechny studie níže zkoumaly jiné nástroje než ANOTE, převážně v USA a v angličtině. Jejich výsledky nejsou měřením ANOTE a nelze je na ANOTE přímo přenášet. Uvádíme je jako kontext: jak velký je problém dokumentace a co se o AI asistentech zatím ví.",
+          },
+        ],
+      },
+      {
+        heading: "Víte, že lékaři v ambulanci tráví u počítače víc času než s pacientem?",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "Studie Sinsky a kol. (2016) sledovala 57 ambulantních lékařů ve čtyřech oborech včetně ortopedie a kardiologie. Elektronická dokumentace a administrativa zabíraly 49,2 % jejich pracovní doby, přímý kontakt s pacientem 27 %. Na každou hodinu s pacientem připadaly téměř dvě hodiny práce u počítače a stolu. [1]",
+              "Studie Arndt a kol. (2017) analyzovala záznamy ze systému u 142 praktických lékařů. Z 11,4hodinového pracovního dne strávili v elektronické dokumentaci 5,9 hodiny, z toho 1,4 hodiny po skončení ordinačních hodin. [2]",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Víte, že čeští lékaři označují za největší zátěž byrokracii?",
+        blocks: [
+          {
+            type: "p",
+            text: "Podle průzkumu prezentovaného v roce 2024 na konferenci České lékařské komory „Duševní zdraví v medicíně“ (více než tisíc respondentů) se lékaři nejvíce cítí přetíženi byrokratickými úkoly — uvedlo to 77 % z nich. Ohroženo syndromem vyhoření se cítí 62 %. [3]",
+          },
+        ],
+      },
+      {
+        heading: "Co zatím ukázaly studie AI asistentů",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "The Permanente Medical Group (Kalifornie) nabídla AI asistenta 10 000 lékařům. Během prvních 10 týdnů ho použilo 3 442 lékařů u 303 266 návštěv; podle skupiny většina z nich strávila u počítače v průměru zhruba o hodinu denně méně. [4] Za 15 měsíců provozu skupina odhadla úsporu 15 791 hodin dokumentace. [5] Jde o vlastní vyhodnocení provozovatele, ne o nezávislou studii.",
+              "Randomizovaná studie UCLA (Lukac a kol., NEJM AI, 2025) s 238 lékaři ze 14 oborů porovnala dva AI nástroje s běžnou praxí. U jednoho se čas strávený psaním zápisu zkrátil o 9,5 %, u druhého se statisticky významná změna neprokázala. [6]",
+              "Studie Olson a kol. (JAMA Network Open, 2025) se 263 lékaři v šesti zdravotnických systémech zjistila po 30 dnech používání AI asistenta pokles podílu lékařů s příznaky vyhoření z 51,9 % na 38,8 %. Studie neměla kontrolní skupinu. [7]",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Co z toho plyne — a co ne",
+        blocks: [
+          {
+            type: "ul",
+            items: [
+              "Dokumentace zabírá velkou část pracovního dne lékaře; to potvrzují studie i český průzkum.",
+              "Výsledky AI asistentů se liší podle nástroje, oboru i způsobu měření. Některé studie úsporu času prokázaly, jiné ne.",
+              "Nejkonzistentněji se v dosavadních studiích objevuje menší pocit zátěže a vyhoření.",
+              "Kolik času ušetří konkrétní nástroj ve vaší ambulanci, ukáže jen vyzkoušení na vašich vlastních návštěvách.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Kde je v tom ANOTE",
+        blocks: [
+          {
+            type: "p",
+            text: "ANOTE patří do stejné kategorie nástrojů: z nahraného rozhovoru nebo diktátu připraví v češtině strukturovaný návrh lékařské zprávy podle typu vyšetření. Vlastní měření úspory času u ANOTE zatím nemáme, proto žádné číslo neuvádíme. Návrh vždy kontrolujete a upravujete vy.",
+          },
+        ],
+      },
+    ],
+    sources: [
+      { label: "[1] Sinsky C. a kol. Allocation of Physician Time in Ambulatory Practice: A Time and Motion Study in 4 Specialties. Annals of Internal Medicine. 2016;165(11):753–760.", url: "https://www.acpjournals.org/doi/10.7326/M16-0961" },
+      { label: "[2] Arndt B. a kol. Tethered to the EHR: Primary Care Physician Workload Assessment Using EHR Event Log Data and Time-Motion Observations. Annals of Family Medicine. 2017;15(5):419–426.", url: "https://www.annfammed.org/content/15/5/419" },
+      { label: "[3] Většinu lékařů ohrožuje syndrom vyhoření, odbornou pomoc ale nevyhledávají. Ekonomický deník, 20. 11. 2024 (konference ČLK „Duševní zdraví v medicíně“).", url: "https://ekonomickydenik.cz/vetsinu-lekaru-ohrozuje-syndrom-vyhoreni-odbornou-pomoc-ale-nevyhledavaji/" },
+      { label: "[4] AI scribe saves doctors an hour at the keyboard every day. American Medical Association, 18. 3. 2024 (k článku Tierney A. a kol., NEJM Catalyst, 2024).", url: "https://www.ama-assn.org/practice-management/digital/ai-scribe-saves-doctors-hour-keyboard-every-day" },
+      { label: "[5] AI scribes save 15,000 hours — and restore the human side of medicine. American Medical Association, 2025.", url: "https://www.ama-assn.org/practice-management/digital-health/ai-scribes-save-15000-hours-and-restore-human-side-medicine" },
+      { label: "[6] Lukac P., Mafi J. a kol. Ambient AI Scribes in Clinical Practice: A Randomized Trial. NEJM AI. 2025.", url: "https://pubmed.ncbi.nlm.nih.gov/41497288/" },
+      { label: "[7] Olson K. a kol. Use of Ambient AI Scribes to Reduce Administrative Burden and Professional Burnout. JAMA Network Open. 2025.", url: "https://pubmed.ncbi.nlm.nih.gov/41037268/" },
+    ],
+    related: [
+      { href: "/clanky/diktovani-prepis-nebo-navrh-zpravy", label: "Diktování, přepis, nebo návrh zprávy?" },
+      { href: "/clanky/jak-vznika-navrh-zpravy-z-nahravky", label: "Jak vzniká návrh zprávy z nahrávky" },
+      { href: "/obory", label: "Obory a typy zpráv" },
+    ],
+    cta: {
+      heading: "Vyzkoušejte to na vlastní návštěvě",
+      text: "Jediné číslo, které platí pro vaši ambulanci, zjistíte sami. Demo běží v prohlížeči, bez instalace.",
+      primary: "demo",
+    },
+    published: PUBLISHED,
+    modified: PUBLISHED,
+  },
+  {
     slug: "ai-v-ordinaci-otazky-na-dodavatele",
     shortTitle: "AI v ordinaci: otázky na dodavatele",
     title: "AI v ordinaci a ochrana dat: 10 otázek, které položit dodavateli",

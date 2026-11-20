@@ -128,6 +128,22 @@ export function ContentPageView({
             </section>
           ))}
 
+          {page.sources && page.sources.length > 0 && (
+            <section className="space-y-4 border-t border-border pt-10">
+              <h2 className="text-xl font-bold text-text-primary">Zdroje</h2>
+              <ol className="list-decimal pl-6 space-y-2 text-sm text-text-secondary leading-relaxed">
+                {page.sources.map((src) => (
+                  <li key={src.url}>
+                    {src.label}{" "}
+                    <a href={src.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline break-words">
+                      {src.url.replace(/^https?:\/\//, "")}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
           {page.related.length > 0 && (
             <section className="space-y-4 border-t border-border pt-10">
               <h2 className="text-xl font-bold text-text-primary">Související</h2>

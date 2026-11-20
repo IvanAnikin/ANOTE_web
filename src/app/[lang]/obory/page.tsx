@@ -26,7 +26,7 @@ export async function generateMetadata({
     path: OBORY_PATH,
     title: "Návrh lékařské zprávy podle oboru | ANOTE",
     description:
-      "Gastroenterologie, praktický lékař, interna, sonografie, ortopedie. ANOTE připraví z rozhovoru návrh zprávy ve struktuře vašeho vyšetření — vy ho zkontrolujete.",
+      "Gastroenterologie, praktik, interna, diabetologie, sonografie, ortopedie: ANOTE připraví z rozhovoru návrh zprávy ve struktuře vašeho vyšetření.",
   });
 }
 

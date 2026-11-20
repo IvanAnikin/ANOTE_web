@@ -258,6 +258,78 @@ export const obory: ContentPage[] = [
     modified: PUBLISHED,
   },
   {
+    slug: "diabetologie",
+    shortTitle: "Diabetologie",
+    title: "Zpráva z diabetologické kontroly z rozhovoru s pacientem",
+    metaTitle: "Návrh zprávy z diabetologické kontroly | ANOTE",
+    description:
+      "Kompenzace, režim, adherence, medikace a plán: ANOTE připraví z rozhovoru návrh zprávy z diabetologické kontroly. Vy ho zkontrolujete a upravíte.",
+    perex:
+      "Diabetologická ambulance stojí na pravidelných kontrolách, ve kterých se probírá kompenzace, režim, léčba a to, co pacient dodržuje a co ne. ANOTE z rozhovoru připraví návrh zprávy, ve kterém tyto oddíly najdete na obvyklém místě.",
+    sections: [
+      {
+        heading: "Kontrolní návštěva",
+        blocks: [
+          {
+            type: "p",
+            text: "Struktura kontrolní zprávy je postavená na tom, co se u chronického pacienta mezi kontrolami mění:",
+          },
+          {
+            type: "ul",
+            items: [
+              "Subjektivní stav a průběh od poslední kontroly",
+              "Kompenzace onemocnění — hodnoty a údaje, které při kontrole zazní",
+              "Režim a adherence — strava, pohyb, užívání léků, co pacient nedodal nebo odmítá a proč",
+              "Přidružené obtíže",
+              "Objektivní nález",
+              "Hodnocení a plán",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Vstupní vyšetření",
+        blocks: [
+          {
+            type: "p",
+            text: "U nového pacienta ANOTE použije úplnou anamnestickou strukturu — NO, RA, OA, FA, AA, GA, SA — a samostatný oddíl o spolupráci pacienta. Sociální anamnéza zachycuje i to, jak práce, cestování nebo péče o blízké ovlivňují režim a kompenzaci.",
+          },
+        ],
+      },
+      {
+        heading: "Jak to probíhá",
+        blocks: [
+          {
+            type: "ol",
+            items: [
+              "Během kontroly nahráváte rozhovor s pacientem.",
+              "ANOTE ho přepíše a rozdělí obsah do oddílů zprávy.",
+              reviewStep,
+            ],
+          },
+          {
+            type: "p",
+            text: "Hodnoty, které nezazní, ANOTE nedoplňuje — oddíl zůstane „neuvedeno“. Změnu léčby převezme jen tehdy, když ji vyslovíte.",
+          },
+        ],
+      },
+      modesSection,
+      notSection,
+    ],
+    related: [
+      { href: "/obory/interna", label: "Ambulantní interní zpráva" },
+      { href: "/clanky/struktura-ambulantni-zpravy", label: "Struktura ambulantní zprávy: NO, RA, OA, FA, AA" },
+      { href: "/clanky/co-rikaji-studie-o-dokumentaci", label: "Co říkají studie o čase stráveném dokumentací" },
+    ],
+    cta: {
+      heading: "Vyzkoušejte návrh zprávy z kontroly",
+      text: "V demu zvolte Kontrolní návštěvu a nahrajte krátký ukázkový rozhovor. Bez instalace, přímo v prohlížeči.",
+      primary: "demo",
+    },
+    published: PUBLISHED,
+    modified: PUBLISHED,
+  },
+  {
     slug: "sonografie",
     shortTitle: "Sonografie",
     title: "Popis ultrazvuku břicha z diktátu",
@@ -391,7 +463,7 @@ export const obory: ContentPage[] = [
     description:
       "Váš obor zatím ANOTE nemá? Formát návrhu zprávy pro vaši specializaci připravíme společně s vámi, podle toho, jak zprávy píšete. Napište nám.",
     perex:
-      "Gastroenterologie, ortopedie, sonografie a ambulantní vyšetření už mají svou strukturu. Pokud váš obor mezi nimi není, další formát zprávy připravíme společně s vámi.",
+      "Gastroenterologie, ortopedie, sonografie, diabetologie a ambulantní vyšetření už mají svou strukturu. Pokud váš obor mezi nimi není, další formát zprávy připravíme společně s vámi.",
     sections: [
       {
         heading: "Jak spolupráce probíhá",
